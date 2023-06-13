@@ -9,6 +9,7 @@ app.use(cors({origin: 'http://localhost:4200'}));
 app.use('/api/rol', require('./routes/rol.route.js'));
 app.use('/api/usuario', require('./routes/usuario.route.js'));
 app.use('/api/cliente', require('./routes/cliente.route.js'));
+app.use('/api/apiProducto', require('./routes/producto.route.js'));
 //setting
 app.set('port', process.env.PORT || 3000);
 //starting the server
