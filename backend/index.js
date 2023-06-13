@@ -10,6 +10,7 @@ app.use('/api/rol', require('./routes/rol.route.js'));
 app.use('/api/usuario', require('./routes/usuario.route.js'));
 app.use('/api/cliente', require('./routes/cliente.route.js'));
 app.use('/api/apiProducto', require('./routes/producto.route.js'));
+app.use('/api/combo', require('./routes/combo.route.js'));
 //setting
 app.set('port', process.env.PORT || 3000);
 //starting the server
