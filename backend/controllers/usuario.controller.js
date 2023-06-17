@@ -122,4 +122,36 @@ usuarioCtrl.getUsuarioById = async (request, response) => {
     }
 }
 
+/**
+ * Obtiene un usuario que sera logueado en el sistema.
+ * @function loginUsuario
+ * @param {Object} request - Objeto de solicitud de Express.
+ * @param {Object} response - Objeto de respuesta de Express.
+ * @returns {Promise<void>} Una promesa que resuelve cuando se obtiene el usuario y se envía la respuesta.
+ */
+usuarioCtrl.loginUsuario = async (request, response) => {
+
+    const criteria = {
+      user: request.body.username,
+      password: request.body.password,
+      estado: true
+    };
+
+    const usuario = await Usuario.findOne(criteria).populate("rol");
+    if(!usuario){
+        response.json({
+        status: 0,
+        msg: "Usuario no encontrado." })
+    }
+    else{
+        response.json({
+            status: 1,
+            msg: 'Usuario logueado correctamente.',
+            username: usuario.user,
+            rol: usuario.rol.nombre,
+            userid: usuario._id
+        });
+    }
+  }
+
 module.exports = usuarioCtrl;

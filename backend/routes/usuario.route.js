@@ -9,5 +9,6 @@ router.post('/', usuarioCtrl.createUsuario);
 router.delete('/:id', usuarioCtrl.deleteUsuario);
 router.put('/:id', usuarioCtrl.editUsuario);
 router.get('/obtener-usuario/:id', usuarioCtrl.getUsuarioById);
+router.post('/login', usuarioCtrl.loginUsuario);
 //exportamos el modulo de rutas
 module.exports = router;
