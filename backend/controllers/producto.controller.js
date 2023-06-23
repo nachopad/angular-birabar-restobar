@@ -10,6 +10,7 @@ productoCtrl.getProducto = async (req, res) => {
     let criteria={}
     if(req.params.id!=null){
         criteria._id=req.params.id;
+        criteria.estado=true;
     }
     var productos = await Producto.find(criteria).populate('categoria');
     res.json(productos);
@@ -17,6 +18,7 @@ productoCtrl.getProducto = async (req, res) => {
 
 productoCtrl.createProducto = async (req, res) =>{
     var producto = new Producto(req.body);
+    producto.estado=true;
     try{
         await producto.save();
         res.status(200).json({

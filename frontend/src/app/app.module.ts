@@ -12,6 +12,9 @@ import { HeaderComponent } from './components/header/header.component';
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+import { ProductoFormComponent } from './components/producto-form/producto-form.component';
+import { GestionProductosComponent } from './components/gestion-productos/gestion-productos.component';
+import { CategoriaFormComponent } from './components/categoria-form/categoria-form.component';
 
 
 @NgModule({
@@ -19,7 +22,10 @@ import { ToastrModule } from 'ngx-toastr';
     AppComponent,
     LoginComponent,
     HomeComponent,
-    HeaderComponent
+    HeaderComponent,
+    ProductoFormComponent,
+    GestionProductosComponent,
+    CategoriaFormComponent
   ],
   imports: [
     BrowserModule,
