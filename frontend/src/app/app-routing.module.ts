@@ -13,6 +13,7 @@ const routes: Routes = [
   {path:"oferta", component:OfertaComponent},
   {path:"ofertaGestion", component:OfertaGestionComponent},
   {path:"oferta-form/:id", component:OfertaFormComponent}
+]; 
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
