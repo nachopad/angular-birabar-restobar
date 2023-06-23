@@ -21,7 +21,7 @@ import { OfertaFormComponent } from './components/oferta-form/oferta-form.compon
     AppComponent,
     LoginComponent,
     HomeComponent,
-    HeaderComponent
+    HeaderComponent,
     OfertaComponent,
     OfertaGestionComponent,
     OfertaFormComponent
