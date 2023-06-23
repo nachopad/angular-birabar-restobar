@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginService } from './services/login.service';
@@ -15,7 +14,9 @@ import { ToastrModule } from 'ngx-toastr';
 import { ProductoFormComponent } from './components/producto-form/producto-form.component';
 import { GestionProductosComponent } from './components/gestion-productos/gestion-productos.component';
 import { CategoriaFormComponent } from './components/categoria-form/categoria-form.component';
-
+import { OfertaComponent } from './components/oferta/oferta.component';
+import { OfertaGestionComponent } from './components/oferta-gestion/oferta-gestion.component';
+import { OfertaFormComponent } from './components/oferta-form/oferta-form.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,10 @@ import { CategoriaFormComponent } from './components/categoria-form/categoria-fo
     HeaderComponent,
     ProductoFormComponent,
     GestionProductosComponent,
-    CategoriaFormComponent
+    CategoriaFormComponent,
+    OfertaComponent,
+    OfertaGestionComponent,
+    OfertaFormComponent
   ],
   imports: [
     BrowserModule,
