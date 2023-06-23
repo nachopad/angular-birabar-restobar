@@ -12,7 +12,9 @@ import { HeaderComponent } from './components/header/header.component';
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
-
+import { OfertaComponent } from './components/oferta/oferta.component';
+import { OfertaGestionComponent } from './components/oferta-gestion/oferta-gestion.component';
+import { OfertaFormComponent } from './components/oferta-form/oferta-form.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +22,9 @@ import { ToastrModule } from 'ngx-toastr';
     LoginComponent,
     HomeComponent,
     HeaderComponent
+    OfertaComponent,
+    OfertaGestionComponent,
+    OfertaFormComponent
   ],
   imports: [
     BrowserModule,
