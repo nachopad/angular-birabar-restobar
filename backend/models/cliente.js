@@ -15,6 +15,5 @@ const ClienteSchema = new Schema({
     email: { type: String, required: true },
     telefono: { type: String, required: true },
     usuario: { type: Schema.Types.ObjectId, ref: 'Usuario', required: true },
-    estado: { type: Boolean}
 })
 module.exports = mongoose.models.Cliente || mongoose.model('Cliente', ClienteSchema);

@@ -42,9 +42,6 @@ clienteCtrl.createCliente = async (request, response) => {
 clienteCtrl.deleteCliente = async (request, response) => {
     try {
         const cliente = await Cliente.findOne({ _id: request.params.id }).populate('usuario');
-        cliente.estado = false; 
-        await cliente.save();
-
         const usuario = await Usuario.findOne({ _id: cliente.usuario._id });
         usuario.estado = false;
         await usuario.save();
@@ -97,7 +94,7 @@ clienteCtrl.editCliente = async (request, response) => {
  */
 clienteCtrl.getClientes = async (request, response) => {
     try{
-        var clientes = await Cliente.find({ estado: true }).populate({ path: 'usuario', populate: { path: 'rol' } });
+        var clientes = await Cliente.find().populate({ path: 'usuario', populate: { path: 'rol' } });
         response.json(clientes);
     }
     catch (error) {
