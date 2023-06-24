@@ -2,9 +2,20 @@
     <h4 class="text-center mb-3">Gestión de Ofertas</h4>
     <div class="border rounded-3 p-4">
         <form>
-            <div class="mb-3">
-                <label class="form-text">Nombre de la oferta:</label>
-                <input type="email" class="form-control" name="titulo" placeholder="EJ: Happy Hour" autocomplete="off">
+            <div class="row mb-3">
+                <div class="col-md-3">
+                    <label class="form-text">Nombre de la oferta:</label>
+                    <input type="email" class="form-control" name="titulo" placeholder="EJ: Happy Hour"
+                        autocomplete="off">
+                </div>
+                <div class="col-md-3">
+                    <label class="form-text">Precio:</label>
+                    <input type="number" class="form-control" name="precio" placeholder="EJ: 500" autocomplete="off">
+                </div>
+                <div class="col-md-6">
+                    <label class="form-text">Subir imagen de la oferta:</label>
+                    <input type="file" class="form-control" name="imagen">
+                </div>
             </div>
             <div class="mb-3">
                 <label class="form-text d-block">Días que estará disponible la oferta:</label>
@@ -39,23 +50,29 @@
             </div>
             <div class="row mb-3">
                 <div class="col-md-6">
-                    <label class="form-text">Desde:</label>
+                    <label class="form-text">Comienza desde las:</label>
                     <input type="time" class="form-control" name="desde">
                 </div>
                 <div class="col-md-6">
-                    <label class="form-text">Hasta:</label>
+                    <label class="form-text">Termina a las:</label>
                     <input type="time" class="form-control" name="hasta">
                 </div>
             </div>
             <div class="mb-3">
-                <button type="button" class="btn btn-primary bi bi-cart" data-bs-toggle="modal"
+                <label class="form-text">Descripción:</label>
+                <textarea class="form-control" rows="3"
+                    placeholder="EJ: Cada cerveza que aparece en la oferta cuesta $500."></textarea>
+            </div>
+            <div class="mb-3 text-center">
+                <button type="button" class="btn btn-dark bi bi-cart" data-bs-toggle="modal"
                     data-bs-target="#exampleModal">
                     Seleccionar Productos
                 </button>
-                <span class="text-danger"> No hay productos seleccionados.</span>
+                <!-- <span class="text-danger"> No hay productos seleccionados.</span> -->
             </div>
             <button *ngIf="accion=='new'" type="submit" class="btn btn-dark bi bi-plus-circle me-1"> Crear</button>
-            <button *ngIf="accion=='update'" type="submit" class="btn btn-dark bi bi-pencil-square me-1">Modificar</button>
+            <button *ngIf="accion=='update'" type="submit"
+                class="btn btn-dark bi bi-pencil-square me-1">Modificar</button>
             <a [href]="['ofertaGestion']" class="btn btn-dark bi bi-arrow-left"> Volver</a>
         </form>
     </div>
@@ -68,20 +85,59 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="input-group mb-3">
-                        <button class="btn btn-outline-secondary bi bi-search" type="button" id="button-addon1">
-                            Buscar</button>
-                        <input type="text" class="form-control" placeholder="EJ: Pizza">
+                    <div class="mb-4">
+                        <a [class]="buscarProducto ? 'link-primary' : 'link-secondary'" style="cursor: pointer;"
+                            (click)="verProductosSeleccionados()">Ver productos de la oferta</a>
+                        <a [class]="buscarProducto ? 'link-secondary' : 'link-primary'" class="ms-2"
+                            style="cursor: pointer;" (click)="verTodosLosProductos()">Buscar productos</a>
                     </div>
-                    <div class="row row-cols-1 row-cols-md-3 g-4">
-                        <div class="col">
-                            <div class="card h-100">
-                                <div class="card-body">
-                                    <h5 class="card-title">Nombre Producto</h5>
-                                    <p class="card-text">Descripcion: Lorem ipsum dolor sit amet consectetur,
-                                        adipisicing elit. Quidem quas architecto, earum impedit mollitia dignissimos
-                                        sapiente exercitationem obcaecati officia eveniet pariatur sequi labore
-                                        distinctio iusto alias incidunt, ex explicabo vel?.</p>
+                    <div *ngIf="oferta.productos.length==0 && buscarProducto == false" class="text-center mb-3">
+                        <h6 class="text-center">Debe seleccionar productos.</h6>
+                        <a class="link-primary" style="cursor: pointer;" (click)="verTodosLosProductos()">Buscar
+                            productos</a>
+                    </div>
+                    <div *ngIf="productos.length==0 && buscarProducto == true" class="text-center">
+                        <h6>Debe crear productos.</h6>
+                        <a class="btn btn-primary" href="/alta-producto/:0">Crear producto</a>
+                    </div>
+                    <div *ngIf="buscarProducto == true && productos.length!=0">
+                        <div class="input-group mb-3">
+                            <button class="btn btn-outline-secondary bi bi-search" type="button" id="button-addon1">
+                                Buscar</button>
+                            <input type="text" class="form-control" placeholder="EJ: Pizza">
+                        </div>
+                        <div class="row row-cols-1 row-cols-md-3 g-4">
+                            <div class="col" *ngFor="let p of productos">
+                                <div class="card h-100">
+                                    <img [src]="p.imagen" class="card-img-top" alt="...">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{p.nombreProducto}}</h5>
+                                        <!-- <h6 class="card-subtitle mb-2 text-body-secondary">{{p.categoria}}</h6> -->
+                                        <p class="card-text">{{p.descripcion}}</p>
+                                        <p class="card-text">{{p.precio | currency:'$':'symbol':'1.0-2'}}</p>
+                                    </div>
+                                    <div class="card-footer text-center">
+                                        <a class="btn btn-dark" (click)="agregarProductoToOferta(p)">Agregar a la
+                                            oferta</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="buscarProducto == false && oferta.productos.length!=0">
+                        <div class="row row-cols-1 row-cols-md-3 g-4">
+                            <div class="col" *ngFor="let p of oferta.productos">
+                                <div class="card h-100">
+                                    <img [src]="p.imagen" class="card-img-top" alt="...">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{p.nombreProducto}}</h5>
+                                        <!-- <h6 class="card-subtitle mb-2 text-body-secondary">{{p.categoria}}</h6> -->
+                                        <p class="card-text">{{p.descripcion}}</p>
+                                        <p class="card-text">{{p.precio | currency:'$':'symbol':'1.0-2'}}</p>
+                                    </div>
+                                    <div class="card-footer text-center">
+                                        Sumar
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -91,8 +147,7 @@
                     <span class="m-auto">
                         Total: $0
                     </span>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                    <button type="button" class="btn btn-primary">Guardar productos</button>
+                    <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Cerrar</button>
                 </div>
             </div>
         </div>
