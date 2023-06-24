@@ -10,9 +10,8 @@
             <a class="nav-link active" aria-current="page" [routerLink]="['principal']">Principal</a>
           </li>
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Gestion Productos<i class="bi bi-basket2"></i></a>
+            <a class="nav-link dropdown-toggle" [routerLink]="['registro']" role="button" data-bs-toggle="dropdown" aria-expanded="false">Gestion Clientes<i class="bi bi-basket2"></i></a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item text-center">Ver listado <i class="bi bi-list size-arrow"></i></a></li>
               <li><a class="dropdown-item text-center">Registrar <i class="bi bi-database-add"></i></a></li>
             </ul>
           </li>
