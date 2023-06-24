@@ -18,11 +18,21 @@ usuarioCtrl.createUsuario = async (request, response) => {
     request.body.estado = true;
     var usuario = new Usuario(request.body);
     try {
-        await usuario.save();
+        await usuario.save()
+        /*
         response.status(201).json({
             status: '1',
             msg: 'Usuario creado y guardado exitosamente.'
         })
+        */
+        .then(savedUsuario => {
+            const userId = savedUsuario._id.toString();
+            response.status(201).json({
+              status: '1',
+              msg: 'Usuario creado y guardado exitosamente.',
+              userId: userId
+            });
+          })
     } catch (error) {
         response.status(400).json({
             status: '0',

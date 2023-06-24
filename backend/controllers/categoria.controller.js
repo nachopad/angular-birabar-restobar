@@ -7,6 +7,7 @@ const categoriaCtrl = {};
 categoriaCtrl.createCategoria = async (req, res) => {
     try{
         var categoria = new Categoria(req.body);
+        categoria.estado=true;
         await categoria.save();
         res.status(200).json({
             'status': '1',
@@ -22,7 +23,7 @@ categoriaCtrl.createCategoria = async (req, res) => {
 
 categoriaCtrl.getCategoria = async (req, res) => {
     try {
-        const categoria = await Categoria.findById(req.params.id);
+        const categoria = await Categoria.findById({_id: req.params.id});
         res.json(categoria);
     } catch (error) {
         res.status(400).json({
