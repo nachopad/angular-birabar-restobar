@@ -1,0 +1,100 @@
+<div class="container mt-4">
+    <h4 class="text-center mb-3">Gestión de Ofertas</h4>
+    <div class="border rounded-3 p-4">
+        <form>
+            <div class="mb-3">
+                <label class="form-text">Nombre de la oferta:</label>
+                <input type="email" class="form-control" name="titulo" placeholder="EJ: Happy Hour" autocomplete="off">
+            </div>
+            <div class="mb-3">
+                <label class="form-text d-block">Días que estará disponible la oferta:</label>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" value="Lunes">
+                    <label class="form-check-label">Lunes</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" value="Martes">
+                    <label class="form-check-label">Martes</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" value="Miercoles">
+                    <label class="form-check-label">Miercoles</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" value="Jueves">
+                    <label class="form-check-label">Jueves</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" value="Viernes">
+                    <label class="form-check-label">Viernes</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" value="Sabádo">
+                    <label class="form-check-label">Sabádo</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" name="domingo" value="Domingo">
+                    <label class="form-check-label">Domingo</label>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label class="form-text">Desde:</label>
+                    <input type="time" class="form-control" name="desde">
+                </div>
+                <div class="col-md-6">
+                    <label class="form-text">Hasta:</label>
+                    <input type="time" class="form-control" name="hasta">
+                </div>
+            </div>
+            <div class="mb-3">
+                <button type="button" class="btn btn-primary bi bi-cart" data-bs-toggle="modal"
+                    data-bs-target="#exampleModal">
+                    Seleccionar Productos
+                </button>
+                <span class="text-danger"> No hay productos seleccionados.</span>
+            </div>
+            <button *ngIf="accion=='new'" type="submit" class="btn btn-dark bi bi-plus-circle me-1"> Crear</button>
+            <button *ngIf="accion=='update'" type="submit" class="btn btn-dark bi bi-pencil-square me-1">Modificar</button>
+            <a [href]="['ofertaGestion']" class="btn btn-dark bi bi-arrow-left"> Volver</a>
+        </form>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Productos</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="input-group mb-3">
+                        <button class="btn btn-outline-secondary bi bi-search" type="button" id="button-addon1">
+                            Buscar</button>
+                        <input type="text" class="form-control" placeholder="EJ: Pizza">
+                    </div>
+                    <div class="row row-cols-1 row-cols-md-3 g-4">
+                        <div class="col">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title">Nombre Producto</h5>
+                                    <p class="card-text">Descripcion: Lorem ipsum dolor sit amet consectetur,
+                                        adipisicing elit. Quidem quas architecto, earum impedit mollitia dignissimos
+                                        sapiente exercitationem obcaecati officia eveniet pariatur sequi labore
+                                        distinctio iusto alias incidunt, ex explicabo vel?.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <span class="m-auto">
+                        Total: $0
+                    </span>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary">Guardar productos</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -2,7 +2,7 @@ const Producto = require('../models/producto');
 const productoCtrl = {}
 
 productoCtrl.getProductos = async (req, res) => {
-    var productos = await Producto.find({estado:true});
+    var productos = await Producto.find({estado:true}).populate('categoria');
     res.json(productos);
 }
 
@@ -10,14 +10,15 @@ productoCtrl.getProducto = async (req, res) => {
     let criteria={}
     if(req.params.id!=null){
         criteria._id=req.params.id;
+        criteria.estado=true;
     }
-    var productos = await Producto.find(criteria);
+    var productos = await Producto.find(criteria).populate('categoria');
     res.json(productos);
 }
 
 productoCtrl.createProducto = async (req, res) =>{
-    req.body.estado=false;
     var producto = new Producto(req.body);
+    producto.estado=true;
     try{
         await producto.save();
         res.status(200).json({
@@ -31,6 +32,7 @@ productoCtrl.createProducto = async (req, res) =>{
         })
     }
 }
+
 productoCtrl.deleteProducto = async (req, res) =>{
     try{
         await Producto.findOneAndUpdate({_id: req.params.id}, {estado: false});
@@ -45,6 +47,7 @@ productoCtrl.deleteProducto = async (req, res) =>{
         })
     }
 }
+
 productoCtrl.editProducto= async (req, res) => {
     const producto = new Producto(req.body);
     try{
