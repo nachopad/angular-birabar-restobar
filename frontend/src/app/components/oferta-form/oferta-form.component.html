@@ -1,76 +1,117 @@
 <div class="container mt-4">
     <h4 class="text-center mb-3">Gestión de Ofertas</h4>
-    <div class="border rounded-3 p-4">
-        <form>
+    <div class="border rounded-3 border-secondary p-4">
+        <form #ofertaForm="ngForm">
             <div class="row mb-3">
                 <div class="col-md-3">
                     <label class="form-text">Nombre de la oferta:</label>
                     <input type="email" class="form-control" name="titulo" placeholder="EJ: Happy Hour"
-                        autocomplete="off">
+                        autocomplete="off" [(ngModel)]="oferta.titulo" required #titulo="ngModel">
+                    <div *ngIf="titulo.invalid && titulo.dirty" class="text-danger">
+                        <div *ngIf="titulo.errors?.['required']">
+                            El nombre es requerido.
+                        </div>
+                    </div>
                 </div>
+
                 <div class="col-md-3">
                     <label class="form-text">Precio:</label>
-                    <input type="number" class="form-control" name="precio" placeholder="EJ: 500" autocomplete="off">
+                    <input type="number" class="form-control" name="precio" placeholder="EJ: 500" autocomplete="off"
+                        [(ngModel)]="oferta.precio" required #precio="ngModel" min="1">
+                    <div *ngIf="precio.invalid && precio.dirty" class="text-danger">
+                        <div *ngIf="precio.errors?.['required']">
+                            El precio es requerido.
+                        </div>
+                        <div *ngIf="precio.errors?.['min']">
+                            El precio no puede ser nulo o negativo.
+                        </div>
+                    </div>
                 </div>
                 <div class="col-md-6">
                     <label class="form-text">Subir imagen de la oferta:</label>
-                    <input type="file" class="form-control" name="imagen">
+                    <input type="file" class="form-control" name="imagen" ngModel required
+                        #imagen="ngModel" (change)="onFileSeleccionado($event)">
+                    <div *ngIf="imagen.invalid && imagen.touched" class="text-danger">
+                        <div *ngIf="imagen.errors?.['required']">
+                            Debe seleccionar una imagen.
+                        </div>
+                    </div>
                 </div>
             </div>
+            <!-- ngModelGroup="checkboxGroup" #checkboxGroup="ngModelGroup -->
             <div class="mb-3">
                 <label class="form-text d-block">Días que estará disponible la oferta:</label>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" value="Lunes">
+                    <input class="form-check-input" type="checkbox" name="lunes" [(ngModel)]="lunes">
                     <label class="form-check-label">Lunes</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" value="Martes">
+                    <input class="form-check-input" type="checkbox" name="martes" [(ngModel)]="martes">
                     <label class="form-check-label">Martes</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" value="Miercoles">
+                    <input class="form-check-input" type="checkbox" name="miercoles" [(ngModel)]="miercoles">
                     <label class="form-check-label">Miercoles</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" value="Jueves">
+                    <input class="form-check-input" type="checkbox" name="jueves" [(ngModel)]="jueves">
                     <label class="form-check-label">Jueves</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" value="Viernes">
+                    <input class="form-check-input" type="checkbox" name="viernes" [(ngModel)]="viernes">
                     <label class="form-check-label">Viernes</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" value="Sabádo">
+                    <input class="form-check-input" type="checkbox" name="sabado" [(ngModel)]="sabado">
                     <label class="form-check-label">Sabádo</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" name="domingo" value="Domingo">
+                    <input class="form-check-input" type="checkbox" name="domingo" [(ngModel)]="domingo">
                     <label class="form-check-label">Domingo</label>
                 </div>
+                <span *ngIf="!verificarCheboxes()" class="form-text">No hay días seleccionados.</span>
+                <!-- <div *ngIf="checkboxGroup.invalid && (checkboxGroup.dirty || checkboxGroup.touched)"
+                    class="text-danger">
+                    Debes seleccionar al menos un checkbox.
+                </div> -->
             </div>
             <div class="row mb-3">
                 <div class="col-md-6">
                     <label class="form-text">Comienza desde las:</label>
-                    <input type="time" class="form-control" name="desde">
+                    <input type="time" class="form-control" name="desde" [(ngModel)]="oferta.desde" required
+                        #desde="ngModel">
+                    <div *ngIf="desde.invalid && desde.dirty && desde.touched" class="text-danger">
+                        <div *ngIf="desde.errors?.['required']">
+                            Debe seleccionar una hora de inicio.
+                        </div>
+                    </div>
                 </div>
                 <div class="col-md-6">
                     <label class="form-text">Termina a las:</label>
-                    <input type="time" class="form-control" name="hasta">
+                    <input type="time" class="form-control" name="hasta" [(ngModel)]="oferta.hasta" required
+                        #hasta="ngModel">
+                    <div *ngIf="hasta.invalid && hasta.dirty && hasta.touched" class="text-danger">
+                        <div *ngIf="hasta.errors?.['required']">
+                            Debe seleccionar una hora de fin.
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="mb-3">
                 <label class="form-text">Descripción:</label>
                 <textarea class="form-control" rows="3"
-                    placeholder="EJ: Cada cerveza que aparece en la oferta cuesta $500."></textarea>
+                    placeholder="EJ: Cada cerveza que aparece en la oferta cuesta $500." name="descripcion"
+                    [(ngModel)]="oferta.descripcion"></textarea>
             </div>
             <div class="mb-3 text-center">
                 <button type="button" class="btn btn-dark bi bi-cart" data-bs-toggle="modal"
                     data-bs-target="#exampleModal">
                     Seleccionar Productos
                 </button>
-                <!-- <span class="text-danger"> No hay productos seleccionados.</span> -->
+                <p *ngIf="oferta.productos.length==0" class="form-text">No hay productos seleccionados.</p>
             </div>
-            <button *ngIf="accion=='new'" type="submit" class="btn btn-dark bi bi-plus-circle me-1"> Crear</button>
+            <button *ngIf="accion=='new'" type="submit" class="btn btn-dark bi bi-plus-circle me-1"
+                [disabled]="!ofertaForm.valid || oferta.productos.length==0 || !verificarCheboxes()" (click)="crearOferta()">Crear</button>
             <button *ngIf="accion=='update'" type="submit"
                 class="btn btn-dark bi bi-pencil-square me-1">Modificar</button>
             <a [href]="['ofertaGestion']" class="btn btn-dark bi bi-arrow-left"> Volver</a>
@@ -87,13 +128,13 @@
                 <div class="modal-body">
                     <div class="mb-4">
                         <a [class]="buscarProducto ? 'link-primary' : 'link-secondary'" style="cursor: pointer;"
-                            (click)="verProductosSeleccionados()">Ver productos de la oferta</a>
+                            (click)="buscarProducto = false;">Ver productos de la oferta</a>
                         <a [class]="buscarProducto ? 'link-secondary' : 'link-primary'" class="ms-2"
-                            style="cursor: pointer;" (click)="verTodosLosProductos()">Buscar productos</a>
+                            style="cursor: pointer;" (click)="buscarProducto = true;">Buscar productos</a>
                     </div>
-                    <div *ngIf="oferta.productos.length==0 && buscarProducto == false" class="text-center mb-3">
+                    <div *ngIf="oferta.productos.length==0 && buscarProducto == false;" class="text-center mb-3">
                         <h6 class="text-center">Debe seleccionar productos.</h6>
-                        <a class="link-primary" style="cursor: pointer;" (click)="verTodosLosProductos()">Buscar
+                        <a class="link-primary" style="cursor: pointer;" (click)="buscarProducto = true;">Buscar
                             productos</a>
                     </div>
                     <div *ngIf="productos.length==0 && buscarProducto == true" class="text-center">
@@ -117,8 +158,7 @@
                                         <p class="card-text">{{p.precio | currency:'$':'symbol':'1.0-2'}}</p>
                                     </div>
                                     <div class="card-footer text-center">
-                                        <a class="btn btn-dark" (click)="agregarProductoToOferta(p)">Agregar a la
-                                            oferta</a>
+                                        <a class="btn btn-dark" (click)="agregarProductoToOferta(p)">Agregar</a>
                                     </div>
                                 </div>
                             </div>
@@ -131,12 +171,14 @@
                                     <img [src]="p.imagen" class="card-img-top" alt="...">
                                     <div class="card-body">
                                         <h5 class="card-title">{{p.nombreProducto}}</h5>
-                                        <!-- <h6 class="card-subtitle mb-2 text-body-secondary">{{p.categoria}}</h6> -->
+                                        <!-- No se me muestra la Categoria -->
+                                        <!-- <h6 class="card-subtitle mb-2 text-body-secondary">{{p.categoria.nombreCategoria}}</h6> -->
                                         <p class="card-text">{{p.descripcion}}</p>
                                         <p class="card-text">{{p.precio | currency:'$':'symbol':'1.0-2'}}</p>
                                     </div>
                                     <div class="card-footer text-center">
-                                        Sumar
+                                        <button class="btn btn-danger"
+                                            (click)="quitarProductoToOferta(p)">Quitar</button>
                                     </div>
                                 </div>
                             </div>
@@ -144,9 +186,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <span class="m-auto">
-                        Total: $0
-                    </span>
+                    <span class="m-auto">Productos Seleccionados: <b>{{oferta.productos.length}}</b></span>
                     <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Cerrar</button>
                 </div>
             </div>
