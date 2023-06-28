@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { Cliente } from 'src/app/models/cliente';
 import { Rol } from 'src/app/models/rol';
 import { Usuario } from 'src/app/models/usuario';
@@ -19,8 +20,10 @@ export class RegistroClienteComponent implements OnInit {
   user_id!: string;
   rol_id: string = "648714f917dd3e335becb42c";
   first_element: boolean = false;
+  passwordsMatch: boolean = true;
   aceptoTerminos: boolean = false;
   element: boolean = false;
+  repitPassword!: string;
 
 
   /**
@@ -28,7 +31,8 @@ export class RegistroClienteComponent implements OnInit {
  * @param registerService - Servicio de registro para interactuar con la API.
  * @param toastrService - Servicio de Toastr para mostrar mensajes.
  */
-  constructor(private registerService: RegistroService, private toastrService: ToastrService) {
+  constructor(private registerService: RegistroService, private toastrService: ToastrService,
+              private webTitle: Title) {
     this.usuario = new Usuario();
     this.cliente = new Cliente();
     this.obtenerRol();
@@ -36,6 +40,7 @@ export class RegistroClienteComponent implements OnInit {
 
   ngOnInit(): void {
     this.toastrService.info("Llene todos los campos para avanzar en su registro.")
+    this.webTitle.setTitle("Birabar - Crear cuenta");
   }
 
   /**
@@ -136,6 +141,13 @@ export class RegistroClienteComponent implements OnInit {
  */
   verificarCampos(): void {
     this.first_element = (!!this.usuario.user && !!this.usuario.password && !!this.cliente.email);
+  }
+
+  /**
+   * Método para validar que las contraseñas ingresadas coincidan.
+   */
+  checkPasswordsMatch() {
+    this.passwordsMatch = (this.usuario.password === this.repitPassword);
   }
 
   /**
