@@ -3,14 +3,15 @@
     <div class="input-group mb-4">
         <a class="btn btn-dark bi bi-plus-circle" href="/oferta-form/0"> Crear oferta</a>
         <button class="btn btn-dark bi bi-search" type="button"> Buscar oferta</button>
-        <input type="text" class="form-control" placeholder="Ingresar el nombre de una oferta a buscar. Ejemplo: Happy Hour">
+        <input type="text" class="form-control"
+            placeholder="Ingresar el nombre de una oferta a buscar. Ejemplo: Happy Hour">
     </div>
-    <div class="text-center border rounded-3 m-auto p-5" style="width: 300px;">
+    <div class="text-center border rounded-3 m-auto p-5" style="width: 300px;" *ngIf="ofertas.length==0">
         <h4 class="bi bi-exclamation-octagon"></h4>
         <h6 class="mb-3">No existen ofertas.</h6>
         <a class="btn btn-dark bi bi-plus-circle" href="/oferta-form/0"> Crear oferta</a>
     </div>
-    <div class="text-center table-responsive">
+    <div class="text-center table-responsive" *ngIf="ofertas.length!=0">
         <table class="table">
             <thead>
                 <tr>
@@ -38,8 +39,10 @@
                     <td>18:00hs</td>
                     <td>21:00hs</td>
                     <td style="font-size: 18px;">
-                        <a class="btn btn-primary bi bi-pencil-square" href="/oferta-form/1" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .4rem; --bs-btn-font-size: .75rem; margin-right: 3px;"></a>
-                        <a class="btn btn-danger bi bi-trash3" href="/oferta-form/1" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .4rem; --bs-btn-font-size: .75rem; margin-top: 0;"></a>
+                        <a class="btn btn-primary bi bi-pencil-square" href="/oferta-form/1"
+                            style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .4rem; --bs-btn-font-size: .75rem; margin-right: 3px;"></a>
+                        <a class="btn btn-danger bi bi-trash3" href="/oferta-form/1"
+                            style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .4rem; --bs-btn-font-size: .75rem; margin-top: 0;"></a>
                     </td>
                 </tr>
             </tbody>
