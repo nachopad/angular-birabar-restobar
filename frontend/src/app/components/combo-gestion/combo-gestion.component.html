@@ -1,0 +1,46 @@
+<div class="black-background text-light">
+    <div class="container pt-4 pb-5">
+
+        <h4 class="text-center mb-3">Gestión de Combo</h4>
+        <div class="input-group mb-4" *ngIf="combos.length>0">
+            <a class="btn btn-dark bi bi-plus-circle" href="/combo-form/0"> Crear combo</a>
+            <button class="btn btn-dark bi bi-search" type="button"> Buscar combo</button>
+            <input type="text" class="form-control"
+                placeholder="Buscar Combo">
+        </div>
+        <div class="text-center border rounded-3 m-auto p-5" style="width: 300px;"  *ngIf="combos.length==0">
+            <h4 class="bi bi-exclamation-octagon"></h4>
+            <h6 class="mb-3">No existen ofertas.</h6>
+            <a class="btn btn-light bi bi-plus-circle" href="/combo-form/0"> Crear combo</a>
+        </div>
+        <div class="text-center table-responsive" *ngIf="combos.length>0" >
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Titulo</th>
+                        <th scope="col">Descuento</th>
+                        <th scope="col">Precio Final</th>
+                        <th scope="col">Productos</th>
+                        <th scope="col">Opciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let combo of combos ">
+                        <th scope="row"></th>
+                        <td>{{combo.titulo}}</td>
+                        <td>{{combo.descuento*100}}%</td>
+                        <td>{{combo.montoFinal}}</td>
+                        <td>Productos</td>
+                        <td style="font-size: 18px;">
+                            <a class="btn btn-primary bi bi-pencil-square" [routerLink]="['/combo-form/'+combo._id]"
+                                style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .4rem; --bs-btn-font-size: .75rem; margin-right: 3px;"></a>
+                            <a class="btn btn-danger bi bi-trash3"  (click)="eliminarCombo(combo._id)" 
+                                style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .4rem; --bs-btn-font-size: .75rem; margin-top: 0;"></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

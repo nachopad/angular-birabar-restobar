@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { error } from 'console';
+import { ToastrService } from 'ngx-toastr';
 import { Combo } from 'src/app/models/combo';
 import { Producto } from 'src/app/models/producto';
+import { ComboService } from 'src/app/services/combo.service';
 import { ProductoService } from 'src/app/services/producto.service';
 
 @Component({
@@ -15,7 +18,8 @@ export class ComboFormComponent implements OnInit {
   accion!:string;
   productos!:Array<Producto>;
   precioLista!:number; 
-  constructor(private router:ActivatedRoute, private productoService:ProductoService) {
+  descuentoSeleccionado="";
+  constructor(private router:ActivatedRoute, private productoService:ProductoService, private comboService:ComboService, private toast:ToastrService) {
     
    }
 
@@ -29,6 +33,7 @@ export class ComboFormComponent implements OnInit {
         this.accion = "new";
       } else {
         this.accion="update"
+        this.cargarCombo(params['id']);
       }
     });
 
@@ -74,4 +79,55 @@ export class ComboFormComponent implements OnInit {
     this.combo.productos.push(p);
     this.precioLista += p.precio;
   }
+
+  registrarProducto():void{
+    this.calcularMontoFinal();
+    this.comboService.registrarCombo(this.combo).subscribe(
+      result=>
+      {
+       this.toast.success("El combo fue registrado correctamente")
+      },
+      error=>
+      {
+
+      }
+    )
+  }
+
+  calcularMontoFinal()
+  {
+    if(this.descuentoSeleccionado=="porcentaje")
+      this.combo.montoFinal= this.precioLista - (this.precioLista*this.combo.descuento);
+    else
+      this.combo.descuento=  parseFloat(((100-((this.combo.montoFinal*100)/this.precioLista))/100).toFixed(2));
+  
+  }
+ 
+  cargarCombo(id:string)
+{
+  this.comboService.obtenerComboById(id).subscribe(
+    result=>
+    {
+      Object.assign(this.combo,result);
+    },
+    error=>
+    {
+
+    }
+  )
+}
+
+editarCombo()
+{
+  this.comboService.editarCombo(this.combo).subscribe(
+    result=>
+    {
+      this.toast.success("Editado correctamente")
+    },
+    error=>
+    {
+
+    }
+  )
+}
 }

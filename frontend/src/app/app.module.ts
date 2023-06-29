@@ -20,6 +20,8 @@ import { OfertaGestionComponent } from './components/oferta-gestion/oferta-gesti
 import { OfertaFormComponent } from './components/oferta-form/oferta-form.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { ComboFormComponent } from './components/combo-form/combo-form.component';
+import { ComboComponent } from './components/combo/combo.component';
+import { ComboGestionComponent } from './components/combo-gestion/combo-gestion.component';
 
 
 @NgModule({
@@ -36,7 +38,9 @@ import { ComboFormComponent } from './components/combo-form/combo-form.component
     OfertaGestionComponent,
     OfertaFormComponent,
     FooterComponent,
-    ComboFormComponent
+    ComboFormComponent,
+    ComboComponent,
+    ComboGestionComponent
   ],
   imports: [
     BrowserModule,

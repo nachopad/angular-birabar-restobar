@@ -9,6 +9,8 @@ import { OfertaComponent } from './components/oferta/oferta.component';
 import { OfertaGestionComponent } from './components/oferta-gestion/oferta-gestion.component';
 import { OfertaFormComponent } from './components/oferta-form/oferta-form.component';
 import { ComboFormComponent } from './components/combo-form/combo-form.component';
+import { ComboComponent } from './components/combo/combo.component';
+import { ComboGestionComponent } from './components/combo-gestion/combo-gestion.component';
 
 const routes: Routes = [
   {path:"", redirectTo:"principal",pathMatch:"full"},
@@ -21,7 +23,9 @@ const routes: Routes = [
   {path:"oferta", component:OfertaComponent},
   {path:"ofertaGestion", component:OfertaGestionComponent},
   {path:"oferta-form/:id", component:OfertaFormComponent},
-  {path:"combo-form/:id", component:ComboFormComponent}
+  {path:"combo-form/:id", component:ComboFormComponent},
+  {path:"combos", component:ComboComponent},
+  {path:"comboGestion", component:ComboGestionComponent}
 ];
 
 @NgModule({
