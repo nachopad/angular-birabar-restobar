@@ -19,6 +19,8 @@ import { OfertaComponent } from './components/oferta/oferta.component';
 import { OfertaGestionComponent } from './components/oferta-gestion/oferta-gestion.component';
 import { OfertaFormComponent } from './components/oferta-form/oferta-form.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { ComboFormComponent } from './components/combo-form/combo-form.component';
+
 
 @NgModule({
   declarations: [
@@ -33,7 +35,8 @@ import { FooterComponent } from './components/footer/footer.component';
     OfertaComponent,
     OfertaGestionComponent,
     OfertaFormComponent,
-    FooterComponent
+    FooterComponent,
+    ComboFormComponent
   ],
   imports: [
     BrowserModule,

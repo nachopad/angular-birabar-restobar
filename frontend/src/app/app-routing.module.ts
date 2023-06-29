@@ -8,6 +8,7 @@ import { ProductoFormComponent } from './components/producto-form/producto-form.
 import { OfertaComponent } from './components/oferta/oferta.component';
 import { OfertaGestionComponent } from './components/oferta-gestion/oferta-gestion.component';
 import { OfertaFormComponent } from './components/oferta-form/oferta-form.component';
+import { ComboFormComponent } from './components/combo-form/combo-form.component';
 
 const routes: Routes = [
   {path:"", redirectTo:"principal",pathMatch:"full"},
@@ -19,7 +20,8 @@ const routes: Routes = [
   {path:'alta-producto/:id', component:ProductoFormComponent},
   {path:"oferta", component:OfertaComponent},
   {path:"ofertaGestion", component:OfertaGestionComponent},
-  {path:"oferta-form/:id", component:OfertaFormComponent}
+  {path:"oferta-form/:id", component:OfertaFormComponent},
+  {path:"combo-form/:id", component:ComboFormComponent}
 ];
 
 @NgModule({

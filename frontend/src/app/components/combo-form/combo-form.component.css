@@ -1,0 +1,36 @@
+.black-background {
+    background-color: #202634;
+}
+.carta-producto
+{
+    position: relative;
+    transition: all 0.2s;
+    cursor: pointer;
+}
+.select-producto
+{
+    display: block;
+    position:absolute;
+    max-width: 20%;
+    right: -3px;
+    top: -4px;
+  
+}
+.carta-producto:hover{
+
+}
+
+.preview-producto
+{
+    position:relative;
+}
+.delete-producto
+{
+    position:absolute;
+    max-width: 13%;
+    min-width: 13%;
+    right: 2px;
+    top: 2px;
+    cursor: pointer;
+}
+

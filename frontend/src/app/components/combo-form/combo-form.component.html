@@ -1,0 +1,157 @@
+<div class="black-background">
+
+    <div class="container pt-4 pb-5 text-light">
+
+
+        <h4 class="text-center mb-3">Gestion de Combos</h4>
+        <div class="border rounded-3 border-secondary p-4">
+            <form #comboForm="ngForm">
+                <div class="row mb-3 justify-content-center">
+
+                    <div class="col-md-12">
+                        <label class="form-text text-secondary">Nombre del combo:</label>
+                        <input type="text" class="form-control" name="titulo" placeholder="texto ejemplo"
+                            autocomplete="off" [(ngModel)]="combo.titulo" required #titulo="ngModel">
+                        <div *ngIf="titulo.invalid && titulo.dirty" class="text-danger">
+                            <div *ngIf="titulo.errors?.['required']">
+                                El nombre es requerido.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-12">
+                        <label class="form-text text-secondary">Precio Final:</label>
+                        <input type="number" class="form-control" name="titulo" placeholder="monto final del combo" [max]="precioLista-1"
+                        [(ngModel)]="combo.montoFinal" #precio="ngModel">
+                        <div *ngIf="precio.invalid && precio.dirty" class="text-danger">
+                            <div *ngIf="precio.errors?.['max']">
+                                El monto final no puede ser mayor o igual al precio Lista
+                              </div>
+                        </div>
+
+                      
+
+                        
+                    </div>
+
+
+                    
+                    
+                
+                    <!--BOTON PARA PRODUCTOS-->
+                    <div class="mb-3 mt-4 text-center">
+                        <button type="button" class="btn btn-light bi bi-cart" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal">
+                            Seleccionar Productos
+                        </button>
+                        <p *ngIf="combo.productos.length==0" class="form-text text-secondary">No hay productos seleccionados.</p>
+                    </div>
+
+                    <div class="row">
+                    <div class="col-md-12">
+                        <label class="form-text text-secondary">Productos Seleccionados:</label>
+                       <div class="row">
+                        <div class="col-4 col-lg-2" *ngFor="let p of combo.productos">
+
+                           
+
+                            <div class="card preview-producto" >
+
+                                <div class="delete-producto d-flex" (click)="eliminarProducto(p)">
+                                    <img src="assets/images/check/delete.png" alt="" class="img-fluid icon-delete">
+                                </div>
+
+                                <img class="card-img-top" src="https://www.foodnavigator.com/var/wrbm_gb_food_pharma/storage/images/5/3/9/7/1637935-1-eng-GB/McDonald-s-accreditation-boosts-MAXStick-labels-kudos.jpg" alt="Card image cap">
+                                
+                              </div>
+
+
+                        </div>
+                       </div>
+                    </div>
+                </div>
+
+             
+
+                <h5 class="text-center" *ngIf=" comboForm.valid && combo.productos.length>0">Resumen Del combo:</h5>
+                    <div class="mb-3 mt-4 d-flex justify-content-around" *ngIf=" comboForm.valid && combo.productos.length>0">
+                      
+                        
+                      
+                      
+
+            
+                        <div>
+                            <span>Precio Lista: ${{precioLista}}</span>
+                        </div>
+                        
+                        <div>
+                            <span>Precio Final:</span>
+                        </div>
+ 
+                        
+                        <div>
+                            <span>Descuento Aplicado:</span>
+                        </div>
+ 
+ 
+                    </div>
+
+
+                </div>
+                
+
+                {{precioLista}}
+
+                <button *ngIf="accion=='new'" type="submit" class="btn btn-light bi bi-plus-circle me-1"
+                    [disabled]="!comboForm.valid || combo.productos.length==0">Crear</button>
+                <button *ngIf="accion=='update'" type="submit"
+                    class="btn btn-light bi bi-pencil-square me-1">Modificar</button>
+                <a [href]="['ofertaGestion']" class="btn btn-light bi bi-arrow-left"> Volver</a>
+            </form>
+        </div>
+       
+
+
+        <div class="modal fade text-dark" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5 " id="exampleModalLabel">Productos</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                       
+                        <div class="row">
+                          
+                             <div class="col-12 mb-3 d-flex gap-4">
+                                <input type="text" class="form-control" name="titulo" placeholder="texto ejemplo"  autocomplete="off">
+                                <button class="btn btn-primary">Buscar</button>
+                              
+                             </div>
+                             <div class="col-3" *ngFor="let p of productos">
+                                <div class="card carta-producto" (click)="marcarProducto(p)" >
+                                    <div  *ngIf="perteneceProducto(p)" class=" select-producto">
+                                        <img src="assets/images/check/check.png" alt="" class="img-fluid">
+                                    </div>
+                                    <img class="card-img-top" src="https://www.foodnavigator.com/var/wrbm_gb_food_pharma/storage/images/5/3/9/7/1637935-1-eng-GB/McDonald-s-accreditation-boosts-MAXStick-labels-kudos.jpg" alt="Card image cap">
+                                    <div class="card-body">
+                                      <h5 class="card-title">Card title</h5>
+                                    </div>
+                                  </div>
+                            </div>
+                           
+
+                    </div>
+                    <div class="modal-footer">
+                        <span class="m-auto">Productos Seleccionados: <b>{{combo.productos.length}}</b></span>
+                        <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+       
+    </div>
+</div>
