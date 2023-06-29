@@ -38,13 +38,13 @@ export class OfertaFormComponent implements OnInit {
         this.toastrService.info("Complete todos los campos para crear una oferta.");
         this.accion = "new";
         this.oferta = new Oferta();
-        this.oferta.productos = new Array<Producto>();
+        this.oferta.productos = new Array<string>();
         this.oferta.dias = new Array<string>();
       } else {
         this.toastrService.info("Modifique algunos campos y guarde los cambios para modificar la oferta.");
         this.accion = "update";
         this.oferta = new Oferta();
-        this.oferta.productos = new Array<Producto>();
+        this.oferta.productos = new Array<string>();
       }
     });
   }
@@ -78,11 +78,11 @@ export class OfertaFormComponent implements OnInit {
 
   agregarProductoToOferta(producto: Producto) {
     this.toastrService.success("Producto agregado a la oferta.");
-    this.oferta.productos.push(producto);
+    this.oferta.productos.push(producto._id);
   }
 
-  quitarProductoToOferta(producto: Producto) {
-    var indice: number = this.oferta.productos.findIndex((prod) => prod._id == producto._id);
+  quitarProductoToOferta(idProducto: string) {
+    var indice: number = this.oferta.productos.findIndex((prod) => prod == idProducto);
     this.toastrService.info("Producto quitado de la oferta.");
     this.oferta.productos.splice(indice, 1);
   }
