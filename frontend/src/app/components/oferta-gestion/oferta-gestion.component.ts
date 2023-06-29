@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Oferta } from 'src/app/models/oferta';
 
 @Component({
   selector: 'app-oferta-gestion',
@@ -7,7 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OfertaGestionComponent implements OnInit {
 
-  constructor() { }
+  ofertas!:Array<Oferta>;
+
+  constructor() { 
+    this.ofertas = new Array<Oferta>();
+  }
 
   ngOnInit(): void {
   }

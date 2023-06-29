@@ -1,31 +1,43 @@
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">BiraBar</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
+<nav class="navbar navbar-expand-lg black-background bg-gradient">
+  <div class="container-fluid">
+    <img src="../../../assets/images/homepage/birabar-logo.png" alt="Birabar" class="custom-logo">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-center fw-semibold" id="navbarNavDropdown">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link active text-white fs-6 mx-4" aria-current="page" [routerLink]="['principal']">Principal<i class="fa-solid fa-house ms-1"></i></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active text-white fs-6 mx-4" aria-current="page" [routerLink]="['principal']">Nosotros<i class="fa-solid fa-users ms-1"></i></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active text-white fs-6 mx-4" aria-current="page" [routerLink]="['principal']">Contacto <i class="fa-solid fa-phone-volume ms-1"></i></a>
+        </li>
+        <!--
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-white fs-6" [routerLink]="['registro']" role="button" data-bs-toggle="dropdown" aria-expanded="false">Gestion Clientes<i class="bi bi-basket2"></i></a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item text-center">Registrar <i class="bi bi-database-add"></i></a></li>
+          </ul>
+        </li>
+        -->
+      </ul>
+    </div>
+    <div>
+      <button class="btn green-background" *ngIf="!loginService.userLoggedIn()" [routerLink]="['login']">
+        <i class="fa-solid fa-user me-1"></i>Ingresar
       </button>
-      <div class="collapse navbar-collapse" id="navbarNavDropdown">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" [routerLink]="['principal']">Principal</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" [routerLink]="['registro']" role="button" data-bs-toggle="dropdown" aria-expanded="false">Gestion Clientes<i class="bi bi-basket2"></i></a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item text-center">Registrar <i class="bi bi-database-add"></i></a></li>
-            </ul>
-          </li>
+      <div class="btn-group" *ngIf="loginService.userLoggedIn()">
+        <button class="btn green-background" data-bs-toggle="dropdown" aria-expanded="false">
+          <i class="fa-solid fa-user me-1"></i>{{loginService.userLogged()}}
+        </button>
+        <ul class="dropdown-menu">
+          <li><button class="dropdown-item" (click)="logout()">Mi perfil</button></li>
+          <li><button class="dropdown-item" (click)="logout()">Salir</button></li>
         </ul>
       </div>
-      <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
-        <button class="btn btn-outline-dark" type="submit"><i class="bi bi-search"></i></button>
-      </form>
-      <div>
-        <a *ngIf="!loginService.userLoggedIn()" [routerLink]="['login']">(Login)</a>
-        <a *ngIf="loginService.userLoggedIn()" [routerLink]="['login']" (click)="logout()">
-          {{loginService.userLogged()}} (logout)
-        </a>
-      </div>
     </div>
-  </nav>
+  </div>
+</nav>
