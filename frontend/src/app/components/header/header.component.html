@@ -20,20 +20,15 @@
         <li class="nav-item dropdown" *ngIf="(loginService.rolLogged()==='Gestor')">
           <a class="nav-link dropdown-toggle text-white fs-6 mx-4" role="button" data-bs-toggle="dropdown" aria-expanded="false">Gestion Productos</a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item text-center" [routerLink]="['registro']">Registrar<i class="fa-solid fa-user-plus ms-1"></i></a></li>
+            <li><a class="dropdown-item text-center" [routerLink]="['alta-categoria']">Categorias<i class="fa-solid fa-folder-open ms-1"></i></a></li>
+            <li><a class="dropdown-item text-center" [routerLink]="['alta-producto']">Productos<i class="fa-solid fa-utensils ms-1"></i></a></li>
           </ul>
         </li>
         <li class="nav-item dropdown" *ngIf="(loginService.rolLogged()==='Gestor')">
-          <a class="nav-link dropdown-toggle text-white fs-6 mx-4" role="button" data-bs-toggle="dropdown" aria-expanded="false">Gestion Combos</a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item text-center" [routerLink]="['registro']">Registrar<i class="fa-solid fa-user-plus ms-1"></i></a></li>
-          </ul>
+          <a class="nav-link dropdown-toggle text-white fs-6 mx-4" role="button" data-bs-toggle="dropdown" aria-expanded="false" [routerLink]="['comboGestion']">Gestion Combos</a>
         </li>
         <li class="nav-item dropdown" *ngIf="(loginService.rolLogged()==='Gestor')">
-          <a class="nav-link dropdown-toggle text-white fs-6 mx-4" role="button" data-bs-toggle="dropdown" aria-expanded="false">Gestion Ofertas</a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item text-center" [routerLink]="['registro']">Registrar<i class="fa-solid fa-user-plus ms-1"></i></a></li>
-          </ul>
+          <a class="nav-link dropdown-toggle text-white fs-6 mx-4" role="button" data-bs-toggle="dropdown" aria-expanded="false" [routerLink]="['ofertaGestion']">Gestion Ofertas</a>
         </li>
         <li class="nav-item dropdown" *ngIf="(loginService.rolLogged()==='Administrador')">
           <a class="nav-link dropdown-toggle text-white fs-6 mx-4" role="button" data-bs-toggle="dropdown" aria-expanded="false">Gestion Usuarios</a>

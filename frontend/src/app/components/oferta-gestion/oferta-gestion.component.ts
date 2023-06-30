@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
+import { Oferta } from 'src/app/models/oferta';
 
 @Component({
   selector: 'app-oferta-gestion',
@@ -7,9 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OfertaGestionComponent implements OnInit {
 
-  constructor() { }
+  ofertas!:Array<Oferta>;
+
+  constructor(private webTitle: Title) { 
+    this.ofertas = new Array<Oferta>();
+  }
 
   ngOnInit(): void {
+    this.webTitle.setTitle("Birabar - Gestion de ofertas");
   }
 
 }

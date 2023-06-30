@@ -21,6 +21,10 @@ import { OfertaFormComponent } from './components/oferta-form/oferta-form.compon
 import { FooterComponent } from './components/footer/footer.component';
 import { TokenInterceptorService } from './services/token-interceptor.service';
 import { PerfilUsuarioComponent } from './components/perfil-usuario/perfil-usuario.component';
+import { ComboFormComponent } from './components/combo-form/combo-form.component';
+import { ComboComponent } from './components/combo/combo.component';
+import { ComboGestionComponent } from './components/combo-gestion/combo-gestion.component';
+import { NoAccessComponent } from './components/no-access/no-access.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +40,11 @@ import { PerfilUsuarioComponent } from './components/perfil-usuario/perfil-usuar
     OfertaGestionComponent,
     OfertaFormComponent,
     FooterComponent,
-    PerfilUsuarioComponent
+    PerfilUsuarioComponent,
+    ComboFormComponent,
+    ComboComponent,
+    ComboGestionComponent,
+    NoAccessComponent
   ],
   imports: [
     BrowserModule,

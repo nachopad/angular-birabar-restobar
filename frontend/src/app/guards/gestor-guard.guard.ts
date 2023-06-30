@@ -19,7 +19,7 @@ export class GestorGuardGuard implements CanActivate {
     if(this.loginService.userLoggedIn() && this.loginService.rolLogged() == 'Gestor'){
         return true;
       }
-      this.router.navigate(['login']);
+      this.router.navigate(['no-access']);
       return false;
   }
   
