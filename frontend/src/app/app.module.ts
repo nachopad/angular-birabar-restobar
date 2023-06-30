@@ -17,6 +17,8 @@ import { CategoriaFormComponent } from './components/categoria-form/categoria-fo
 import { OfertaComponent } from './components/oferta/oferta.component';
 import { OfertaGestionComponent } from './components/oferta-gestion/oferta-gestion.component';
 import { OfertaFormComponent } from './components/oferta-form/oferta-form.component';
+import { GestionCategoriaProductoComponent } from './components/gestion-categoria-producto/gestion-categoria-producto.component';
+import { ListaProductosComponent } from './components/lista-productos/lista-productos.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,9 @@ import { OfertaFormComponent } from './components/oferta-form/oferta-form.compon
     CategoriaFormComponent,
     OfertaComponent,
     OfertaGestionComponent,
-    OfertaFormComponent
+    OfertaFormComponent,
+    GestionCategoriaProductoComponent,
+    ListaProductosComponent
   ],
   imports: [
     BrowserModule,

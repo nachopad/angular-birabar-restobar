@@ -42,7 +42,7 @@ export class ProductoService {
       params: new HttpParams()
     };
     let body = JSON.stringify(producto);
-    return this._http.put("http://localhost:3000/api/categoria/edit", body , httpOptions);
+    return this._http.put("http://localhost:3000/api/producto/edit", body , httpOptions);
   }
 
   obtenerProductosDisponibles():Observable<any>{
@@ -56,4 +56,25 @@ export class ProductoService {
     return this._http.get("http://localhost:3000/api/producto/", httpOptions);
   }
   
+  obtenerProductosPorCategoria(id: string):Observable<any>{
+    let httpOptions = {
+      headers: new HttpHeaders({
+        
+        }
+      ), 
+      params: new HttpParams()
+    };
+    return this._http.get("http://localhost:3000/api/producto/obtener-productos-categoria/"+id, httpOptions);
+  }
+
+  eliminarProducto(id: string):Observable<any>{
+    let httpOptions = {
+      headers: new HttpHeaders({
+        
+        }
+      ), 
+      params: new HttpParams()
+    };
+    return this._http.put("http://localhost:3000/api/producto/delete/"+id, httpOptions);
+  }
 }

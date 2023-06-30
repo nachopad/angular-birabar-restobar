@@ -64,19 +64,24 @@ categoriaCtrl.updateCategoria = async (req, res) => {
 categoriaCtrl.deleteCategoria = async (req, res) => {
     try {
         const categoriaId = req.params.id;
-        await Categoria.findOneAndUpdate({_id: categoriaId}, {estado: false});
-
-        // Eliminar los productos asociados a la categoría (eliminacion lógica)
-        await Producto.updateMany({categoria: categoriaId}, {estado: false});
-
-        res.status(200).json({
-            'status': '1',
-            'msg': 'Categoría y productos eliminados.'
-        });
+        const Producto = require('./../models/producto');
+        const productos= await Producto.find({categoria: categoriaId, estado: true});
+        if(productos.length>0){
+            res.status(200).json({
+                'status': '0',
+                'msg': "Error al intentar eliminar una categoria"
+            });
+        }else{
+            await Categoria.findOneAndUpdate({_id: categoriaId}, {estado: false});
+            res.status(200).json({
+                'status': '1',
+                'msg': 'Categoría y productos eliminados.'
+            });
+        }
     } catch (error) {
         res.status(400).json({
             'status': '0',
-            'msg': 'Error procesando la operación.'
+            'msg': "Error al intentar eliminar una categoria"
         });
     }
 };
