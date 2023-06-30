@@ -4,13 +4,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginService } from './services/login.service';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './components/login/login.component';
 import { HomeComponent } from './components/home/home.component';
 import { HeaderComponent } from './components/header/header.component';
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+import { RegistroClienteComponent } from './components/registro-cliente/registro-cliente.component';
 import { ProductoFormComponent } from './components/producto-form/producto-form.component';
 import { GestionProductosComponent } from './components/gestion-productos/gestion-productos.component';
 import { CategoriaFormComponent } from './components/categoria-form/categoria-form.component';
@@ -19,6 +20,13 @@ import { OfertaGestionComponent } from './components/oferta-gestion/oferta-gesti
 import { OfertaFormComponent } from './components/oferta-form/oferta-form.component';
 import { GestionCategoriaProductoComponent } from './components/gestion-categoria-producto/gestion-categoria-producto.component';
 import { ListaProductosComponent } from './components/lista-productos/lista-productos.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { TokenInterceptorService } from './services/token-interceptor.service';
+import { PerfilUsuarioComponent } from './components/perfil-usuario/perfil-usuario.component';
+import { ComboFormComponent } from './components/combo-form/combo-form.component';
+import { ComboComponent } from './components/combo/combo.component';
+import { ComboGestionComponent } from './components/combo-gestion/combo-gestion.component';
+import { NoAccessComponent } from './components/no-access/no-access.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +34,7 @@ import { ListaProductosComponent } from './components/lista-productos/lista-prod
     LoginComponent,
     HomeComponent,
     HeaderComponent,
+    RegistroClienteComponent,
     ProductoFormComponent,
     GestionProductosComponent,
     CategoriaFormComponent,
@@ -33,7 +42,13 @@ import { ListaProductosComponent } from './components/lista-productos/lista-prod
     OfertaGestionComponent,
     OfertaFormComponent,
     GestionCategoriaProductoComponent,
-    ListaProductosComponent
+    ListaProductosComponent,
+    FooterComponent,
+    PerfilUsuarioComponent,
+    ComboFormComponent,
+    ComboComponent,
+    ComboGestionComponent,
+    NoAccessComponent
   ],
   imports: [
     BrowserModule,
@@ -44,7 +59,14 @@ import { ListaProductosComponent } from './components/lista-productos/lista-prod
     BrowserAnimationsModule,
     ToastrModule.forRoot()
   ],
-  providers: [LoginService],
+  providers: [
+    LoginService, 
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptorService,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

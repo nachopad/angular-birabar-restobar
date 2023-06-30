@@ -1,0 +1,30 @@
+.black-background {
+    background-color: #202634;
+}
+
+.black-dark-background {
+    background-color: #141a24
+}
+
+.green-background {
+    background-color: #1fd08f;
+}
+
+.green-text {
+    color: #1fd08f;
+}
+
+.form-control:focus {
+    box-shadow: none;
+}
+
+.input-group-text {
+    font-size: 1.5rem;
+    background-color: #1fd08f;
+    color: white;
+    border-radius: 5px 2px 2px 5px;
+}
+
+.green-input {
+    background-color: #acfade;
+}

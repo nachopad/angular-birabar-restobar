@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 import { Usuario } from 'src/app/models/usuario';
 import { LoginService } from 'src/app/services/login.service';
 import { ToastrService } from 'ngx-toastr';
@@ -16,10 +17,12 @@ export class LoginComponent implements OnInit {
   msglogin!: string;
 
   constructor(private route: ActivatedRoute, private router: Router,
-              private loginService: LoginService, private toastrService: ToastrService) { }
+              private loginService: LoginService, private toastrService: ToastrService,
+              private webTitle: Title) { }
 
   ngOnInit(): void {
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/principal';
+    this.webTitle.setTitle("Birabar - Iniciar sesion");
   }
 
   login() {
@@ -27,6 +30,7 @@ export class LoginComponent implements OnInit {
         (result) => {
           var user = result;
           if (user.status == 1) {
+            sessionStorage.setItem("token", user.token);
             sessionStorage.setItem("user", user.username);
             sessionStorage.setItem("userid", user.userid);
             sessionStorage.setItem("rol", user.rol);
