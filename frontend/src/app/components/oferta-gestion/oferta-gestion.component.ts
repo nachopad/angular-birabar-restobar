@@ -13,6 +13,7 @@ export class OfertaGestionComponent implements OnInit {
   ofertas!: Array<Oferta>;
 
   constructor(private ofertaService: OfertaService, private toastrService: ToastrService) {
+    this.ofertas = new Array<Oferta>();
     this.cargarOfertas();
   }
 
@@ -34,6 +35,18 @@ export class OfertaGestionComponent implements OnInit {
         this.toastrService.error("Error: ", error);
       }
     );
+  }
+
+  borrarOferta(id:string) {
+    this.ofertaService.borrarOferta(id).subscribe(
+      result => {
+        this.toastrService.success("Oferta eliminada correctamente.");
+        this.cargarOfertas();
+      }, 
+      error=>{
+        this.toastrService.error("Error: ", error);
+      }
+      );
   }
 
 }

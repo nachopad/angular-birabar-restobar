@@ -23,6 +23,19 @@ export class OfertaService {
     return this._http.post("http://localhost:3000/api/oferta/crearOferta", body, httpOptions);
   }
 
+  modificarOferta(oferta: Oferta): Observable<any> {
+    let httpOptions = {
+      headers: new HttpHeaders({
+        "Content-type": "application/json"
+      }
+      ),
+      params: new HttpParams()
+    };
+    let body = JSON.stringify(oferta);
+    console.log(body);
+    return this._http.put("http://localhost:3000/api/oferta/editarOferta", body, httpOptions);
+  }
+
   cargarOfertas(): Observable<any> {
     let httpOptions = {
       headers: new HttpHeaders({
@@ -31,6 +44,26 @@ export class OfertaService {
       params: new HttpParams()
     };
     return this._http.get("http://localhost:3000/api/oferta/", httpOptions);
+  }
+
+  obtenerOferta(id: string): Observable<any> {
+    let httpOptions = {
+      headers: new HttpHeaders({
+      }
+      ),
+      params: new HttpParams()
+    };
+    return this._http.get("http://localhost:3000/api/oferta/buscarOferta/" + id, httpOptions);
+  }
+
+  borrarOferta(id: string): Observable<any> {
+    let httpOptions = {
+      headers: new HttpHeaders({
+      }
+      ),
+      params: new HttpParams()
+    };
+    return this._http.put("http://localhost:3000/api/oferta/borrarOferta/"+ id, httpOptions);
   }
 
 }
