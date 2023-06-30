@@ -28,7 +28,7 @@ const routes: Routes = [
   { path: 'no-access', component: NoAccessComponent},
   { path: 'alta-categoria/:id', component: CategoriaFormComponent, canActivate: [GestorGuardGuard]},
   { path:'alta-producto/:id', component:ProductoFormComponent, canActivate: [GestorGuardGuard]},
-  { path:"oferta", component:OfertaComponent},
+  { path:"ofertas", component:OfertaComponent},
   { path:"ofertaGestion", component:OfertaGestionComponent, canActivate: [GestorGuardGuard]},
   { path:"oferta-form/:id", component:OfertaFormComponent, canActivate: [GestorGuardGuard]},
   { path:"combo-form/:id", component:ComboFormComponent, canActivate: [GestorGuardGuard]},

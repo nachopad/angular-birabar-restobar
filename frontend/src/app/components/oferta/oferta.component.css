@@ -1,0 +1,27 @@
+.black-background {
+    background-color: #202634;
+}
+
+.green-background {
+    background-color: #1fd08f;
+}
+
+.green-background:hover {
+    background-color: #2cf5ab;
+    color: #202634;
+}
+
+.oferta{
+    width: 200px;
+    margin: 10px;
+    transition: all 400ms ease;
+}
+
+.oferta:hover{
+    cursor:pointer;
+    transform: translateY(-3%);
+}
+
+.text-green{
+    color: #1fd08f;
+}

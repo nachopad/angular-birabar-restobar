@@ -1,19 +1,38 @@
-<div class="container mt-5">
-    <div>
-        <h4 class="text-center">Ofertas Disponibles</h4>
-        <div class="row row-cols-1 row-cols-md-2 g-4 mt-2">
-            <div class="col">
-                <div class="card">
-                    <div class="card-header text-body-secondary text-center">
-                        Precio:
-                    </div>
-                    <!-- <img src="..." class="card-img-top" alt="..."> -->
-                    <div class="card-body text-center">
-                        <h5 class="card-title">Nombre Oferta</h5>
-                        <a href="#" class="btn btn-primary mt-1">Ver Productos</a>
-                    </div>
-                </div>
-            </div>
+<div class="black-background text-white">
+  <div class="container pt-5 pb-5 ">
+    <h4 class="text-center">Ofertas Disponibles</h4>
+    <div class="row justify-content-center">
+      <div class="col-xl-3 col-md-4 col-12 d-flex justify-content-center align-items-center"
+        *ngFor="let oferta of ofertas" (click)="ofertaModal=oferta" data-bs-toggle="modal"
+        data-bs-target="#modalOferta">
+        <div class="oferta text-center">
+          <p class="form-text text-light mb-1">{{oferta.titulo}}</p>
+          <div style="height: 200px;width:200px;">
+            <img [src]="oferta.imagen" class="object-fit-cover rounded-1" style="height: 100%;width: 100%;">
+          </div>
+          <small>Precio: {{oferta.precio | currency:'$':'symbol':'1.0-2'}}</small>
         </div>
+      </div>
     </div>
+  </div>
+</div>
+<div class="modal fade" id="modalOferta" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel"><b>{{ofertaModal.titulo}}</b></h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p><b>Precio: </b> {{ofertaModal.precio | currency:'$':'symbol':'1.0-2'}}</p>
+        <p><b>Dias disponibles: </b> {{ofertaModal.dias}}</p>
+        <p><b>Desde las: </b>{{ofertaModal.desde}}</p>
+        <p><b>Hasta las: </b>{{ofertaModal.hasta}}</p>
+        <p><b>Descripción: </b>{{ofertaModal.descripcion}}</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
 </div>

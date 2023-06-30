@@ -10,3 +10,11 @@
     background-color: #2cf5ab;
     color: #202634;
 }
+
+.col{
+    transition: all 400ms ease;
+}
+
+.col:hover{
+    transform: translateY(-5%);
+}
