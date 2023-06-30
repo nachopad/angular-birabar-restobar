@@ -18,10 +18,12 @@ import { GestorGuardGuard } from './guards/gestor-guard.guard';
 import { GestionCategoriaProductoComponent } from './components/gestion-categoria-producto/gestion-categoria-producto.component';
 import { GestionProductosComponent } from './components/gestion-productos/gestion-productos.component';
 import { ListaProductosComponent } from './components/lista-productos/lista-productos.component';
+import { PedidoComponent } from './components/pedido/pedido.component';
+import { PedidoProductosComponent } from './components/pedido-productos/pedido-productos.component';
 
 const routes: Routes = [
-  {path:"", redirectTo:"principal",pathMatch:"full"},
-  { path: 'principal', component: HomeComponent},
+  { path: "", redirectTo: "principal", pathMatch: "full" },
+  { path: 'principal', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'registro', component: RegistroClienteComponent },
   { path: 'perfil', component: PerfilUsuarioComponent , canActivate: [LoginGuardGuard]},
@@ -38,11 +40,13 @@ const routes: Routes = [
   {path:'gestion-categoria-producto/:id', component:GestionCategoriaProductoComponent, canActivate: [GestorGuardGuard]},
   {path:'lista-productos', component:ListaProductosComponent},
 
+  { path: 'mis-pedidos', component: PedidoComponent },
+  { path: 'mis-pedidos/productos/:modalidad', component: PedidoProductosComponent }
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-  
+
 export class AppRoutingModule { }

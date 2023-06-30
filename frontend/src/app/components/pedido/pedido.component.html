@@ -1,0 +1,133 @@
+<div class="black-dark-background">
+    <div class="container p-4 text-center">
+        <!-- Pedidos -->
+        <legend class="text-white">Tus Pedidos</legend>
+        <nav class="navbar navbar-expand">
+            <div class="container-fluid">
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <div class="navbar-nav mx-auto">
+                        <a class="nav-link active" onclick="selectTab(this)" data-tab="finalizados"
+                            (click)="tabActiva('En curso')">En curso</a>
+                        <a class="nav-link" onclick="selectTab(this)" data-tab="en-curso"
+                            (click)="tabActiva('Finalizados')">Finalizados</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <section>
+            <div class="text-center mt-4" *ngIf="navSelected==true">
+                <div *ngIf="pedidosEnCurso.length == 0">
+                    <img src="./../../../assets/images/pedidos/lupulo.png" alt="" class="img-fluid img-opacity"
+                        width="150px">
+                    <p class="mt-4 text-white"><i>No tenés ningún pedido en curso.</i></p>
+                </div>
+                <div *ngIf="pedidosEnCurso.length != 0">
+                    <div class="row" *ngFor="let pec of pedidosEnCurso">
+                        <div class="card col-md-8 offset-md-2 mb-3">
+                            <div class="card-header text-start">
+                                <b>IdPedido: {{pec._id}}</b>
+                            </div>
+                            <div class="card-body text-start">
+                                <h5 class="card-title"><i class="fa-solid fa-pizza-slice fa-spin me-2" style="color: #37b976;"></i>¡El restaurante recibió tu pedido!</h5>
+                                <p class="card-text">Estado: {{pec.estado}} - Demora: {{pec.demora}} - Servicio: {{pec.modalidad}}</p>
+                                <p *ngFor="let d of detalleProductos">ä</p>
+                                <div class="text-end">
+                                    <a class="btn btn-dark" (click)="cancelarPedido(pec)"><i class="bi bi-x-circle"></i> Cancelar</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="button" class="btn btn-style mt-3 mb-2" data-bs-toggle="modal"
+                    data-bs-target="#exampleModal"><i class="fa-solid fa-plus me-1"></i> Nuevo pedido</button>
+
+                <!-- Seleccionar modalidad -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content text-white black-dark-background">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">¿Qué te gustaria?</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body ">
+                                <div class="row">
+                                    <button type="button" class="btn btn-modal m-1 text-start d-flex"
+                                        (click)="setModalidad('En el local')" data-bs-dismiss="modal">
+                                        <div class="col-2 btn-img rounded-circle">
+                                            <img src="./../../../assets/images/pedidos/food-and-restaurant.png" alt=""
+                                                width="60%" class="me-3 mx-auto d-block">
+                                        </div>
+                                        <div class="btn-wrapper ms-2">
+                                            <b class="btn-title ">Comer en el local</b>
+                                            <i class="btn-transition"><br>El pedido se sirve en el restaurante.</i>
+                                        </div>
+                                    </button>
+
+                                    <button type="button" class="btn btn-modal m-1 text-start d-flex"
+                                        (click)="setModalidad('Retiro')" data-bs-dismiss="modal">
+                                        <div class="col-2 btn-img rounded-circle">
+                                            <img src="./../../../assets/images/pedidos/quitar.png" alt="" width="60%"
+                                                class="me-3 mx-auto d-block">
+                                        </div>
+                                        <div class="btn-wrapper ms-2">
+                                            <b class="btn-title">Para retirar</b>
+                                            <i class="btn-transition"><br>El pedido se envasa para llevar.</i>
+                                        </div>
+                                    </button>
+
+                                    <button type="button" class="btn btn-modal m-1 text-start d-flex"
+                                        (click)="setModalidad('Delivery')" data-bs-dismiss="modal">
+                                        <div class="col-2 btn-img rounded-circle">
+                                            <img src="./../../../assets/images/pedidos/entrega-de-comida.png"
+                                                width="60%" class="me-3 mx-auto d-block">
+                                        </div>
+                                        <div class="btn-wrapper ms-2">
+                                            <b class="btn-title">Delivery</b>
+                                            <i class="btn-transition"><br>El pedido se entrega a su domicilio.</i>
+                                        </div>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-style" data-bs-dismiss="modal">Cancelar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-4" *ngIf="navSelected==false">
+                <div *ngIf="pedidosFinalizados.length == 0">
+                    <img src="./../../../assets/images/pedidos/lupulo.png" alt="" class="img-fluid img-opacity"
+                        width="150px">
+                    <p class="mt-4 text-white"><i>No tenés ningún pedido finalizado.</i></p>
+                </div>
+                <div *ngIf="pedidosFinalizados.length != 0">
+                    <div class="row" *ngFor="let pf of pedidosFinalizados">
+                        <div class="card col-md-8 offset-md-2 mb-3">
+                            <div class="card-header text-start">
+                                <b>IdPedido: {{pf._id}}</b>
+                            </div>
+                            <div class="card-body text-start">
+                                <h5 class="card-title" *ngIf="pf.estado == 'Cancelado'">
+                                    <i class="fa-regular fa-face-sad-tear" style="color: #002e83;"></i>
+                                    Hemos cancelado tu pedido... lamentamos los inconvenientes.
+                                </h5>
+                                <h5 class="card-title" *ngIf="pf.estado == 'Finalizado'">
+                                    <i class="fa-regular fa-face-smile-beam fa-bounce" style="color: #257441;"></i>
+                                    ¡Hemos finalizado tu pedido y está listo para ser entregado!
+                                </h5>
+                                <p class="card-text">Estado: {{pf.estado}} - Demora: {{pf.demora}} - Servicio: {{pf.modalidad}}</p>
+                                <div class="text-end">
+                                    <a *ngIf="pf.estado == 'Finalizado'" class="btn btn-success"><i class="fa-solid fa-pencil"></i> Calificar</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
+import { ToastrService } from 'ngx-toastr';
 import { Combo } from 'src/app/models/combo';
 import { ComboService } from 'src/app/services/combo.service';
 
@@ -12,7 +13,8 @@ export class ComboGestionComponent implements OnInit {
 
   combos!:Array<Combo>;
   constructor(private comboService:ComboService,
-              private webTitle: Title) {
+              private webTitle: Title,
+              private toast:ToastrService) {
     this.combos = new Array<Combo>(); 
    }
 
@@ -23,6 +25,7 @@ export class ComboGestionComponent implements OnInit {
 
   cargarCombos():void
   {
+    this.combos=[];
     this.comboService.obtenerCombos().subscribe(
       result=>
       {
@@ -43,7 +46,9 @@ export class ComboGestionComponent implements OnInit {
 this.comboService.eliminarComboById(id).subscribe(
   result=>
   {
-   
+   this.toast.success("Combo Eliminado correctamente");
+   this.cargarCombos();
+
   },
   error=>
   {

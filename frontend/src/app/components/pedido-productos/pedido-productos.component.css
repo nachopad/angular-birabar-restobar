@@ -1,0 +1,51 @@
+.black-dark-background {
+    background-color: #141a24
+}
+
+.btn-link {
+    color: black;
+}
+
+i {
+    font-size: 1.5rem;
+}
+
+.btn-prods {
+    border-style: none;
+}
+
+.bi-dash-circle:hover {
+    text-shadow: 0 0 10px red;
+}
+
+.bi-plus-circle:hover {
+    text-shadow: 0 0 10px green;
+}
+
+.image-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.image-container img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
+
+.link-light:hover{
+    cursor: pointer;
+}
+
+.modal-header,
+.modal-body,
+.modal-footer {
+  border-color: #141a24;
+}
+
+.img-opacity {
+    opacity: 0.3;
+}
