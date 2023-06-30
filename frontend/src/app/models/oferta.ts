@@ -10,5 +10,5 @@ export class Oferta {
     hasta!:string;
     imagen!: string;
     precio!: number;
-    productos!:Array<Producto>;
+    productos!:Array<string>;
 }
