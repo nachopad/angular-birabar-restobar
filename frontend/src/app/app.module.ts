@@ -4,7 +4,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginService } from './services/login.service';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './components/login/login.component';
 import { HomeComponent } from './components/home/home.component';
 import { HeaderComponent } from './components/header/header.component';
@@ -18,11 +18,15 @@ import { CategoriaFormComponent } from './components/categoria-form/categoria-fo
 import { OfertaComponent } from './components/oferta/oferta.component';
 import { OfertaGestionComponent } from './components/oferta-gestion/oferta-gestion.component';
 import { OfertaFormComponent } from './components/oferta-form/oferta-form.component';
+import { GestionCategoriaProductoComponent } from './components/gestion-categoria-producto/gestion-categoria-producto.component';
+import { ListaProductosComponent } from './components/lista-productos/lista-productos.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { TokenInterceptorService } from './services/token-interceptor.service';
+import { PerfilUsuarioComponent } from './components/perfil-usuario/perfil-usuario.component';
 import { ComboFormComponent } from './components/combo-form/combo-form.component';
 import { ComboComponent } from './components/combo/combo.component';
 import { ComboGestionComponent } from './components/combo-gestion/combo-gestion.component';
-
+import { NoAccessComponent } from './components/no-access/no-access.component';
 
 @NgModule({
   declarations: [
@@ -37,10 +41,14 @@ import { ComboGestionComponent } from './components/combo-gestion/combo-gestion.
     OfertaComponent,
     OfertaGestionComponent,
     OfertaFormComponent,
+    GestionCategoriaProductoComponent,
+    ListaProductosComponent,
     FooterComponent,
+    PerfilUsuarioComponent,
     ComboFormComponent,
     ComboComponent,
-    ComboGestionComponent
+    ComboGestionComponent,
+    NoAccessComponent
   ],
   imports: [
     BrowserModule,
@@ -51,7 +59,14 @@ import { ComboGestionComponent } from './components/combo-gestion/combo-gestion.
     BrowserAnimationsModule,
     ToastrModule.forRoot()
   ],
-  providers: [LoginService],
+  providers: [
+    LoginService, 
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptorService,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { error } from 'console';
 import { ToastrService } from 'ngx-toastr';
@@ -19,11 +20,14 @@ export class ComboFormComponent implements OnInit {
   productos!:Array<Producto>;
   precioLista!:number; 
   descuentoSeleccionado="";
-  constructor(private router:ActivatedRoute, private productoService:ProductoService, private comboService:ComboService, private toast:ToastrService) {
+  constructor(private router:ActivatedRoute, private productoService:ProductoService, 
+              private comboService:ComboService, private toast:ToastrService,
+              private webTitle: Title) {
     
    }
 
   ngOnInit(): void {
+    this.webTitle.setTitle("Birabar - Crear combo");
     this.precioLista = 0;
    this.productos=new Array<Producto>();
     this.cargarProductos();

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { Combo } from 'src/app/models/combo';
 import { ComboService } from 'src/app/services/combo.service';
 
@@ -10,11 +11,13 @@ import { ComboService } from 'src/app/services/combo.service';
 export class ComboGestionComponent implements OnInit {
 
   combos!:Array<Combo>;
-  constructor(private comboService:ComboService) {
+  constructor(private comboService:ComboService,
+              private webTitle: Title) {
     this.combos = new Array<Combo>(); 
    }
 
   ngOnInit(): void {
+    this.webTitle.setTitle("Birabar - Gestion de combos");
     this.cargarCombos(); 
   }
 

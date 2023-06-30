@@ -61,7 +61,10 @@ export class ProductoFormComponent implements OnInit {
     this.productoService.obtenerProducto(id).subscribe(
       (result)=>{  
         result.forEach((elemnt:any)=>{
-          Object.assign(this.producto, elemnt);
+          let unProducto:Producto=new Producto();
+          Object.assign(unProducto, elemnt);
+          this.producto=unProducto;
+          
         })
       }, 
       error=>{this.toastrService.error("Error al buscar la categoria");}
@@ -81,6 +84,7 @@ export class ProductoFormComponent implements OnInit {
       error=>{alert("Error");}
     )
   }
+  
   actualizarProducto(){
     this.productoService.actualizarProducto(this.producto).subscribe(
       (result)=>{
@@ -124,4 +128,7 @@ export class ProductoFormComponent implements OnInit {
     }
   }
 
+  cancelarOperacion(){
+    this.router.navigate(["gestion-productos"]);
+  }
 }

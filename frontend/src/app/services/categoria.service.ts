@@ -56,4 +56,15 @@ export class CategoriaService {
     };
     return this._http.get("http://localhost:3000/api/categoria/", httpOptions);
   }
+
+  eliminarCategoria(id:string):Observable<any>{
+    let httpOptions = {
+      headers: new HttpHeaders({
+        "Content-type":"application/json"
+        }
+      ), 
+      params: new HttpParams()
+    };
+    return this._http.put("http://localhost:3000/api/categoria/delete/"+id , httpOptions);
+  }
 }

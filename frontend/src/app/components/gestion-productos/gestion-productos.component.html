@@ -1,0 +1,21 @@
+<div class="black-background">
+    <div class="container ">
+
+        <div class="container align-content-center pt-5">
+            <button type="input" class="btn btn-dark bg-gradient producto rounded-2 fw-bold" (click)="registrarCategoria()">Registrar nueva Categoria<i class="bi bi-clipboard2-fill"></i></button>
+        </div>
+
+        <div class="row">
+            <div class="col-xl-4 col-md-6 col-12 text-center" *ngFor="let categoria of listaCategorias">
+            <div class="card black-background bg-gradient producto" (click)="verProductos(categoria._id)">
+                <img [src]="categoria.imagen" class="card-img-top">
+                <div class="card-body">
+                <h5 class="card-title text-white">{{categoria.nombreCategoria}}</h5>
+                </div>
+            </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+

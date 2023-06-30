@@ -41,15 +41,6 @@ export class RegistroService {
     return this._http.post(this.hostBaseCliente, body, httpOption);
   }
 
-  getUsuarioById(id:string):Observable<any>{
-    let httpOptions = {
-      headers: new HttpHeaders({
-      }),
-      params: new HttpParams()
-    }
-    return this._http.get(this.hostBaseUsuario+"obtener-usuario/"+id, httpOptions);
-  }
-
   getRolById(id:string):Observable<any>{
     let httpOptions = {
       headers: new HttpHeaders({

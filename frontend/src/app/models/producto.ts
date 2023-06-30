@@ -1,4 +1,4 @@
-
+import { Categoria } from "./categoria";
 export class Producto {
     _id!:string;
     nombreProducto!: string;
@@ -6,5 +6,5 @@ export class Producto {
     imagen!: string;
     precio!: number;
     estado!: boolean;
-    categoria!: string;
+    categoria!: Categoria;
 }

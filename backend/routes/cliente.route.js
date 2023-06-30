@@ -9,5 +9,6 @@ router.post('/', clienteCtrl.createCliente);
 router.delete('/:id', clienteCtrl.deleteCliente);
 router.put('/:id', clienteCtrl.editCliente);
 router.get('/obtener-usuario/:id', clienteCtrl.getClienteById);
+router.get('/obtener-cliente/:id', clienteCtrl.getClienteByUserId);
 //exportamos el modulo de rutas
 module.exports = router;

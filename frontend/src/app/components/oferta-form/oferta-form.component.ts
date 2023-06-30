@@ -5,6 +5,7 @@ import { Producto } from 'src/app/models/producto';
 import { ProductoService } from 'src/app/services/producto.service';
 import { ToastrService } from 'ngx-toastr';
 import { OfertaService } from 'src/app/services/oferta.service';
+import { Title } from '@angular/platform-browser';
 
 
 @Component({
@@ -27,12 +28,15 @@ export class OfertaFormComponent implements OnInit {
   domingo: boolean = false;
 
 
-  constructor(private rutaActiva: ActivatedRoute, private productoService: ProductoService, private toastrService: ToastrService, private ofertaService: OfertaService) {
+  constructor(private rutaActiva: ActivatedRoute, private productoService: ProductoService, 
+              private toastrService: ToastrService, private ofertaService: OfertaService,
+              private webTitle: Title) {
     this.productos = new Array<Producto>();
     this.cargarProductos();
   }
 
   ngOnInit(): void {
+    this.webTitle.setTitle("Birabar - Crear oferta");
     this.rutaActiva.params.subscribe(params => {
       if (params['id'] == 0) {
         this.toastrService.info("Complete todos los campos para crear una oferta.");

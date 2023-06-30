@@ -16,6 +16,16 @@ productoCtrl.getProducto = async (req, res) => {
     res.json(productos);
 }
 
+productoCtrl.getProductoCategoria = async (req, res) => {
+    let criteria={}
+    if(req.params.id!=null){
+        criteria.categoria=req.params.id;
+        criteria.estado=true;
+    }
+    var productos = await Producto.find(criteria).populate('categoria');
+    res.json(productos);
+}
+
 productoCtrl.createProducto = async (req, res) =>{
     var producto = new Producto(req.body);
     producto.estado=true;
