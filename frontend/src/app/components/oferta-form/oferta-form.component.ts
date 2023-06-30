@@ -17,7 +17,7 @@ export class OfertaFormComponent implements OnInit {
 
   accion!: string;
   buscarProducto: boolean = false;
-  oferta!: Oferta;
+  oferta: Oferta;
   productos!: Array<Producto>;
   lunes: boolean = false;
   martes: boolean = false;
@@ -28,10 +28,10 @@ export class OfertaFormComponent implements OnInit {
   domingo: boolean = false;
 
 
-  constructor(private rutaActiva: ActivatedRoute, private productoService: ProductoService, 
-              private toastrService: ToastrService, private ofertaService: OfertaService,
-              private webTitle: Title) {
+  constructor(private rutaActiva: ActivatedRoute, private productoService: ProductoService, private toastrService: ToastrService, private ofertaService: OfertaService, private webTitle: Title) {
+    this.oferta = new Oferta();
     this.productos = new Array<Producto>();
+    this.oferta.productos = new Array<string>();
     this.cargarProductos();
   }
 
@@ -41,14 +41,11 @@ export class OfertaFormComponent implements OnInit {
       if (params['id'] == 0) {
         this.toastrService.info("Complete todos los campos para crear una oferta.");
         this.accion = "new";
-        this.oferta = new Oferta();
-        this.oferta.productos = new Array<Producto>();
         this.oferta.dias = new Array<string>();
       } else {
         this.toastrService.info("Modifique algunos campos y guarde los cambios para modificar la oferta.");
         this.accion = "update";
-        this.oferta = new Oferta();
-        this.oferta.productos = new Array<Producto>();
+        this.cargarOferta(params['id']);
       }
     });
   }
@@ -56,13 +53,13 @@ export class OfertaFormComponent implements OnInit {
   crearOferta() {
     this.agregarDiasToOferta();
     this.ofertaService.registrarOferta(this.oferta).subscribe(
-      result=>{
+      result => {
         this.toastrService.success("Oferta registrada correctamente");
       },
-      error=>{
+      error => {
         this.toastrService.error("Error:", error);
       }
-      );
+    );
   }
 
   cargarProductos() {
@@ -82,43 +79,102 @@ export class OfertaFormComponent implements OnInit {
 
   agregarProductoToOferta(producto: Producto) {
     this.toastrService.success("Producto agregado a la oferta.");
-    this.oferta.productos.push(producto);
+    this.oferta.productos.push(producto._id);
   }
 
-  quitarProductoToOferta(producto: Producto) {
-    var indice: number = this.oferta.productos.findIndex((prod) => prod._id == producto._id);
+  quitarProductoToOferta(idProducto: string) {
+    var indice: number = this.oferta.productos.findIndex((prod) => prod == idProducto);
     this.toastrService.info("Producto quitado de la oferta.");
     this.oferta.productos.splice(indice, 1);
   }
 
   verificarCheboxes(): boolean {
-    if (this.lunes || this.martes || this.miercoles || this.jueves || this.viernes || this.sabado || this.domingo) {
-      return true;
-    }
-    return false;
+    return this.lunes || this.martes || this.miercoles || this.jueves || this.viernes || this.sabado || this.domingo;
+  }
+
+  cargarDias(){
+     for (const dia of this.oferta.dias) {
+       if (dia=="Lunes") {
+         this.lunes = true;
+       }
+       if (dia=="Martes") {
+         this.martes = true;
+       }
+       if (dia=="Miercoles") {
+         this.miercoles = true;
+       }
+       if (dia=="Jueves") {
+         this.jueves = true;
+       }
+       if (dia=="Viernes") {
+         this.viernes = true;
+       }
+       if (dia=="Sabado") {
+         this.sabado = true;
+       }
+       if (dia=="Domingo") {
+         this.domingo = true;
+       }
+     }
   }
 
   private agregarDiasToOferta() {
-    if (this.lunes == true) {
+    this.oferta.dias = new Array<string>();
+    if (this.lunes) {
       this.oferta.dias.push("Lunes");
+    } else {
+      const index = this.oferta.dias.indexOf("Lunes");
+      if (index !== -1) {
+        this.oferta.dias.splice(index, 1);
+      }
     }
-    if (this.martes == true) {
+    if (this.martes) {
       this.oferta.dias.push("Martes");
+    }else{
+      const index = this.oferta.dias.indexOf("Martes");
+      if (index !== -1) {
+        this.oferta.dias.splice(index, 1);
+      }
     }
-    if (this.miercoles == true) {
+    if (this.miercoles) {
       this.oferta.dias.push("Miercoles");
+    }else{
+      const index = this.oferta.dias.indexOf("Miercoles");
+      if (index !== -1) {
+        this.oferta.dias.splice(index, 1);
+      }
     }
-    if (this.jueves == true) {
+    if (this.jueves) {
       this.oferta.dias.push("Jueves");
+    }else{
+      const index = this.oferta.dias.indexOf("Jueves");
+      if (index !== -1) {
+        this.oferta.dias.splice(index, 1);
+      }
     }
-    if (this.viernes == true) {
+    if (this.viernes) {
       this.oferta.dias.push("Viernes");
+    }else{
+      const index = this.oferta.dias.indexOf("Viernes");
+      if (index !== -1) {
+        this.oferta.dias.splice(index, 1);
+      }
     }
-    if (this.sabado == true) {
+    if (this.sabado) {
       this.oferta.dias.push("Sabado");
+    }else{
+      const index = this.oferta.dias.indexOf("Sabado");
+      if (index !== -1) {
+        this.oferta.dias.splice(index, 1);
+      }
     }
-    if (this.domingo == true) {
+    if (this.domingo) {
       this.oferta.dias.push("Domingo");
+    }else{
+      const index = this.oferta.dias.indexOf("Domingo");
+      if (index !== -1) {
+        this.oferta.dias.splice(index, 1);
+      }
     }
   }
 
@@ -136,6 +192,32 @@ export class OfertaFormComponent implements OnInit {
         reader.readAsDataURL(file);
       }
     }
-
   }
+
+  cargarOferta(id: string) {
+    this.ofertaService.obtenerOferta(id).subscribe(
+      result => {
+        result.forEach((element: any) => {
+          Object.assign(this.oferta, element);
+          this.cargarDias()
+        });
+      },
+      error => {
+        this.toastrService.error("Error: ", error);
+      }
+    );
+  }
+
+  modificarOferta() {
+    this.agregarDiasToOferta();
+    this.ofertaService.modificarOferta(this.oferta).subscribe(
+      result => {
+        this.toastrService.success("Oferta modificada correctamente");
+      },
+      error => {
+        this.toastrService.error("Error:", error);
+      }
+    );
+  }
+
 }
