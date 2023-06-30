@@ -70,16 +70,16 @@ clienteCtrl.deleteCliente = async (request, response) => {
 clienteCtrl.editCliente = async (request, response) => {
     const vacliente = new Cliente(request.body);
     try {
-        await Cliente.updateOne({ _id: request.body._id }, vacliente);
+        await Cliente.updateOne({ _id: request.params.id }, vacliente);
         response.json({
             status: '1',
             msg: 'Cliente modificado exitosamente.'
         });
     }
     catch (error) {
-        res.status(500).json({
+        response.status(500).json({
             status: '0',
-            msg: 'Error modificado el cliente.',
+            msg: 'Error al modificar el cliente.',
             error: error.message
         });
     }
@@ -115,7 +115,21 @@ clienteCtrl.getClientes = async (request, response) => {
  */
 clienteCtrl.getClienteById = async (request, response) => {
     try {
-        const cliente = await Cliente.findOne({ _id: request.params.id, estado:true }).populate('usuario');
+        const cliente = await Cliente.findOne({ _id: request.params.id }).populate('usuario');
+        response.json(cliente);
+    }
+    catch (error) {
+        response.status(500).json({
+            status: '0',
+            msg: 'Error obteniendo el cliente.',
+            error: error.message
+        });
+    }
+}
+
+clienteCtrl.getClienteByUserId = async (request, response) => {
+    try {
+        const cliente = await Cliente.findOne({ usuario : request.params.id }).populate({ path: 'usuario', populate: { path: 'rol' } });
         response.json(cliente);
     }
     catch (error) {

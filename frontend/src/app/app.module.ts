@@ -4,7 +4,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginService } from './services/login.service';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './components/login/login.component';
 import { HomeComponent } from './components/home/home.component';
 import { HeaderComponent } from './components/header/header.component';
@@ -19,6 +19,8 @@ import { OfertaComponent } from './components/oferta/oferta.component';
 import { OfertaGestionComponent } from './components/oferta-gestion/oferta-gestion.component';
 import { OfertaFormComponent } from './components/oferta-form/oferta-form.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { TokenInterceptorService } from './services/token-interceptor.service';
+import { PerfilUsuarioComponent } from './components/perfil-usuario/perfil-usuario.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +35,8 @@ import { FooterComponent } from './components/footer/footer.component';
     OfertaComponent,
     OfertaGestionComponent,
     OfertaFormComponent,
-    FooterComponent
+    FooterComponent,
+    PerfilUsuarioComponent
   ],
   imports: [
     BrowserModule,
@@ -44,7 +47,14 @@ import { FooterComponent } from './components/footer/footer.component';
     BrowserAnimationsModule,
     ToastrModule.forRoot()
   ],
-  providers: [LoginService],
+  providers: [
+    LoginService, 
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptorService,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

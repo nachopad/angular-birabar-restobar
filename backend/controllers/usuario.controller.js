@@ -6,6 +6,9 @@ const Usuario = require('../models/usuario');
  */
 const usuarioCtrl = {}
 
+const jwt = require('jsonwebtoken');
+
+
 /**
  * Crea un nuevo usuario.
  * @async
@@ -19,12 +22,6 @@ usuarioCtrl.createUsuario = async (request, response) => {
     var usuario = new Usuario(request.body);
     try {
         await usuario.save()
-        /*
-        response.status(201).json({
-            status: '1',
-            msg: 'Usuario creado y guardado exitosamente.'
-        })
-        */
         .then(savedUsuario => {
             const userId = savedUsuario._id.toString();
             response.status(201).json({
@@ -154,12 +151,14 @@ usuarioCtrl.loginUsuario = async (request, response) => {
         msg: "Usuario no encontrado." })
     }
     else{
+        const unToken = jwt.sign({id: usuario._id}, "secretkey");
         response.json({
             status: 1,
             msg: 'Usuario logueado correctamente.',
             username: usuario.user,
             rol: usuario.rol.nombre,
-            userid: usuario._id
+            userid: usuario._id,
+            token: unToken
         });
     }
   }

@@ -8,13 +8,16 @@ import { ProductoFormComponent } from './components/producto-form/producto-form.
 import { OfertaComponent } from './components/oferta/oferta.component';
 import { OfertaGestionComponent } from './components/oferta-gestion/oferta-gestion.component';
 import { OfertaFormComponent } from './components/oferta-form/oferta-form.component';
+import { PerfilUsuarioComponent } from './components/perfil-usuario/perfil-usuario.component';
+import { LoginGuardGuard } from './guards/login-guard.guard';
 
 const routes: Routes = [
   {path:"", redirectTo:"principal",pathMatch:"full"},
   { path: 'principal', component: HomeComponent},
   { path: 'login', component: LoginComponent },
   { path: 'registro', component: RegistroClienteComponent },
-  { path: 'login', component: LoginComponent }, 
+  { path: 'login', component: LoginComponent },
+  { path: 'perfil', component: PerfilUsuarioComponent , canActivate: [LoginGuardGuard]},
   {path: 'alta-categoria/:id', component: CategoriaFormComponent},
   {path:'alta-producto/:id', component:ProductoFormComponent},
   {path:"oferta", component:OfertaComponent},

@@ -7,6 +7,7 @@ import { RegistroService } from 'src/app/services/registro.service';
 import 'sweetalert2/src/sweetalert2.scss';
 import Swal from 'sweetalert2';
 import { ToastrService } from 'ngx-toastr';
+import { UsuarioService } from 'src/app/services/usuario.service';
 
 @Component({
   selector: 'app-registro-cliente',
@@ -32,7 +33,7 @@ export class RegistroClienteComponent implements OnInit {
  * @param toastrService - Servicio de Toastr para mostrar mensajes.
  */
   constructor(private registerService: RegistroService, private toastrService: ToastrService,
-              private webTitle: Title) {
+              private usuarioService: UsuarioService ,private webTitle: Title) {
     this.usuario = new Usuario();
     this.cliente = new Cliente();
     this.obtenerRol();
@@ -71,7 +72,7 @@ export class RegistroClienteComponent implements OnInit {
  */
   async obtenerUsuario(): Promise<void> {
     return new Promise<void>((resolve, reject) => {
-      this.registerService.getUsuarioById(this.user_id).subscribe(
+      this.usuarioService.getUsuarioById(this.user_id).subscribe(
         (result) => {
           let usuario_registrado = new Usuario();
           Object.assign(usuario_registrado, result);

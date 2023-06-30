@@ -30,6 +30,7 @@ export class LoginComponent implements OnInit {
         (result) => {
           var user = result;
           if (user.status == 1) {
+            sessionStorage.setItem("token", user.token);
             sessionStorage.setItem("user", user.username);
             sessionStorage.setItem("userid", user.userid);
             sessionStorage.setItem("rol", user.rol);
