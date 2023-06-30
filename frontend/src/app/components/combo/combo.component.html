@@ -1,0 +1,19 @@
+
+<div class="black-background  p-5">
+  <div class="container">
+      <div class="row">
+          <article class="col-9 ">
+              <div class="row">
+                  <div class="col-xl-3 col-md-6 col-sm-12 col-4 g-2" *ngFor="let combo of combos">
+                      <button class="form-control bg-white text-white producto"><img src="https://www.foodnavigator.com/var/wrbm_gb_food_pharma/storage/images/5/3/9/7/1637935-1-eng-GB/McDonald-s-accreditation-boosts-MAXStick-labels-kudos.jpg" class="card-img-top"> 
+                          <div>
+                              <p class="text-black">{{combo.titulo}}</p>
+                              <p class="text-black">{{combo.montoFinal | currency:'':'symbol':'0.0-4'}}</p>
+                          </div>
+                      </button>
+                  </div>
+              </div>
+          </article>
+      </div>
+  </div>
+</div>

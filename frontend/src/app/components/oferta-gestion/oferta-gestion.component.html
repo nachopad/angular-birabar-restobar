@@ -1,0 +1,47 @@
+<div class="black-background text-light">
+    <div class="container pt-4 pb-5">
+        <h4 class="text-center mb-3">Gestión de Ofertas</h4>
+        <div class="input-group mb-4">
+            <a class="btn green-background bi bi-plus-circle" href="/oferta-form/0"> Crear oferta</a>
+            <button class="btn green-background bi bi-search" type="button"> Buscar oferta</button>
+            <input type="text" class="form-control"
+                placeholder="Ingresar el nombre de una oferta a buscar. Ejemplo: Happy Hour">
+        </div>
+        <div class="text-center border rounded-3 m-auto p-5" style="width: 300px;" *ngIf="ofertas.length==0">
+            <h4 class="bi bi-exclamation-octagon"></h4>
+            <h6 class="mb-3">No existen ofertas.</h6>
+            <a class="btn green-background bi bi-plus-circle" href="/oferta-form/0"> Crear oferta</a>
+        </div>
+        <div class="text-center table-responsive" *ngIf="ofertas.length!=0">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Titulo</th>
+                        <th scope="col">Días</th>
+                        <th scope="col">Desde</th>
+                        <th scope="col">Hasta</th>
+                        <th scope="col">Precio</th>
+                        <th scope="col">Opciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let oferta of ofertas">
+                        <td>{{oferta.titulo}}</td>
+                        <td>
+                            <span class="pe-2">{{oferta.dias}}</span>
+                        </td>
+                        <td>{{oferta.desde}}</td>
+                        <td>{{oferta.hasta}}</td>
+                        <td>{{oferta.precio | currency:'$':'symbol':'1.0-2'}}</td>
+                        <td style="font-size: 18px;">
+                            <a class="btn btn-primary bi bi-pencil-square" href="/oferta-form/{{oferta._id}}"
+                                style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .4rem; --bs-btn-font-size: .75rem; margin-right: 3px;"></a>
+                            <a class="btn btn-danger bi bi-trash3" (click)="borrarOferta(oferta._id)"
+                                style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .4rem; --bs-btn-font-size: .75rem; margin-top: 0;"></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,67 @@
+<div class="container-fluid black-background">
+    <div class="row">
+            <div class="col-md-3 pt-3 d-grid justify-content-center ">
+                <div class="text-center">
+                    <div class="text-start p-2">
+                        <button type="submit" class="btn btn-dark bg-gradient rounded-3 text-white fw-bold producto" (click)="salir()">Salir</button>
+                    </div>
+                    <div class="card  black-background text-white">
+                        <h3 class="text-white fw-bold">Categoria</h3>
+                    <img [src]="categoria.imagen" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">{{categoria.nombreCategoria}}</h5>
+                        <div class="row g-1">
+                            <p>Operacion que puede realizar a la categoria</p>
+                            <div class="col-xl-6 col-md-12 col-sm-12 col-12">
+                                <button type="submit" class="btn btn-success bg-gradient rounded-3 text-white fw-bold producto" (click)="editarCategoria(categoria._id)">Editar</button>
+                            </div>
+                            <div class="col-xl-6 col-md-12 col-sm-12 col-12">
+                                <button type="submit" class="btn btn-danger bg-gradient rounded-3 text-white fw-bold producto" (click)="eliminarCategoria(categoria._id)">Eliminar</button>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-9 d-grid justify-content-center">
+                <div class="row p-5 container">
+                    <div class="row g-0 pt-5">
+                        <div class="row">
+                            <div class="col-4">
+                                <div class="col-md-12 col-sm-12 col-12">
+                                    <button type="submit" class="btn btn-dark bg-gradient rounded-3 text-white fw-bold producto" (click)="registrarProducto()">Registrar Producto</button>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <h4 class="text-center fw-bold text-white fw-bold">Lista de Productos</h4>
+                            </div>
+                        </div>
+                    </div>
+                    
+                        <div class="card col-xl-4 col-md-6 col-sm-12 col-12 text-center g-3 black-background bg-gradient text-white" *ngFor="let producto of listaProductos">
+                            <img [src]="producto.imagen" class="card-img-top" alt="...">
+                            <div class="card-body">
+                            <h5 class="card-title">{{producto.nombreProducto}}</h5>
+                            <p class="card-text">{{producto.descripcion}}</p>
+                            </div>
+                            
+                            <p class="">{{producto.precio | currency:'':'symbol':'0.0-4'}}</p>
+                            
+                            <div class="card-body">
+                                <div class="row g-1">
+                                    <div class="col-md-12 col-sm-12 col-12">
+                                        <button type="submit" class="btn btn-success bg-gradient rounded-3 text-white fw-bold producto" (click)="editarProducto(producto._id)">Editar</button>
+                                    </div>
+                                    <div class="col-md-12 col-sm-12 col-12">
+                                        <button type="submit" class="btn btn-danger bg-gradient rounded-3 text-white fw-bold producto" (click)="eliminarProducto(producto._id)">Eliminar</button>
+                                    </div>
+                                </div> 
+                            </div>
+                        </div>
+                </div>
+            </div>
+    </div>
+</div>
+
+
+

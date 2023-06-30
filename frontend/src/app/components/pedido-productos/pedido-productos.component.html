@@ -1,0 +1,95 @@
+<div class="black-dark-background">
+    <div class="container p-4 text-center">
+        <legend class="text-white mb-4">¿Qué vas a pedir hoy?</legend>
+        <div class="mb-4">
+            <a class="link-light link-underline-opacity-25 link-underline-opacity-100-hover" data-bs-toggle="modal"
+                data-bs-target="#exampleModal" *ngIf="productos.length != 0">
+                <i class="fa-solid fa-pizza-slice me-2" style="color: white;"></i>
+                Ver mi pedido.
+            </a>
+
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                    <div class="modal-content text-white black-dark-background">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel"><i class="bi bi-basket"></i> Tu pedido
+                            </h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div *ngIf="detalleProductos.length == 0">
+                                <i style="font-size: medium;">No tenés productos seleccionados.</i>
+                            </div>
+
+                            <div *ngIf="detalleProductos.length != 0">
+                                <table class="" style="width: 100%;">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" colspan="2">Producto</th>
+                                            <th scope="col">Precio unidad</th>
+                                            <th scope="col">Cantidad</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody *ngFor="let d of detalleProductos">
+                                        <tr>
+                                            <th scope="row"><img src="{{d.producto.imagen}}" height="50rem"></th>
+                                            <td>{{d.producto.nombreProducto}}</td>
+                                            <td>{{d.producto.precio | currency: '$'}}</td>
+                                            <td>{{d.cantidad}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <p class="text-start" *ngIf="calcularTotal()!=0">Total: {{calcularTotal() | currency: '$'}}
+                            </p>
+                            <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Volver</button>
+                            <button type="button" class="btn btn-success" data-bs-dismiss="modal"
+                                [disabled]="detalleProductos.length == 0" (click)="guardarPedido()">Finalizar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row " *ngIf="productos.length != 0">
+            <div class="col-md-6" *ngFor="let p of productos">
+                <div class="card mb-3" style="max-width: 540px;">
+                    <div class="row g-0">
+                        <div class="col-sm-5">
+                            <div class="image-container">
+                                <img src="{{p.imagen}}" alt="..." class="img-fluid">
+                            </div>
+                        </div>
+
+                        <div class="col-sm-7">
+                            <div class="card-body">
+                                <h5 class="card-title">{{p.nombreProducto}}</h5>
+                                <p class="card-text">{{p.descripcion}}</p>
+                                <p class="card-text"><small class="card-text">{{p.precio | currency: '$'}}</small></p>
+                                <div class="row justify-content-center align-items-center">
+                                    <div class="col-5 text-end">
+                                        <button type="button" class="btn btn-prods" (click)="quitarDelPedido(p)"><i
+                                                class="bi bi-dash-circle"></i></button>
+                                    </div>
+                                    <div class="col-2 text-center">
+                                        {{calcularCantidad(p._id)}}
+                                    </div>
+                                    <div class="col-5 text-start">
+                                        <button type="button" class="btn btn-prods" (click)="agregarAlPedido(p)"><i
+                                                class="bi bi-plus-circle"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="productos.length == 0">
+            <img src="./../../../assets/images/pedidos/lupulo.png" alt="" class="img-fluid img-opacity" width="150px">
+            <p class="mt-4 text-white"><i style="font-size: medium;">Lo sentimos, no hay productos disponibles por el momento.</i></p>
+        </div>
+    </div>
+</div>
