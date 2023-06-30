@@ -64,14 +64,17 @@ export class ComboFormComponent implements OnInit {
 
   perteneceProducto(producto:Producto):boolean
   {
-   let result = this.combo.productos.indexOf(producto);
-   return result>=0;
+    return this.combo.productos.some((element: Producto) => element._id === producto._id);
+
+
   }
 
   eliminarProducto(p:Producto)
   {
-    this.combo.productos.splice( this.combo.productos.indexOf(p), 1);
-    this.precioLista -= p.precio;
+    const index = this.combo.productos.findIndex((element: Producto) => element._id === p._id);
+  if (index !== -1) {
+    this.combo.productos.splice(index, 1);
+  }
   }
 
   agregarProducto(p:Producto)
