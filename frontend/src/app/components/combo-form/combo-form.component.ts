@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Combo } from 'src/app/models/combo';
 import { Producto } from 'src/app/models/producto';
@@ -21,14 +21,15 @@ export class ComboFormComponent implements OnInit {
   descuentoSeleccionado="";
   constructor(private router:ActivatedRoute, private productoService:ProductoService, 
               private comboService:ComboService, private toast:ToastrService,
-              private webTitle: Title) {
+              private webTitle: Title,
+              private route:Router) {
     
    }
 
   ngOnInit(): void {
     this.webTitle.setTitle("Birabar - Crear combo");
     this.precioLista = 0;
-   this.productos=new Array<Producto>();
+    this.productos=new Array<Producto>();
     this.cargarProductos();
     this.router.params.subscribe(params => {
       this.combo=new Combo();
@@ -77,21 +78,41 @@ export class ComboFormComponent implements OnInit {
     const index = this.combo.productos.findIndex((element: Producto) => element._id === p._id);
   if (index !== -1) {
     this.combo.productos.splice(index, 1);
+    this.calcularPrecioLista();
+    this.calcularMontoFinal();
   }
+  if(this.combo.productos.length==0)
+   {
+    this.precioLista=0; 
+    this.combo.montoFinal = 0; 
+    this.combo.descuento = 0; 
+   }
+
   }
 
   agregarProducto(p:Producto)
   {
     this.combo.productos.push(p);
-    this.precioLista += p.precio;
+   this.calcularPrecioLista();
+   this.calcularMontoFinal();
+  }
+
+  calcularPrecioLista():void{
+    const acumulado = this.combo.productos.reduce((total, producto) => total + producto.precio, 0);
+   this.precioLista = acumulado; 
   }
 
   registrarProducto():void{
     this.calcularMontoFinal();
+    this.combo.productos.forEach((element)=>
+    {
+      element.imagen="";
+    })
     this.comboService.registrarCombo(this.combo).subscribe(
       result=>
       {
        this.toast.success("El combo fue registrado correctamente")
+       this.route.navigateByUrl("comboGestion")
       },
       error=>
       {
@@ -115,6 +136,7 @@ export class ComboFormComponent implements OnInit {
     result=>
     {
       Object.assign(this.combo,result);
+      this.calcularPrecioLista();
     },
     error=>
     {
@@ -128,7 +150,8 @@ editarCombo()
   this.comboService.editarCombo(this.combo).subscribe(
     result=>
     {
-      this.toast.success("Editado correctamente")
+      this.toast.success("Editado correctamente");
+      this.route.navigateByUrl("comboGestion");
     },
     error=>
     {

@@ -21,17 +21,16 @@
                         <th scope="col">Titulo</th>
                         <th scope="col">Descuento</th>
                         <th scope="col">Precio Final</th>
-                        <th scope="col">Productos</th>
                         <th scope="col">Opciones</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let combo of combos ">
-                        <th scope="row"></th>
+                    <tr *ngFor="let combo of combos ;index as i">
+                        <th scope="row">{{i+1}}</th>
                         <td>{{combo.titulo}}</td>
                         <td>{{combo.descuento*100}}%</td>
-                        <td>{{combo.montoFinal}}</td>
-                        <td>Productos</td>
+                        <td>${{combo.montoFinal}}</td>
+                        
                         <td style="font-size: 18px;">
                             <a class="btn btn-primary bi bi-pencil-square" [routerLink]="['/combo-form/'+combo._id]"
                                 style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .4rem; --bs-btn-font-size: .75rem; margin-right: 3px;"></a>

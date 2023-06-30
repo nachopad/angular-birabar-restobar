@@ -33,18 +33,13 @@
 
                             <div class="row">
                                 <div class="col-4 col-lg-3" *ngFor="let p of combo.productos">
-
-
-
                                     <div class="card preview-producto mb-3">
-
                                         <div class="delete-producto d-flex" (click)="eliminarProducto(p)">
                                             <img src="assets/images/check/delete.png" alt=""
                                                 class="img-fluid icon-delete">
                                         </div>
-
                                         <img class="card-img-top"
-                                            src="https://www.foodnavigator.com/var/wrbm_gb_food_pharma/storage/images/5/3/9/7/1637935-1-eng-GB/McDonald-s-accreditation-boosts-MAXStick-labels-kudos.jpg"
+                                        [src]="p.imagen"
                                             alt="Card image cap">
 
                                     </div>
@@ -63,9 +58,9 @@
                         <div class="col-md-6">
                             <label class="form-text text-secondary" for="tituloCombo">Nombre del combo:</label>
                             <input type="text" class="form-control" id="tituloCombo" name="tituloCombo"
-                                placeholder="texto ejemplo" autocomplete="off" [(ngModel)]="combo.titulo" required
+                                placeholder="Ingrese Nombre del Combo" autocomplete="off" [(ngModel)]="combo.titulo" required
                                 #titulo="ngModel">
-                            <div *ngIf="titulo.invalid && titulo.dirty" class="text-danger">
+                            <div *ngIf="titulo.invalid && (titulo.dirty || titulo.touched)" class="text-danger">
                                 <div *ngIf="titulo.errors?.['required']">
                                     El nombre es requerido.
                                 </div>
@@ -100,13 +95,12 @@
                             <div class="col-10" *ngIf="descuentoSeleccionado === 'porcentaje'">
                                 <label class="visually-hidden" for="specificSizeSelect">Descuento %: </label>
                                 <select class="form-select" id="specificSizeSelect" name="porcentajeDescuento"
-                                    [(ngModel)]="combo.descuento">
+                                    [(ngModel)]="combo.descuento" (change)="calcularMontoFinal()">
                                     <option value="0.1">10%</option>
                                     <option value="0.2">20%</option>
                                     <option value="0.3">30%</option>
                                     <option value="0.4">40%</option>
                                     <option value="0.5">50%</option>
-                                    <option value="">Otro</option>
                                 </select>
                             </div>
 
@@ -117,7 +111,7 @@
                             <div class="col-md-10" *ngIf="descuentoSeleccionado === 'final'">
                                 <input type="number" class="form-control" name="titulo"
                                     placeholder="monto final del combo" [max]="precioLista-1"
-                                    [(ngModel)]="combo.montoFinal" #precio="ngModel">
+                                    [(ngModel)]="combo.montoFinal" #precio="ngModel"  (input)="calcularMontoFinal()" >
                                 <div *ngIf="precio.invalid && precio.dirty" class="text-danger">
                                     <div *ngIf="precio.errors?.['max']">
                                         El monto final no puede ser mayor o igual al precio Lista
@@ -146,12 +140,12 @@
                             </div>
 
                             <div>
-                                <span>Precio Final:</span>
+                                <span>Precio Final: ${{combo.montoFinal}}</span>
                             </div>
 
 
                             <div>
-                                <span>Descuento Aplicado:</span>
+                                <span>Descuento Aplicado: {{combo.descuento*100}}%</span>
                             </div>
 
 
@@ -163,7 +157,7 @@
                                 [disabled]="!comboForm.valid || combo.productos.length==0"
                                 (click)="registrarProducto()">Crear</button>
                             <button *ngIf="accion=='update'" type="submit"
-                                class="btn btn-light bi bi-pencil-square me-1" (click)="editarCombo()" >Modificar</button>
+                                class="btn btn-light bi bi-pencil-square me-1" (click)="editarCombo()"  [disabled]="!comboForm.valid || combo.productos.length==0">Modificar</button>
                             <a [href]="['comboGestion']" class="btn btn-light bi bi-arrow-left"> Volver</a>
                         </div>
 
@@ -196,12 +190,7 @@
                     <div class="row">
 
 
-                        <div class="col-12 mb-3 d-flex gap-4">
-                            <input type="text" class="form-control" name="titulo" placeholder="texto ejemplo"
-                                autocomplete="off">
-                            <button class="btn btn-primary">Buscar</button>
-                        </div>
-
+                      
                         <div class="col-12">
                             <!--filtro-->
                         </div>
@@ -212,10 +201,10 @@
                                     <img src="assets/images/check/check.png" alt="" class="img-fluid">
                                 </div>
                                 <img class="card-img-top"
-                                    src="https://www.foodnavigator.com/var/wrbm_gb_food_pharma/storage/images/5/3/9/7/1637935-1-eng-GB/McDonald-s-accreditation-boosts-MAXStick-labels-kudos.jpg"
+                                   [src]="p.imagen"
                                     alt="Card image cap">
                                 <div class="card-body">
-                                    <h5 class="card-title">Card title</h5>
+                                    <h5 class="card-title">{{p.nombreProducto}}</h5>
                                 </div>
                             </div>
                         </div>
