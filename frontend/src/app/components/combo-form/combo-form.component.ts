@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
-import { error } from 'console';
 import { ToastrService } from 'ngx-toastr';
 import { Combo } from 'src/app/models/combo';
 import { Producto } from 'src/app/models/producto';
