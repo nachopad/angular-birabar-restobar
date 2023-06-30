@@ -19,6 +19,9 @@ app.use('/api/combo', require('./routes/combo.route.js'));
 app.use('/api/producto', require('./routes/producto.route.js'));
 app.use('/api/categoria', require('./routes/categoria.route.js'));
 app.use('/api/oferta', require('./routes/oferta.route.js'));
+app.use('/api/pedido', require('./routes/pedido.route'));
+app.use('/api/calificacion', require('./routes/calificacion.route'));
+app.use('/api/detalle-producto', require('./routes/detalleProducto.route'));
 
 //setting
 app.set('port', process.env.PORT || 3000);

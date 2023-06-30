@@ -27,6 +27,9 @@ import { ComboFormComponent } from './components/combo-form/combo-form.component
 import { ComboComponent } from './components/combo/combo.component';
 import { ComboGestionComponent } from './components/combo-gestion/combo-gestion.component';
 import { NoAccessComponent } from './components/no-access/no-access.component';
+import { PedidoComponent } from './components/pedido/pedido.component';
+import { PedidoProductosComponent } from './components/pedido-productos/pedido-productos.component';
+import { PedidoCalificacionComponent } from './components/pedido-calificacion/pedido-calificacion.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +51,10 @@ import { NoAccessComponent } from './components/no-access/no-access.component';
     ComboFormComponent,
     ComboComponent,
     ComboGestionComponent,
-    NoAccessComponent
+    NoAccessComponent,
+    PedidoComponent,
+    PedidoProductosComponent,
+    PedidoCalificacionComponent
   ],
   imports: [
     BrowserModule,
