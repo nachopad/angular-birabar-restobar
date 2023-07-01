@@ -3,14 +3,14 @@
     <h4 class="text-center">Ofertas Disponibles</h4>
     <div class="row justify-content-center">
       <div class="col-xl-3 col-md-4 col-12 d-flex justify-content-center align-items-center"
-        *ngFor="let oferta of ofertas" (click)="ofertaModal=oferta" data-bs-toggle="modal"
-        data-bs-target="#modalOferta">
-        <div class="oferta text-center">
+        *ngFor="let oferta of ofertas">
+        <div class="oferta text-center" (click)="cargarProductos(oferta)" data-bs-toggle="modal"
+          data-bs-target="#modalOferta">
           <p class="form-text text-light mb-1">{{oferta.titulo}}</p>
           <div style="height: 200px;width:200px;">
             <img [src]="oferta.imagen" class="object-fit-cover rounded-1 h-100 w-100" style="height: 100%;width: 100%;">
           </div>
-          <small>Precio: {{oferta.precio | currency:'$':'symbol':'1.0-2'}}</small>
+          <small>{{oferta.precio | currency:'$'}}</small>
         </div>
       </div>
     </div>
@@ -29,6 +29,21 @@
         <p><b>Desde las: </b>{{ofertaModal.desde}}</p>
         <p><b>Hasta las: </b>{{ofertaModal.hasta}}</p>
         <p><b>Descripción: </b>{{ofertaModal.descripcion}}</p>
+        <table class="text-center" style="width: 100%;">
+          <thead>
+            <tr>
+              <th scope="col" colspan="2">Producto</th>
+              <th scope="col">Precio unidad</th>
+            </tr>
+          </thead>
+          <tbody *ngFor="let d of productosModal">
+            <tr>
+              <th scope="row"><img src="{{d.imagen}}" height="50px" width="50px" class="object-fit-cover"></th>
+              <td>{{d.nombreProducto}}</td>
+              <td>{{d.precio | currency: '$'}}</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

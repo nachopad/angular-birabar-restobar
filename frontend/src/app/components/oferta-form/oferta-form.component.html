@@ -126,7 +126,7 @@
             <div class="modal-dialog modal-sm">
                 <div class="modal-content black-background">
                     <div class="modal-header">
-                        <!-- <h1 class="modal-title fs-5">Vista Previa</h1> -->
+                        <h1 class="modal-title fs-5">Vista Previa</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -180,9 +180,8 @@
                                         <div class="card-body">
                                             <h5 class="card-title">{{p.nombreProducto}}</h5>
                                             <p class="card-text">{{p.descripcion}}</p>
-                                            <p class="card-text text-body-secondary">{{p.precio |
-                                                currency:'$':'symbol':'1.0-2'}}</p>
-                                            <a class="btn btn-dark" (click)="agregarProductoToOferta(p)">Agregar</a>
+                                            <p class="card-text text-body-secondary">{{p.precio | currency:'$'}}</p>
+                                            <button type="button" class="btn btn-dark bi bi-plus-circle" (click)="agregarProductoToOferta(p)"> Agregar</button>
                                         </div>
                                     </div>
                                 </div>
@@ -198,9 +197,8 @@
                                         <div class="card-body">
                                             <h5 class="card-title">{{p.nombreProducto}}</h5>
                                             <p class="card-text">{{p.descripcion}}</p>
-                                            <p class="card-text text-body-secondary">{{p.precio |
-                                                currency:'$':'symbol':'1.0-2'}}</p>
-                                            <a class="btn btn-danger" (click)="quitarProductoToOferta(p._id)">Quitar</a>
+                                            <p class="card-text text-body-secondary">{{p.precio | currency:'$'}}</p>
+                                            <button class="btn btn-danger bi bi-dash-circle" (click)="quitarProductoToOferta(p._id)"> Quitar</button>
                                         </div>
                                     </div>
                                 </div>

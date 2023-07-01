@@ -3,7 +3,7 @@ const Oferta = require('../models/oferta');
 const ofertaCtrl = {}
 
 ofertaCtrl.getOfertas = async (req, res) => {
-    var ofertas = await Oferta.find({estado:true}).populate("productos");
+    var ofertas = await Oferta.find({estado:true});
     res.json(ofertas);
 }
 
