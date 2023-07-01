@@ -8,7 +8,7 @@
         <div class="oferta text-center">
           <p class="form-text text-light mb-1">{{oferta.titulo}}</p>
           <div style="height: 200px;width:200px;">
-            <img [src]="oferta.imagen" class="object-fit-cover rounded-1" style="height: 100%;width: 100%;">
+            <img [src]="oferta.imagen" class="object-fit-cover rounded-1 h-100 w-100" style="height: 100%;width: 100%;">
           </div>
           <small>Precio: {{oferta.precio | currency:'$':'symbol':'1.0-2'}}</small>
         </div>
@@ -18,7 +18,7 @@
 </div>
 <div class="modal fade" id="modalOferta" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-dialog-scrollable">
-    <div class="modal-content">
+    <div class="modal-content black-background text-white">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="exampleModalLabel"><b>{{ofertaModal.titulo}}</b></h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>

@@ -16,6 +16,7 @@
             <table class="table">
                 <thead>
                     <tr>
+                        <th scope="col">Imagen</th>
                         <th scope="col">Titulo</th>
                         <th scope="col">Días</th>
                         <th scope="col">Desde</th>
@@ -26,6 +27,7 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let oferta of ofertas">
+                        <td><img [src]="oferta.imagen" style="width: 30px;height:30px;"></td>
                         <td>{{oferta.titulo}}</td>
                         <td>
                             <span class="pe-2">{{oferta.dias}}</span>

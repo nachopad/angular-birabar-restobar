@@ -22,6 +22,8 @@
     transform: translateY(-3%);
 }
 
-.text-green{
-    color: #1fd08f;
+.modal-header,
+.modal-body,
+.modal-footer {
+  border-color: #141a24;
 }
