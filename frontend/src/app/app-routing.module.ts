@@ -20,6 +20,9 @@ import { GestionProductosComponent } from './components/gestion-productos/gestio
 import { ListaProductosComponent } from './components/lista-productos/lista-productos.component';
 import { PedidoComponent } from './components/pedido/pedido.component';
 import { PedidoProductosComponent } from './components/pedido-productos/pedido-productos.component';
+import { UsuarioFormComponent } from './components/usuario-form/usuario-form.component';
+import { UsuarioGestionComponent } from './components/usuario-gestion/usuario-gestion.component';
+import { AdminGuardGuard } from './guards/admin-guard.guard';
 
 const routes: Routes = [
   { path: "", redirectTo: "principal", pathMatch: "full" },
@@ -36,12 +39,13 @@ const routes: Routes = [
   { path:"combo-form/:id", component:ComboFormComponent, canActivate: [GestorGuardGuard]},
   { path:"combos", component:ComboComponent},
   { path:"comboGestion", component:ComboGestionComponent, canActivate: [GestorGuardGuard]},
-  {path:'gestion-productos', component:GestionProductosComponent, canActivate: [GestorGuardGuard]},
-  {path:'gestion-categoria-producto/:id', component:GestionCategoriaProductoComponent, canActivate: [GestorGuardGuard]},
-  {path:'lista-productos', component:ListaProductosComponent},
-
+  { path:'gestion-productos', component:GestionProductosComponent, canActivate: [GestorGuardGuard]},
+  { path:'gestion-categoria-producto/:id', component:GestionCategoriaProductoComponent, canActivate: [GestorGuardGuard]},
+  { path:'lista-productos', component:ListaProductosComponent},
   { path: 'mis-pedidos', component: PedidoComponent },
-  { path: 'mis-pedidos/productos/:modalidad', component: PedidoProductosComponent }
+  { path: 'mis-pedidos/productos/:modalidad', component: PedidoProductosComponent },
+  { path: 'usuario-form/:id', component: UsuarioFormComponent, canActivate: [AdminGuardGuard]},
+  { path: 'usuarioGestion', component: UsuarioGestionComponent, canActivate: [AdminGuardGuard]}
 ];
 
 @NgModule({

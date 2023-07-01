@@ -30,6 +30,8 @@ import { NoAccessComponent } from './components/no-access/no-access.component';
 import { PedidoComponent } from './components/pedido/pedido.component';
 import { PedidoProductosComponent } from './components/pedido-productos/pedido-productos.component';
 import { PedidoCalificacionComponent } from './components/pedido-calificacion/pedido-calificacion.component';
+import { UsuarioGestionComponent } from './components/usuario-gestion/usuario-gestion.component';
+import { UsuarioFormComponent } from './components/usuario-form/usuario-form.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +56,9 @@ import { PedidoCalificacionComponent } from './components/pedido-calificacion/pe
     NoAccessComponent,
     PedidoComponent,
     PedidoProductosComponent,
-    PedidoCalificacionComponent
+    PedidoCalificacionComponent,
+    UsuarioGestionComponent,
+    UsuarioFormComponent
   ],
   imports: [
     BrowserModule,

@@ -122,4 +122,25 @@ rolCtrl.getRolById = async (request, response) => {
     }
 }
 
+/**
+ * Obtiene un rol existente por su nombre.
+ * @function getRolByName
+ * @param {Object} request - Objeto de solicitud de Express.
+ * @param {Object} response - Objeto de respuesta de Express.
+ * @returns {Promise<void>} Una promesa que resuelve cuando se obtiene el rol y se envía la respuesta.
+ */
+rolCtrl.getRolByName = async (request, response) => {
+    try {
+        const rol = await Rol.findOne({nombre: request.params.nombre, estado:true});
+        response.json(rol);
+    }
+    catch (error) {
+        response.status(500).json({
+            status: '0',
+            msg: 'Error obteniendo el rol.',
+            error: error.message
+        });
+    }
+}
+
 module.exports = rolCtrl;

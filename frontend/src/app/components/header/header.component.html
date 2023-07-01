@@ -1,6 +1,8 @@
 <nav class="navbar navbar-expand-lg black-background bg-gradient">
   <div class="container-fluid">
-    <img src="../../../assets/images/homepage/birabar-logo.png" alt="Birabar" class="custom-logo">
+    <a [routerLink]="['principal']">
+      <img src="../../../assets/images/homepage/birabar-logo.png" alt="Birabar" class="custom-logo">
+    </a>
     <span class="text-warning fw-semibold" *ngIf="(loginService.rolLogged()==='Gestor')">GESTIÓN</span>
     <span class="text-info fw-semibold" *ngIf="(loginService.rolLogged()==='Administrador')">ADMINISTRACIÓN</span>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -28,10 +30,7 @@
           <a class="nav-link dropdown-toggle text-white fs-6 mx-4" role="button" data-bs-toggle="dropdown" aria-expanded="false" [routerLink]="['ofertaGestion']">Gestion Ofertas</a>
         </li>
         <li class="nav-item dropdown" *ngIf="(loginService.rolLogged()==='Administrador')">
-          <a class="nav-link dropdown-toggle text-white fs-6 mx-4" role="button" data-bs-toggle="dropdown" aria-expanded="false">Gestion Usuarios</a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item text-center" [routerLink]="['registro']">Registrar<i class="fa-solid fa-user-plus ms-1"></i></a></li>
-          </ul>
+          <a class="nav-link dropdown-toggle text-white fs-6 mx-4" role="button" data-bs-toggle="dropdown" aria-expanded="false" [routerLink]="['usuarioGestion']">Gestion Usuarios</a>
         </li>
         <li class="nav-item dropdown" *ngIf="(loginService.rolLogged()==='Administrador')">
           <a class="nav-link dropdown-toggle text-white fs-6 mx-4" role="button" data-bs-toggle="dropdown" aria-expanded="false">Reporte Ventas</a>

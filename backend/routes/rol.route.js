@@ -9,5 +9,6 @@ router.post('/', rolCtrl.createRol);
 router.delete('/:id', rolCtrl.deleteRol);
 router.put('/:id', rolCtrl.editRol);
 router.get('/obtener-rol/:id', rolCtrl.getRolById);
+router.get('/obtener-rol-por-nombre/:nombre', rolCtrl.getRolByName);
 //exportamos el modulo de rutas
 module.exports = router;

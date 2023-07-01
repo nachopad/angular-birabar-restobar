@@ -14,6 +14,15 @@ export class UsuarioService {
     this.hostBase = "http://localhost:3000/api/usuario/";
    }
 
+   getUsuarios():Observable<any>{
+    let httpOptions = {
+      headers: new HttpHeaders({
+      }),
+      params: new HttpParams()
+    }
+    return this._http.get(this.hostBase, httpOptions);
+   }
+
    getUsuarioById(id:string):Observable<any>{
     let httpOptions = {
       headers: new HttpHeaders({
@@ -21,6 +30,15 @@ export class UsuarioService {
       params: new HttpParams()
     }
     return this._http.get(this.hostBase+"obtener-usuario/"+id, httpOptions);
+  }
+
+  deleteUsuario(id:string):Observable<any>{
+    let httpOptions = {
+      headers: new HttpHeaders({
+      }),
+      params: new HttpParams()
+    };
+    return this._http.delete(this.hostBase+id, httpOptions);
   }
 
   editUsuario(usuario: Usuario):Observable<any>{

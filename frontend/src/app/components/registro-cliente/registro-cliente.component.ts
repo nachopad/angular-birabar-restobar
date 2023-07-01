@@ -8,6 +8,7 @@ import 'sweetalert2/src/sweetalert2.scss';
 import Swal from 'sweetalert2';
 import { ToastrService } from 'ngx-toastr';
 import { UsuarioService } from 'src/app/services/usuario.service';
+import { RolService } from 'src/app/services/rol.service';
 
 @Component({
   selector: 'app-registro-cliente',
@@ -19,24 +20,18 @@ export class RegistroClienteComponent implements OnInit {
   usuario!: Usuario;
   cliente!: Cliente;
   user_id!: string;
-  rol_id: string = "648cff3e0f19ad1be1545869";
   first_element: boolean = false;
   passwordsMatch: boolean = true;
   aceptoTerminos: boolean = false;
   element: boolean = false;
   repitPassword!: string;
 
-
-  /**
- * Constructor del componente.
- * @param registerService - Servicio de registro para interactuar con la API.
- * @param toastrService - Servicio de Toastr para mostrar mensajes.
- */
   constructor(private registerService: RegistroService, private toastrService: ToastrService,
-              private usuarioService: UsuarioService ,private webTitle: Title) {
+              private usuarioService: UsuarioService , private rolService: RolService,
+              private webTitle: Title) {
     this.usuario = new Usuario();
     this.cliente = new Cliente();
-    this.obtenerRol();
+    this.obtenerRolCliente();
   }
 
   ngOnInit(): void {
@@ -110,17 +105,17 @@ export class RegistroClienteComponent implements OnInit {
   }
 
   /**
- * Método para obtener el rol del usuario.
- * El rol se obtiene utilizando el rol_id y se asigna al objeto usuario.rol.
- */
-  obtenerRol() {
-    this.registerService.getRolById(this.rol_id).subscribe(
+   * Metodo para obtener el rol de tipo Cliente.
+   */
+  obtenerRolCliente(){
+    this.rolService.getRolByName("Cliente").subscribe(
       (result) => {
         this.usuario.rol = new Rol();
         Object.assign(this.usuario.rol, result);
+        console.log(this.usuario.rol.nombre);
       },
       (error) => {
-        console.log(error)
+        console.log(error);
         this.msgAlert('error', 'Oops...', 'Algo ha salido mal!');
       }
     )

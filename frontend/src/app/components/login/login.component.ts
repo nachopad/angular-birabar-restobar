@@ -25,6 +25,11 @@ export class LoginComponent implements OnInit {
     this.webTitle.setTitle("Birabar - Iniciar sesion");
   }
 
+  /**
+   * Realiza el inicio de sesión enviando los datos del formulario al servicio correspondiente.
+   * Si el inicio de sesión es exitoso, almacena la información del usuario en el almacenamiento de sesión
+   * y redirige a la URL de retorno.
+   */
   login() {
     this.loginService.login(this.userform.user, this.userform.password).subscribe(
         (result) => {

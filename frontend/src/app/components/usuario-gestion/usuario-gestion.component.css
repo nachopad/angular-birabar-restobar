@@ -1,0 +1,20 @@
+.black-background {
+    background-color: #202634;
+}
+
+.green-background {
+    background-color: #1fd08f;
+}
+
+.green-background:hover {
+    background-color: #2cf5ab;
+    color: #202634;
+}
+
+.col{
+    transition: all 400ms ease;
+}
+
+.col:hover{
+    transform: translateY(-5%);
+}
