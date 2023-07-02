@@ -5,7 +5,7 @@
             <a class="btn green-background bi bi-plus-circle" href="/oferta-form/0"> Crear oferta</a>
             <button class="btn green-background bi bi-search" type="button"> Buscar oferta</button>
             <input type="text" class="form-control"
-                placeholder="Ingresar el nombre de una oferta a buscar. Ejemplo: Happy Hour">
+                placeholder="Ingresar el nombre de una oferta a buscar. Ejemplo: Happy Hour" [(ngModel)]="searchOferta" (ngModelChange)="buscarPorTitulo()">
         </div>
         <div class="text-center border rounded-3 m-auto p-5" style="width: 300px;" *ngIf="ofertas.length==0">
             <h4 class="bi bi-exclamation-octagon"></h4>

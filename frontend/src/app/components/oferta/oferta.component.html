@@ -1,7 +1,7 @@
 <div class="black-background text-white">
   <div class="container pt-5 pb-5 ">
     <h4 class="text-center">Ofertas Disponibles</h4>
-    <div class="row justify-content-center">
+    <div class="row justify-content-center" *ngIf="ofertas.length!=0">
       <div class="col-xl-3 col-md-4 col-12 d-flex justify-content-center align-items-center"
         *ngFor="let oferta of ofertas">
         <div class="oferta text-center" (click)="cargarProductos(oferta)" data-bs-toggle="modal"
@@ -13,6 +13,11 @@
           <small>{{oferta.precio | currency:'$'}}</small>
         </div>
       </div>
+    </div>
+    <div *ngIf="ofertas.length==0" class="text-center mt-3">
+      <img src="./../../../assets/images/pedidos/lupulo.png" alt="" class="img-fluid img-opacity"
+      width="150px">
+      <p><i>No hay ofertas disponibles.</i></p>
     </div>
   </div>
 </div>

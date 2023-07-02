@@ -13,6 +13,7 @@ import { ToastrService } from 'ngx-toastr';
 export class OfertaGestionComponent implements OnInit {
 
   ofertas!: Array<Oferta>;
+  searchOferta!: string;
 
   constructor(private ofertaService: OfertaService, private toastrService: ToastrService, private webTitle: Title) {
     this.ofertas = new Array<Oferta>();
@@ -39,16 +40,25 @@ export class OfertaGestionComponent implements OnInit {
     );
   }
 
-  borrarOferta(id:string) {
+  borrarOferta(id: string) {
     this.ofertaService.borrarOferta(id).subscribe(
       result => {
         this.toastrService.success("Oferta eliminada correctamente.");
         this.cargarOfertas();
-      }, 
-      error=>{
+      },
+      error => {
         this.toastrService.error("Error: ", error);
       }
-      );
+    );
+  }
+
+  buscarPorTitulo() {
+    if (this.searchOferta.trim() !== '') {
+      const ofertasEncontradas = this.ofertas.filter(oferta => oferta.titulo.toLowerCase().includes(this.searchOferta.toLowerCase()));
+      this.ofertas = ofertasEncontradas;
+    } else {
+      this.cargarOfertas();
+    }
   }
 
 }

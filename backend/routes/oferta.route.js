@@ -10,7 +10,7 @@ router.get('/', ofertaCtrl.getOfertas);
 router.get('/buscarOferta/:id', ofertaCtrl.getOferta); //Busca Oferta por id
 router.put('/editarOferta', ofertaCtrl.editOferta);	
 router.post('/crearOferta', ofertaCtrl.createOferta);
-router.put('/borrarOferta/:id', ofertaCtrl.deleteOferta); //Eliminacion Logica
+router.delete('/borrarOferta/:id', ofertaCtrl.deleteOferta); //Eliminacion Logica
 
 
 //exportamos el modulo de rutas
