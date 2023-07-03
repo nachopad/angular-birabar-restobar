@@ -2,6 +2,7 @@
     background-color: #202634;
 }
 
+
 /*Las tarjetas y su contenido*/
 .producto{
     border-radius: 3px;
@@ -19,13 +20,4 @@
 .producto.contenido{
     text-align: center;
     padding: 10px;
-}
-
-.link-green {
-    cursor: pointer;
-    color: #1fd08f;
-}
-
-.link-green:hover {
-    color: #179164;
 }

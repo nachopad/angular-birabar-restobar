@@ -15,9 +15,12 @@ export class GestionCategoriaProductoComponent implements OnInit {
 
   categoria!:Categoria;
   listaProductos!:Array<Producto>;
+  searchProducto!:string;
+  producto!:Producto;
   constructor(private categoriaService:CategoriaService, private productoService: ProductoService,private router:Router,
     private activatedRoute:ActivatedRoute, private toastrService: ToastrService) { 
       this.categoria=new Categoria();
+      this.producto=new Producto();
   }
 
   ngOnInit(): void {
@@ -94,7 +97,18 @@ export class GestionCategoriaProductoComponent implements OnInit {
     )
   }
 
-  salir(){
-    this.router.navigate(["gestion-productos"]);
+  buscarPorProducto(){
+    if (this.searchProducto !== '') {
+      const productosEncontrados = this.listaProductos.filter(producto => producto.nombreProducto.includes(this.searchProducto));
+      this.listaProductos = productosEncontrados;
+    } else {
+      this.ngOnInit();
+    }
   }
+
+
+  verProducto(p:Producto){
+    this.producto=p;
+  }
+
 }

@@ -32,6 +32,7 @@ import { PedidoProductosComponent } from './components/pedido-productos/pedido-p
 import { PedidoCalificacionComponent } from './components/pedido-calificacion/pedido-calificacion.component';
 import { UsuarioGestionComponent } from './components/usuario-gestion/usuario-gestion.component';
 import { UsuarioFormComponent } from './components/usuario-form/usuario-form.component';
+import { GestionCartaComponent } from './components/gestion-carta/gestion-carta.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import { UsuarioFormComponent } from './components/usuario-form/usuario-form.com
     PedidoProductosComponent,
     PedidoCalificacionComponent,
     UsuarioGestionComponent,
-    UsuarioFormComponent
+    UsuarioFormComponent,
+    GestionCartaComponent
   ],
   imports: [
     BrowserModule,

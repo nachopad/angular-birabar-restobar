@@ -21,7 +21,9 @@
         </li>
         <li class="nav-item dropdown" *ngIf="(loginService.rolLogged()==='Gestor')">
           <a class="nav-link dropdown-toggle text-white fs-6 mx-4" role="button" data-bs-toggle="dropdown" aria-expanded="false" [routerLink]="['gestion-productos']">Gestion Productos</a>
-          
+        </li>
+        <li class="nav-item dropdown" *ngIf="(loginService.rolLogged()==='Gestor')">
+          <a class="nav-link dropdown-toggle text-white fs-6 mx-4" role="button" data-bs-toggle="dropdown" aria-expanded="false" [routerLink]="['gestion-carta']">Gestion Carta</a>
         </li>
         <li class="nav-item dropdown" *ngIf="(loginService.rolLogged()==='Gestor')">
           <a class="nav-link dropdown-toggle text-white fs-6 mx-4" role="button" data-bs-toggle="dropdown" aria-expanded="false" [routerLink]="['comboGestion']">Gestion Combos</a>

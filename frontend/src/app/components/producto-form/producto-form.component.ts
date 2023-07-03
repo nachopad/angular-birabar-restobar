@@ -43,6 +43,7 @@ export class ProductoFormComponent implements OnInit {
   }
 
   registrarProducto(){
+    this.producto.disponible=true;
     this.productoService.registrarProducto(this.producto).subscribe(
       (result)=>{
         if(result.status==1){

@@ -85,11 +85,4 @@ export class CategoriaFormComponent implements OnInit {
     }
   }
 
-  cancelar(){
-    if(this.accion=="new"){
-      this.router.navigate(["gestion-productos"]);
-    }else{
-      this.router.navigate(["gestion-categoria-producto", this.categoria._id]);
-    }
-  }
 }
