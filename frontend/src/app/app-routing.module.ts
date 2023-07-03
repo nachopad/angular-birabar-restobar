@@ -23,6 +23,7 @@ import { PedidoProductosComponent } from './components/pedido-productos/pedido-p
 import { UsuarioFormComponent } from './components/usuario-form/usuario-form.component';
 import { UsuarioGestionComponent } from './components/usuario-gestion/usuario-gestion.component';
 import { AdminGuardGuard } from './guards/admin-guard.guard';
+import { PedidoCalificacionComponent } from './components/pedido-calificacion/pedido-calificacion.component';
 
 const routes: Routes = [
   { path: "", redirectTo: "principal", pathMatch: "full" },
@@ -44,6 +45,7 @@ const routes: Routes = [
   { path:'lista-productos', component:ListaProductosComponent},
   { path: 'mis-pedidos', component: PedidoComponent },
   { path: 'mis-pedidos/productos/:modalidad', component: PedidoProductosComponent },
+  { path: 'mis-pedidos/calificacion/:id', component: PedidoCalificacionComponent },
   { path: 'usuario-form/:id', component: UsuarioFormComponent, canActivate: [AdminGuardGuard]},
   { path: 'usuarioGestion', component: UsuarioGestionComponent, canActivate: [AdminGuardGuard]}
 ];
