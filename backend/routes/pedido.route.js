@@ -12,6 +12,7 @@ router.get('/id/:id', pedidoCtrl.getPedidoId);
 router.get('/filtrar', pedidoCtrl.getPedidosEstado);
 router.put('/modificar', pedidoCtrl.editPedido);
 router.delete('/eliminar/:id', pedidoCtrl.deletePedido);
+router.get('/cliente/:idCliente', pedidoCtrl.getPedidosCliente);
 
 //exportamos el modulo de rutas
 module.exports = router;

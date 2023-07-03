@@ -9,7 +9,8 @@ calificacionCtrl.createCalificacion = async (req, res) => {
         await calificacion.save();
         res.status(200).json({
             'status': '1',
-            'msg': 'Calificacion guardada.'
+            'msg': 'Calificacion guardada.',
+            calificacion
         })
     }catch(error){
         res.status(400).json({

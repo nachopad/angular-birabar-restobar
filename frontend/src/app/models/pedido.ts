@@ -1,5 +1,6 @@
 import { Calificacion } from "./calificacion";
 import { Cliente } from "./cliente";
+import { DetalleProducto } from "./detalle-producto";
 
 export class Pedido {
     _id!:string;
@@ -7,6 +8,7 @@ export class Pedido {
     demora!: string;
     modalidad!: string;
     cliente!: Cliente;
-    detalleproductos!: Array<String>;
+    detalleProductos!: Array<DetalleProducto>;
     calificacion!: Calificacion;
+    total!: number;
 }

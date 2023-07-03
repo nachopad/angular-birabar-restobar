@@ -10,7 +10,8 @@ const PedidoSchema = new Schema({
     modalidad: { type: String, required: true },
     cliente: { type: Schema.Types.ObjectId, ref: Cliente, required: true },
     detalleProductos:  [{ type: Schema.Types.ObjectId, ref: DetalleProducto, required: true }],
-    calificacion: { type: Schema.Types.ObjectId, ref: Calificacion }
+    calificacion: { type: Schema.Types.ObjectId, ref: Calificacion },
+    total: { type: Number, required: true}
 })
 
 module.exports = mongoose.models.Pedido || mongoose.model('Pedido', PedidoSchema);
