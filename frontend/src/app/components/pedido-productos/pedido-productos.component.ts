@@ -25,6 +25,7 @@ export class PedidoProductosComponent implements OnInit {
   detalleProductos!: Array<DetalleProducto>;
   arrayIds!: Array<string>;
   pedido!: Pedido;
+  formaDePago!:string;
 
   constructor(private webTitle: Title, private productoService: ProductoService,
     private activatedRoute: ActivatedRoute, public loginService: LoginService,
@@ -125,6 +126,7 @@ export class PedidoProductosComponent implements OnInit {
     this.pedido.estado = "Pendiente";
     this.pedido.modalidad = this.modalidad;
     this.pedido.total = this.calcularTotal();
+    this.pedido.formaDePago = this.formaDePago;
   }
 
   guardarPedido() {

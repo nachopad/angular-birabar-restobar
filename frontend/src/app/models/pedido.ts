@@ -11,4 +11,5 @@ export class Pedido {
     detalleProductos!: Array<DetalleProducto>;
     calificacion!: Calificacion;
     total!: number;
+    formaDePago!: string;
 }

@@ -50,4 +50,12 @@ export class PedidoService {
     }
     return this._http.put('http://localhost:3000/api/pedido/modificar/', body);
   }
+
+  public getPedidos(): Observable<any> {
+    return this._http.get('http://localhost:3000/api/pedido/all');
+  }
+
+  public getPedidosByEstado(estado:string): Observable<any>{
+    return this._http.get('http://localhost:3000/api/pedido/filtrar?estado='+estado);
+  }
 }

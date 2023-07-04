@@ -27,6 +27,8 @@ import { GestionCartaComponent } from './components/gestion-carta/gestion-carta.
 import { PedidoCalificacionComponent } from './components/pedido-calificacion/pedido-calificacion.component';
 import { LocalInfoComponent } from './components/local-info/local-info.component';
 import { AboutUsPageComponent } from './components/about-us-page/about-us-page.component';
+import { PedidoGestionComponent } from './components/pedido-gestion/pedido-gestion.component';
+import { PedidoGestionFormComponent } from './components/pedido-gestion-form/pedido-gestion-form.component';
 
 const routes: Routes = [
   { path: "", redirectTo: "principal", pathMatch: "full" },
@@ -49,6 +51,8 @@ const routes: Routes = [
   { path: 'mis-pedidos', component: PedidoComponent },
   { path: 'mis-pedidos/productos/:modalidad', component: PedidoProductosComponent },
   { path: 'mis-pedidos/calificacion/:id', component: PedidoCalificacionComponent },
+  { path: 'pedidos/gestion', component: PedidoGestionComponent },
+  { path: 'pedidos/gestion/:id', component: PedidoGestionFormComponent },
   { path: 'usuario-form/:id', component: UsuarioFormComponent, canActivate: [AdminGuardGuard]},
   { path: 'usuarioGestion', component: UsuarioGestionComponent, canActivate: [AdminGuardGuard]},
   {path: 'gestion-carta', component: GestionCartaComponent, canActivate: [GestorGuardGuard]},
