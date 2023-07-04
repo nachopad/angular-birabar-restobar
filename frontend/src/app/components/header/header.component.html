@@ -14,10 +14,10 @@
           <a class="nav-link active text-white fs-6 mx-4" aria-current="page" [routerLink]="['principal']">Principal<i class="fa-solid fa-house ms-1"></i></a>
         </li>
         <li class="nav-item" *ngIf="(loginService.rolLogged()!=='Gestor') && loginService.rolLogged()!=='Administrador' ">
-          <a class="nav-link active text-white fs-6 mx-4" aria-current="page" [routerLink]="['principal']">Nosotros<i class="fa-solid fa-users ms-1"></i></a>
+          <a class="nav-link active text-white fs-6 mx-4" aria-current="page" [routerLink]="['about-us-page']">Nosotros<i class="fa-solid fa-users ms-1"></i></a>
         </li>
         <li class="nav-item" *ngIf="(loginService.rolLogged()!=='Gestor') && loginService.rolLogged()!=='Administrador' ">
-          <a class="nav-link active text-white fs-6 mx-4" aria-current="page" [routerLink]="['principal']">Contacto <i class="fa-solid fa-phone-volume ms-1"></i></a>
+          <a class="nav-link active text-white fs-6 mx-4" aria-current="page" [routerLink]="['local-info']">Contacto <i class="fa-solid fa-phone-volume ms-1"></i></a>
         </li>
         <li class="nav-item dropdown" *ngIf="(loginService.rolLogged()==='Gestor')">
           <a class="nav-link dropdown-toggle text-white fs-6 mx-4" role="button" data-bs-toggle="dropdown" aria-expanded="false" [routerLink]="['gestion-productos']">Gestion Productos</a>
@@ -30,6 +30,9 @@
         </li>
         <li class="nav-item dropdown" *ngIf="(loginService.rolLogged()==='Gestor')">
           <a class="nav-link dropdown-toggle text-white fs-6 mx-4" role="button" data-bs-toggle="dropdown" aria-expanded="false" [routerLink]="['ofertaGestion']">Gestion Ofertas</a>
+        </li>
+        <li class="nav-item dropdown" *ngIf="(loginService.rolLogged()==='Gestor')">
+          <a class="nav-link dropdown-toggle text-white fs-6 mx-4" role="button" data-bs-toggle="dropdown" aria-expanded="false" [routerLink]="['local-info']">Gestion Contacto</a>
         </li>
         <li class="nav-item dropdown" *ngIf="(loginService.rolLogged()==='Administrador')">
           <a class="nav-link dropdown-toggle text-white fs-6 mx-4" role="button" data-bs-toggle="dropdown" aria-expanded="false" [routerLink]="['usuarioGestion']">Gestion Usuarios</a>

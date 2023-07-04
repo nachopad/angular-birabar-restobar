@@ -33,6 +33,8 @@ import { PedidoCalificacionComponent } from './components/pedido-calificacion/pe
 import { UsuarioGestionComponent } from './components/usuario-gestion/usuario-gestion.component';
 import { UsuarioFormComponent } from './components/usuario-form/usuario-form.component';
 import { GestionCartaComponent } from './components/gestion-carta/gestion-carta.component';
+import { LocalInfoComponent } from './components/local-info/local-info.component';
+import { AboutUsPageComponent } from './components/about-us-page/about-us-page.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +62,9 @@ import { GestionCartaComponent } from './components/gestion-carta/gestion-carta.
     PedidoCalificacionComponent,
     UsuarioGestionComponent,
     UsuarioFormComponent,
-    GestionCartaComponent
+    GestionCartaComponent,
+    LocalInfoComponent,
+    AboutUsPageComponent
   ],
   imports: [
     BrowserModule,

@@ -25,6 +25,8 @@ import { UsuarioGestionComponent } from './components/usuario-gestion/usuario-ge
 import { AdminGuardGuard } from './guards/admin-guard.guard';
 import { GestionCartaComponent } from './components/gestion-carta/gestion-carta.component';
 import { PedidoCalificacionComponent } from './components/pedido-calificacion/pedido-calificacion.component';
+import { LocalInfoComponent } from './components/local-info/local-info.component';
+import { AboutUsPageComponent } from './components/about-us-page/about-us-page.component';
 
 const routes: Routes = [
   { path: "", redirectTo: "principal", pathMatch: "full" },
@@ -49,7 +51,9 @@ const routes: Routes = [
   { path: 'mis-pedidos/calificacion/:id', component: PedidoCalificacionComponent },
   { path: 'usuario-form/:id', component: UsuarioFormComponent, canActivate: [AdminGuardGuard]},
   { path: 'usuarioGestion', component: UsuarioGestionComponent, canActivate: [AdminGuardGuard]},
-  {path: 'gestion-carta', component: GestionCartaComponent, canActivate: [GestorGuardGuard]}
+  {path: 'gestion-carta', component: GestionCartaComponent, canActivate: [GestorGuardGuard]},
+  {path: 'local-info', component: LocalInfoComponent},
+  {path: 'about-us-page', component: AboutUsPageComponent}
 ];
 
 @NgModule({
