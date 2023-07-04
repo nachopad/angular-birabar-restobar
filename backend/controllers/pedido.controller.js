@@ -24,24 +24,24 @@ pedidoCtrl.createPedido = async (req, res) => {
 }
 
 pedidoCtrl.getPedidos = async (req, res) => {
-    const pedidos = await Pedido.find().populate('cliente').populate({ path: 'detalleProductos', populate: { path: 'producto' } }).populate('calificacion');
+    const pedidos = await Pedido.find().populate({ path: 'cliente', populate: { path: 'usuario' } }).populate({ path: 'detalleProductos', populate: { path: 'producto' } }).populate('calificacion');
     res.json(pedidos);
 }
 
 pedidoCtrl.getPedidosCliente = async (req, res) => {
-    const pedidos = await Pedido.find({ cliente: req.params.idCliente }).populate('cliente').populate({ path: 'detalleProductos', populate: { path: 'producto' } }).populate('calificacion');
+    const pedidos = await Pedido.find({ cliente: req.params.idCliente }).populate({ path: 'cliente', populate: { path: 'usuario' } }).populate({ path: 'detalleProductos', populate: { path: 'producto' } }).populate('calificacion');
     res.json(pedidos);
 }
 
 pedidoCtrl.getPedidoId = async (req, res) => {
-    const pedido = await Pedido.findById({ _id: req.params.id }).populate('cliente').populate({ path: 'detalleProductos', populate: { path: 'producto' } }).populate('calificacion');
+    const pedido = await Pedido.findById({ _id: req.params.id }).populate({ path: 'cliente', populate: { path: 'usuario' } }).populate({ path: 'detalleProductos', populate: { path: 'producto' } }).populate('calificacion');
     res.json(pedido);
 }
 
 pedidoCtrl.getPedidosEstado = async (req, res) => {
     try {
         const estado = req.query.estado;
-        const pedidos = await Pedido.find({ estado }).populate('cliente').populate({ path: 'detalleProductos', populate: { path: 'producto' } }).populate('calificacion');
+        const pedidos = await Pedido.find({ estado }).populate({ path: 'cliente', populate: { path: 'usuario' } }).populate({ path: 'detalleProductos', populate: { path: 'producto' } }).populate('calificacion');
         res.json(pedidos);
     } catch (error) {
         res.status(400).json({

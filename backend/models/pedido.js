@@ -11,7 +11,8 @@ const PedidoSchema = new Schema({
     cliente: { type: Schema.Types.ObjectId, ref: Cliente, required: true },
     detalleProductos:  [{ type: Schema.Types.ObjectId, ref: DetalleProducto, required: true }],
     calificacion: { type: Schema.Types.ObjectId, ref: Calificacion },
-    total: { type: Number, required: true}
+    total: { type: Number, required: true},
+    formaDePago: { type: String, required: true}
 })
 
 module.exports = mongoose.models.Pedido || mongoose.model('Pedido', PedidoSchema);

@@ -46,11 +46,21 @@
                                     currency: '$'}}
                                     <br><i class="bi bi-check-circle-fill text-success" style="font-size: medium;"></i> Tipo de Servicio: {{modalidad}}
                                 </p>
+                                    <div class="dark-container">
+                                        <label for="formaPago" class="text-white mb-2">Selecciona una forma de pago:</label>
+                                        <select class="form-select bg-dark" aria-label="Default select example" id="formaPago" [(ngModel)]="formaDePago" name="pago" required>
+                                            <option value="Efectivo" class="bg-dark">Efectivo</option>
+                                            <option value="Tarjeta" class="bg-dark">Tarjeta</option>
+                                            <option value="Link de pago" class="bg-dark">Link de pago</option>
+                                            <option value="Transferencia" class="bg-dark">Transferencia</option>
+                                        </select>
+                                    </div>
+                            
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Volver</button>
                                 <button type="button" class="btn btn-success" data-bs-dismiss="modal"
-                                    [disabled]="detalleProductos.length == 0"
+                                    [disabled]="detalleProductos.length == 0 || formaDePago == null"
                                     (click)="guardarPedido()">Finalizar</button>
                             </div>
                         </div>

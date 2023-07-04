@@ -60,10 +60,8 @@ export class PedidoComponent implements OnInit {
   }
 
   getPedido(pedido:Pedido){
-    console.log("entro");
     this.pedido = new Pedido();
     Object.assign(this.pedido, pedido);
-    console.log("salio");
   }
 
   calificarPedido(idPedido:string){
