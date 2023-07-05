@@ -35,6 +35,8 @@ import { UsuarioFormComponent } from './components/usuario-form/usuario-form.com
 import { GestionCartaComponent } from './components/gestion-carta/gestion-carta.component';
 import { LocalInfoComponent } from './components/local-info/local-info.component';
 import { AboutUsPageComponent } from './components/about-us-page/about-us-page.component';
+import { CartaComponent } from './components/carta/carta.component';
+import { CartaProductosComponent } from './components/carta-productos/carta-productos.component';
 
 @NgModule({
   declarations: [
@@ -64,7 +66,9 @@ import { AboutUsPageComponent } from './components/about-us-page/about-us-page.c
     UsuarioFormComponent,
     GestionCartaComponent,
     LocalInfoComponent,
-    AboutUsPageComponent
+    AboutUsPageComponent,
+    CartaComponent,
+    CartaProductosComponent
   ],
   imports: [
     BrowserModule,

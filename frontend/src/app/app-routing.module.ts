@@ -27,6 +27,8 @@ import { GestionCartaComponent } from './components/gestion-carta/gestion-carta.
 import { PedidoCalificacionComponent } from './components/pedido-calificacion/pedido-calificacion.component';
 import { LocalInfoComponent } from './components/local-info/local-info.component';
 import { AboutUsPageComponent } from './components/about-us-page/about-us-page.component';
+import { CartaComponent } from './components/carta/carta.component';
+import { CartaProductosComponent } from './components/carta-productos/carta-productos.component';
 
 const routes: Routes = [
   { path: "", redirectTo: "principal", pathMatch: "full" },
@@ -53,7 +55,9 @@ const routes: Routes = [
   { path: 'usuarioGestion', component: UsuarioGestionComponent, canActivate: [AdminGuardGuard]},
   {path: 'gestion-carta', component: GestionCartaComponent, canActivate: [GestorGuardGuard]},
   {path: 'local-info', component: LocalInfoComponent},
-  {path: 'about-us-page', component: AboutUsPageComponent}
+  {path: 'about-us-page', component: AboutUsPageComponent},
+  {path: 'menu', component:CartaComponent},
+  {path: 'menu-productos/:id', component: CartaProductosComponent},
 ];
 
 @NgModule({

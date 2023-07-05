@@ -53,7 +53,7 @@ export class GestionCartaComponent implements OnInit {
     this.productoService.actualizarProducto(p).subscribe(
       (result)=>{
         if(result.status=='1'){
-          this.toastrService.success("Se actualizo correctamente el producto");
+          this.toastrService.success("Producto disponible para la carta","",{positionClass: 'toast-center-center'});
         }else{
           this.toastrService.error("Error actualizacion de producto");
         }
@@ -68,7 +68,7 @@ export class GestionCartaComponent implements OnInit {
     this.productoService.actualizarProducto(p).subscribe(
       (result)=>{
         if(result.status=='1'){
-          this.toastrService.success("Se actualizo correctamente el producto");
+          this.toastrService.error("Producto no disponible para la carta","",{positionClass: 'toast-center-center'});
         }else{
           this.toastrService.error("Error actualizacion de producto");
         }

@@ -1,0 +1,16 @@
+<div class="black-background p-5">
+
+    <div class="container">
+        <h4 class="text-center text-white fw-bold">MENU</h4>
+    </div>
+    <div class="row row-cols-1 row-cols-md-2 g-4 justify-content-center p-5 text-center">
+        <div class="col" *ngFor="let categoria of listaCategorias"  style="height: 200px;width:200px;" (click)="productosPorCategoria(categoria._id)">   
+            <div class="card">
+                <img [src]="categoria.imagen">
+                
+                <h5 class="card-title content text-white">{{categoria.nombreCategoria}}</h5>
+                
+            </div>
+        </div>
+    </div>
+</div>
