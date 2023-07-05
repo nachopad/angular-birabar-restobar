@@ -37,6 +37,8 @@ import { LocalInfoComponent } from './components/local-info/local-info.component
 import { AboutUsPageComponent } from './components/about-us-page/about-us-page.component';
 import { PedidoGestionComponent } from './components/pedido-gestion/pedido-gestion.component';
 import { PedidoGestionFormComponent } from './components/pedido-gestion-form/pedido-gestion-form.component';
+import { CartaComponent } from './components/carta/carta.component';
+import { CartaProductosComponent } from './components/carta-productos/carta-productos.component';
 
 @NgModule({
   declarations: [
@@ -68,7 +70,9 @@ import { PedidoGestionFormComponent } from './components/pedido-gestion-form/ped
     LocalInfoComponent,
     AboutUsPageComponent,
     PedidoGestionComponent,
-    PedidoGestionFormComponent
+    PedidoGestionFormComponent,
+    CartaComponent,
+    CartaProductosComponent
   ],
   imports: [
     BrowserModule,
