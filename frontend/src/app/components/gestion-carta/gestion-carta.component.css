@@ -2,6 +2,14 @@
     background-color: #202634;
 }
 
+.green-background {
+    background-color: #1fd08f;
+}
+
+.green-background:hover {
+    background-color: #2cf5ab;
+    color: #202634;
+}
 
 /*Las tarjetas y su contenido*/
 .producto{

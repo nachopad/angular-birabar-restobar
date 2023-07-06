@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Categoria } from 'src/app/models/categoria';
@@ -14,11 +15,13 @@ export class GestionProductosComponent implements OnInit {
   listaCategorias!:Array<Categoria>;
   searchCategoria!:string;
 
-  constructor(private categoriaService: CategoriaService, private router:Router, private toastrService: ToastrService) { 
+  constructor(private categoriaService: CategoriaService, private router:Router, 
+              private toastrService: ToastrService, private webTitle: Title) { 
   
   }
 
   ngOnInit(): void {
+    this.webTitle.setTitle("Birabar - Gestión de productos");
     this.obtenerCategorias();
   }
 

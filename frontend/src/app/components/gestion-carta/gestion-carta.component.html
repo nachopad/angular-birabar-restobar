@@ -2,7 +2,7 @@
     <div class="container pt-4 pb-5">
         <h4 class="text-center mb-3">Gestión de la Carta</h4>
         <div class="input-group mb-4">
-            <button class="btn btn-dark bg-gradient bi bi-search" type="button"> Buscar producto</button>
+            <button class="btn green-background bg-gradient bi bi-search" type="button"> Buscar producto</button>
             <input type="text" class="form-control" placeholder="Ingresar el nombre de un producto. Ejemplo: Hamburguesa" [(ngModel)]="searchProducto" (ngModelChange)="buscarPorProducto()">
         </div>
         <div class="text-center border rounded-3 m-auto p-5" style="width: 300px;" *ngIf="listaProductos.length==0">
@@ -29,17 +29,17 @@
                         <td *ngIf="p.disponible===true">{{p.nombreProducto}}</td>
                         <td>{{p.precio | currency:'':'symbol':'0.0-4'}}</td>
                         <td>
-                            <a class="btn btn-success bi bi-eye producto" data-bs-toggle="modal" data-bs-target="#imagenModal" (click)="verProducto(p)"
+                            <a class="btn btn-primary bi bi-eye producto" data-bs-toggle="modal" data-bs-target="#imagenModal" (click)="verProducto(p)"
                             style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .4rem; --bs-btn-font-size: .75rem; margin-top: 0;"></a>
                         </td>
 
                         <td style="font-size: 18px;">
-                            <a class="btn btn-primary bi bi-check2 producto" (click)="habilitarProducto(p)"
+                            <a class="btn btn-success bi bi-check2 producto" (click)="habilitarProducto(p)"
                                 style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .4rem; --bs-btn-font-size: .75rem; margin-right: 3px;"></a>
                         </td>
 
                         <td style="font-size: 18px;">
-                            <a class="btn btn-warning bi bi-x-square producto" (click)="deshabilitarProducto(p)"
+                            <a class="btn btn-danger bi bi-x-square producto" (click)="deshabilitarProducto(p)"
                                 style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .4rem; --bs-btn-font-size: .75rem; margin-right: 3px;"></a>
                         </td>
                     </tr>   

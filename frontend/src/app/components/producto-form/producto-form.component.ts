@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer, Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { error } from 'console';
 import { ToastrService } from 'ngx-toastr';
@@ -22,14 +22,15 @@ export class ProductoFormComponent implements OnInit {
 
   listaProductos!:Array<Producto>;
   constructor(private productoService: ProductoService,private categoriaService: CategoriaService, private router:Router,
-    private activatedRoute:ActivatedRoute, private domSanitizer: DomSanitizer,
-    private toastrService: ToastrService) { 
+              private activatedRoute:ActivatedRoute, private domSanitizer: DomSanitizer,
+              private toastrService: ToastrService, private webTitle: Title) { 
     this.producto=new Producto();
     this.listaProductos=new Array<Producto>();
     this.listaCategorias=new Array<Categoria>();
   }
 
   ngOnInit(): void {
+    this.webTitle.setTitle("Birabar - Crear producto");
     this.obtenerTodosProductos();
     this.obtenerCategorias();
     this.activatedRoute.params.subscribe(params => {
@@ -57,20 +58,18 @@ export class ProductoFormComponent implements OnInit {
     
   }
 
-
   obtenerProducto(id: string){
     this.productoService.obtenerProducto(id).subscribe(
       (result)=>{  
         result.forEach((elemnt:any)=>{
           let unProducto:Producto=new Producto();
-          Object.assign(unProducto, elemnt);
+          Object.assign(unProducto, elemnt); // (this.producto, element) ahorra una linea abajo.
           this.producto=unProducto;
-          
+          this.producto.categoria = this.listaCategorias.find(cat => (cat._id == this.producto.categoria._id))!;
         })
       }, 
       error=>{this.toastrService.error("Error al buscar la categoria");}
     )
-    console.log(this.producto);
   }
 
   obtenerTodosProductos(){
@@ -110,7 +109,6 @@ export class ProductoFormComponent implements OnInit {
       },
       error => {alert("Error al cargar las lista de Categorias");}
     )
-    console.log(this.listaCategorias);
   }
 
   onFileSelected(event: any) {

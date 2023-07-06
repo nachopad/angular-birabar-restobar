@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { Categoria } from 'src/app/models/categoria';
 import { Producto } from 'src/app/models/producto';
@@ -15,11 +16,13 @@ export class CartaComponent implements OnInit {
   listaProductos!:Array<Producto>;
   listaCategorias!:Array<Categoria>;
 
-  constructor(private categoriaService: CategoriaService, private productoService: ProductoService, private router:Router ) { 
+  constructor(private categoriaService: CategoriaService, private productoService: ProductoService,
+              private router:Router, private webTitle: Title) { 
     this.listaCategorias=new Array<Categoria>();
   }
 
   ngOnInit(): void {
+    this.webTitle.setTitle("Birabar - Carta digital");
     this.obtenerCategorias();
   }
 

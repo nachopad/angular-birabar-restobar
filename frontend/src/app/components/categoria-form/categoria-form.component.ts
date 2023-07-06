@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer, Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { error } from 'console';
 import { ToastrService } from 'ngx-toastr';
@@ -18,11 +18,12 @@ export class CategoriaFormComponent implements OnInit {
 
   constructor(private categoriaService: CategoriaService, private router:Router,
     private activatedRoute:ActivatedRoute, private domSanitizer: DomSanitizer,
-    private toastrService: ToastrService) { 
+    private toastrService: ToastrService, private webTitle: Title) { 
     this.categoria = new Categoria();
   }
 
   ngOnInit(): void {
+    this.webTitle.setTitle("Birabar - Crear categoria")
     this.activatedRoute.params.subscribe(params => {
       if(params['id'] === '0'){
         this.accion="new";
@@ -70,16 +71,16 @@ export class CategoriaFormComponent implements OnInit {
   }
 
   onFileSelected(event: any) {
-    this.categoria.imagen=""
+    this.categoria.imagen = "";
     const files = event.target.files[0];
-    if(files.size > 80000){
-      this.toastrService.warning("El tamaño maximo que se puede subir es de 80Kb");
-      event.target.value="";
-    }else{
+    if (files.size > 16000000) { 
+      this.toastrService.warning("El tamaño máximo que se puede subir es de 16MB");
+      event.target.value = "";
+    } else {
       const reader = new FileReader();
       reader.onload = () => {
         let base64 = reader.result as string;
-        this.categoria.imagen=base64;
+        this.categoria.imagen = base64;
       };
       reader.readAsDataURL(files);
     }

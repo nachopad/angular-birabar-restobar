@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Categoria } from 'src/app/models/categoria';
@@ -17,9 +18,11 @@ export class CartaProductosComponent implements OnInit {
   listaProductos!:Array<Producto>;
 
   constructor(private productoService: ProductoService, private categoriaService:CategoriaService, private router:Router,
-    private activatedRoute:ActivatedRoute,  private toastrService: ToastrService) { }
+              private activatedRoute:ActivatedRoute,  private toastrService: ToastrService,
+              private webTitle: Title) { }
 
   ngOnInit(): void {
+    this.webTitle.setTitle("Birabar - Carta digital");
     this.activatedRoute.params.subscribe(params => {
       if(params['id'] !== '0'){
         this.obtenerCategoria(params['id']);

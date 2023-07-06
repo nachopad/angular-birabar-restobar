@@ -1,28 +1,19 @@
-<div class="black-background p-5">
-
-    <div class="container p-5">
-        <h4 class="text-center text-white fw-bold">MENU: {{categoria.nombreCategoria}}</h4>
-    </div>
-    
-    <div class="card mb-3 text-center text-white" *ngFor="let producto of listaProductos">
-        <div class="row g-0">
-            <div class="col-md-3">
-                <img [src]="producto.imagen" style="width: 60px;height:60px;" class="imagen">
+<div class="black-background">
+  <section class="menus-area">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4" *ngFor="let producto of listaProductos">
+          <div [ngClass]="{'single-menu': true, 'black-dark-background': true, 'text-white': true, 'unavailable': !producto.disponible}">
+            <span class="" *ngIf="producto.disponible">{{ producto.precio | currency:'USD':'symbol':'1.0-0' }}</span>
+            <span class="" *ngIf="!producto.disponible">Sin disponibilidad</span>
+            <img src="{{ producto.imagen }}" alt="{{ producto.nombreProducto }}">
+            <div class="menu-content">
+              <h4>{{ producto.nombreProducto }}</h4>
+              <p>{{ producto.descripcion }}</p>
             </div>
-            <div class="col-md-6">
-                <div class="container pt-3">
-                    <h5 class="card-title" *ngIf="producto.disponible===false"><del class="text-danger">{{producto.nombreProducto}}</del></h5>
-                    <h5 class="card-title" *ngIf="producto.disponible===true">{{producto.nombreProducto}}</h5>
-                    <p class="card-text"></p>
-                </div>
-            </div>
-            <div class="col-md-2">
-                <div class="container pt-3">
-                    <h5 class="card-title" *ngIf="producto.disponible===false" ><del class="text-danger">{{producto.precio | currency:'':'symbol':'0.0-4'}}</del></h5>
-                    <h5 class="card-title" *ngIf="producto.disponible===true" >{{producto.precio | currency:'':'symbol':'0.0-4'}}</h5>
-                </div>
-            </div>
+          </div>
         </div>
+      </div>
     </div>
-   
+  </section>
 </div>

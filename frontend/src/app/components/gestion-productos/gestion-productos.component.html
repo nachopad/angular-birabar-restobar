@@ -2,8 +2,8 @@
     <div class="container pt-4 pb-5">
         <h4 class="text-center mb-3">Gestión de Categoria</h4>
         <div class="input-group mb-4">
-            <a class="btn btn-dark bg-gradient bi bi-plus-circle" href="/alta-categoria/0"> Crear categoria</a>
-            <button class="btn btn-dark bg-gradient bi bi-search" type="button"> Buscar categoria</button>
+            <a class="btn green-background bi bi-plus-circle" href="/alta-categoria/0"> Crear categoria</a>
+            <button class="btn green-background bi bi-search" type="button"> Buscar categoria</button>
             <input type="text" class="form-control" placeholder="Ingresar el username de una categoria. Ejemplo: Hamburguesa" [(ngModel)]="searchCategoria" (ngModelChange)="buscarPorCategoria()">
         </div>
         <div class="text-center border rounded-3 m-auto p-5" style="width: 300px;" *ngIf="listaCategorias.length==0">
