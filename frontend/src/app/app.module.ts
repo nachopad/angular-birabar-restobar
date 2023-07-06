@@ -39,6 +39,8 @@ import { PedidoGestionComponent } from './components/pedido-gestion/pedido-gesti
 import { PedidoGestionFormComponent } from './components/pedido-gestion-form/pedido-gestion-form.component';
 import { CartaComponent } from './components/carta/carta.component';
 import { CartaProductosComponent } from './components/carta-productos/carta-productos.component';
+import { GestionWhatsAppComponent } from './components/gestion-whats-app/gestion-whats-app.component';
+import { QRCodeModule } from 'angularx-qrcode';
 
 @NgModule({
   declarations: [
@@ -72,7 +74,8 @@ import { CartaProductosComponent } from './components/carta-productos/carta-prod
     PedidoGestionComponent,
     PedidoGestionFormComponent,
     CartaComponent,
-    CartaProductosComponent
+    CartaProductosComponent,
+    GestionWhatsAppComponent
   ],
   imports: [
     BrowserModule,
@@ -81,7 +84,8 @@ import { CartaProductosComponent } from './components/carta-productos/carta-prod
     HttpClientModule,
     CommonModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    QRCodeModule
   ],
   providers: [
     LoginService, 
