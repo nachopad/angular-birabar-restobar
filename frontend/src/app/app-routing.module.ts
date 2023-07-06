@@ -31,6 +31,7 @@ import { PedidoGestionComponent } from './components/pedido-gestion/pedido-gesti
 import { PedidoGestionFormComponent } from './components/pedido-gestion-form/pedido-gestion-form.component';
 import { CartaComponent } from './components/carta/carta.component';
 import { CartaProductosComponent } from './components/carta-productos/carta-productos.component';
+import { GestionWhatsAppComponent } from './components/gestion-whats-app/gestion-whats-app.component';
 
 const routes: Routes = [
   { path: "", redirectTo: "principal", pathMatch: "full" },
@@ -62,6 +63,7 @@ const routes: Routes = [
   {path: 'about-us-page', component: AboutUsPageComponent},
   {path: 'menu', component:CartaComponent},
   {path: 'menu-productos/:id', component: CartaProductosComponent},
+  {path: 'gestion-whatsapp', component: GestionWhatsAppComponent},
 ];
 
 @NgModule({
