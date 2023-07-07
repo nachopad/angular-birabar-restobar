@@ -22,7 +22,7 @@ app.use('/api/oferta', require('./routes/oferta.route.js'));
 app.use('/api/pedido', require('./routes/pedido.route'));
 app.use('/api/calificacion', require('./routes/calificacion.route'));
 app.use('/api/detalle-producto', require('./routes/detalleProducto.route'));
-app.use('/api/whatsApp', require('./routes/whatsapp.route.js'));
+app.use('/api/whatsApp', require('./routes/whatsApp.route.js'));
 
 //setting
 app.set('port', process.env.PORT || 3000);
