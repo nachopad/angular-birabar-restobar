@@ -13,7 +13,7 @@
                     <h2 class="mb-4 display-6">Deliciosos sabores y más</h2>
                     <p class="">En Birabar, te invitamos a probar nuestra selección única de platos y bebidas que reflejan la pasión por la buena comida y las experiencias inolvidables. Desde nuestras especialidades culinarias hasta nuestra amplia carta de cócteles artesanales, estamos comprometidos en brindarte momentos memorables junto a tus seres queridos.</p>
                     <p class="">Nuestro equipo de talentosos chefs utiliza ingredientes frescos y locales para crear platos innovadores y deliciosos que te sorprenderán. Ya sea que estés buscando una cena romántica, una reunión con amigos o simplemente relajarte con una copa, Birabar es el lugar perfecto para disfrutar de buenos momentos.</p>
-                    <a class="btn green-background text-white shadow" [routerLink]="[]">Descubre nuestro Menú</a>
+                    <a class="btn green-background text-white shadow" (click)="navegarCarta()">Descubre nuestro Menú</a>
                 </div>
             </div>
         </div>
@@ -77,7 +77,7 @@
                 <div class="d-flex flex-column justify-content-center align-items-center">
                     <h2 class="h4 mb-4 display-6">Eventos y promociones especiales</h2>
                     <p class="">En Birabar, regularmente organizamos eventos temáticos y promociones especiales. ¡No te pierdas nuestras noches de música en vivo y descuentos especiales en determinados días de la semana!</p>
-                    <a href="#" class="btn green-background text-white mb-5  shadow">Ver próximos eventos</a>
+                    <a (click)="navegarOfertas()" class="btn green-background text-white mb-5  shadow">Ver próximos eventos</a>
                 </div>
             </div>
         </div>

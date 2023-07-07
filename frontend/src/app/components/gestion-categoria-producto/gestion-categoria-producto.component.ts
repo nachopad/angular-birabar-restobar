@@ -106,7 +106,6 @@ export class GestionCategoriaProductoComponent implements OnInit {
     }
   }
 
-
   verProducto(p:Producto){
     this.producto=p;
   }

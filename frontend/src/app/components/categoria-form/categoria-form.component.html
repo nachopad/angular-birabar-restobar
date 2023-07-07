@@ -105,7 +105,7 @@
                             <button *ngIf="accion=='update'" type="submit"
                                 class="btn btn-light bi bi-pencil-square me-1" (click)="actualizarCategoria()"
                                 [disabled]="!categoriaForm.valid">Modificar</button>
-                            <a [routerLink]="['gestion-productos']" class="btn btn-light bi bi-arrow-left"> Volver</a>
+                            <a (click)="regresar()" class="btn btn-light bi bi-arrow-left"> Volver</a>
                         </div>
                     </div>
                 </form>

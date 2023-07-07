@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { WhatsappService } from 'src/app/services/whatsapp.service';
 
 @Component({
@@ -9,22 +10,25 @@ import { WhatsappService } from 'src/app/services/whatsapp.service';
 export class GestionWhatsAppComponent implements OnInit {
 
   qr!:any;
+  generandoQR: boolean = false;
+  generado: boolean = false;
   
-  constructor(private whatsAppService:WhatsappService) { }
+  constructor(private whatsAppService:WhatsappService, private webTitle: Title) { }
 
   ngOnInit(): void {
+    this.webTitle.setTitle("Birabar - Gestion WhatssApp");
   }
 
-  async iniciarSescion(){
-    
-    await this.whatsAppService.postIniciarSession().subscribe(
-      (result)=>{
-        console.log(result);
-        this.qr=result;
-        console.log(this.qr);
-      },
-      error=>{alert("Error");}
-    )
+  async generarQR() {
+    this.generandoQR = true;
+    try {
+      const result = await this.whatsAppService.postIniciarSession().toPromise();
+      this.qr = result;
+    } catch (error) {
+      alert("Error al generar el código QR.");
+    }
+    this.generandoQR = false;
+    this.generado = true;
   }
 
 }

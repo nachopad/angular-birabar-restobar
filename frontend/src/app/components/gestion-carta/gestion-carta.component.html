@@ -2,8 +2,8 @@
     <div class="container pt-4 pb-5">
         <h4 class="text-center mb-3">Gestión de la Carta</h4>
         <div class="input-group mb-4">
-            <button class="btn green-background bg-gradient bi bi-search" type="button"> Buscar producto</button>
-            <input type="text" class="form-control" placeholder="Ingresar el nombre de un producto. Ejemplo: Hamburguesa" [(ngModel)]="searchProducto" (ngModelChange)="buscarPorProducto()">
+            <button class="btn black-background bg-gradient text-white bi bi-search" type="button"> Buscar producto</button>
+            <input type="text" class="form-control" placeholder="Ingresar el nombre de un producto a buscar. Ejemplo: Hamburguesa" [(ngModel)]="searchProducto" (ngModelChange)="buscarPorProducto()">
         </div>
         <div class="text-center border rounded-3 m-auto p-5" style="width: 300px;" *ngIf="listaProductos.length==0">
             <h4 class="bi bi-exclamation-octagon"></h4>

@@ -1,4 +1,4 @@
-const whatsappCtrl = require('./../controllers/whatsapp.controller');
+const whatsappCtrl = require('./../controllers/whatsApp.controller');
 const express = require('express');
 const router = express.Router();
 //definimos las rutas para la gestion de agente
