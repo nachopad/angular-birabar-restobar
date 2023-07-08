@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
+import { Router } from '@angular/router';
+import { Restobar } from 'src/app/models/restobar';
 import { WhatsappService } from 'src/app/services/whatsapp.service';
 
 @Component({
@@ -13,7 +15,8 @@ export class GestionWhatsAppComponent implements OnInit {
   generandoQR: boolean = false;
   generado: boolean = false;
   
-  constructor(private whatsAppService:WhatsappService, private webTitle: Title) { }
+  constructor(private whatsAppService:WhatsappService, private webTitle: Title,
+              private router: Router) { }
 
   ngOnInit(): void {
     this.webTitle.setTitle("Birabar - Gestion WhatssApp");
@@ -29,6 +32,10 @@ export class GestionWhatsAppComponent implements OnInit {
     }
     this.generandoQR = false;
     this.generado = true;
+  }
+
+  navegarGestionDatos(){
+    this.router.navigate(['gestion-restobar']);
   }
 
 }

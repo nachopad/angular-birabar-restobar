@@ -14,10 +14,6 @@
     color:  #1fd08f;
 }
 
-.container {
-    text-align: center;
-}
-
 h1 {
     font-size: 24px;
     margin-bottom: 20px;
@@ -33,4 +29,10 @@ h1 {
 p {
     font-size: 16px;
     margin-top: 20px;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px; /* Ajusta el espacio horizontal entre los botones según tus necesidades */
 }
