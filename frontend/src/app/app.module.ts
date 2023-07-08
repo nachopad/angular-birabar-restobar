@@ -41,6 +41,8 @@ import { CartaComponent } from './components/carta/carta.component';
 import { CartaProductosComponent } from './components/carta-productos/carta-productos.component';
 import { GestionWhatsAppComponent } from './components/gestion-whats-app/gestion-whats-app.component';
 import { QRCodeModule } from 'angularx-qrcode';
+import { RestobarFormComponent } from './components/restobar-form/restobar-form.component';
+import { RestobarGestionComponent } from './components/restobar-gestion/restobar-gestion.component';
 
 @NgModule({
   declarations: [
@@ -75,7 +77,9 @@ import { QRCodeModule } from 'angularx-qrcode';
     PedidoGestionFormComponent,
     CartaComponent,
     CartaProductosComponent,
-    GestionWhatsAppComponent
+    GestionWhatsAppComponent,
+    RestobarFormComponent,
+    RestobarGestionComponent
   ],
   imports: [
     BrowserModule,

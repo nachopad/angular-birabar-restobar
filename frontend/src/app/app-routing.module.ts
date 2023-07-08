@@ -32,6 +32,8 @@ import { PedidoGestionFormComponent } from './components/pedido-gestion-form/ped
 import { CartaComponent } from './components/carta/carta.component';
 import { CartaProductosComponent } from './components/carta-productos/carta-productos.component';
 import { GestionWhatsAppComponent } from './components/gestion-whats-app/gestion-whats-app.component';
+import { RestobarFormComponent } from './components/restobar-form/restobar-form.component';
+import { RestobarGestionComponent } from './components/restobar-gestion/restobar-gestion.component';
 
 const routes: Routes = [
   { path: "", redirectTo: "principal", pathMatch: "full" },
@@ -64,6 +66,8 @@ const routes: Routes = [
   {path: 'menu', component:CartaComponent},
   {path: 'menu-productos/:id', component: CartaProductosComponent},
   {path: 'gestion-whatsapp', component: GestionWhatsAppComponent},
+  {path: 'restobar-form/:id', component:  RestobarFormComponent},
+  {path: 'gestion-restobar', component: RestobarGestionComponent}
 ];
 
 @NgModule({

@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { windowWhen } from 'rxjs';
+import { Restobar } from 'src/app/models/restobar';
 import { LoginService } from 'src/app/services/login.service';
+import { RestobarService } from 'src/app/services/restobar.service';
 
 @Component({
   selector: 'app-local-info',
@@ -9,20 +11,24 @@ import { LoginService } from 'src/app/services/login.service';
   styleUrls: ['./local-info.component.css']
 })
 export class LocalInfoComponent implements OnInit {
-  deliveryStatus="Disponible";
-  localStatus="Abierto";
-  constructor(public loginService: LoginService, private webTitle: Title) { }
+  restobar!: Restobar;
+  constructor(public loginService: LoginService, private restobarService: RestobarService,
+              private webTitle: Title) { 
+              this.restobar = new Restobar();
+  }
 
   ngOnInit(): void {
     this.webTitle.setTitle("Birabar - Contacto")
+    this.buscarLocal();
   }
 
-  cambiarEstadoDelivery(){
-    this.deliveryStatus = this.deliveryStatus === 'Disponible' ? 'No disponible' : 'Disponible';
-  }
-
-  cambiarEstadoLocal(){
-    this.localStatus = this.localStatus === 'Abierto' ? 'Cerrado' : 'Abierto';
+  buscarLocal(){
+    this.restobarService.obtenerRestobarPorNombre('Birabar').subscribe(
+      (result) => {
+        Object.assign(this.restobar, result);
+      },
+      (error) => { console.log(error) }
+    )
   }
 
 }
