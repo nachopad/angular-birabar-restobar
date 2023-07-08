@@ -23,6 +23,15 @@ import { PedidoProductosComponent } from './components/pedido-productos/pedido-p
 import { UsuarioFormComponent } from './components/usuario-form/usuario-form.component';
 import { UsuarioGestionComponent } from './components/usuario-gestion/usuario-gestion.component';
 import { AdminGuardGuard } from './guards/admin-guard.guard';
+import { GestionCartaComponent } from './components/gestion-carta/gestion-carta.component';
+import { PedidoCalificacionComponent } from './components/pedido-calificacion/pedido-calificacion.component';
+import { LocalInfoComponent } from './components/local-info/local-info.component';
+import { AboutUsPageComponent } from './components/about-us-page/about-us-page.component';
+import { PedidoGestionComponent } from './components/pedido-gestion/pedido-gestion.component';
+import { PedidoGestionFormComponent } from './components/pedido-gestion-form/pedido-gestion-form.component';
+import { CartaComponent } from './components/carta/carta.component';
+import { CartaProductosComponent } from './components/carta-productos/carta-productos.component';
+import { GestionWhatsAppComponent } from './components/gestion-whats-app/gestion-whats-app.component';
 
 const routes: Routes = [
   { path: "", redirectTo: "principal", pathMatch: "full" },
@@ -44,8 +53,17 @@ const routes: Routes = [
   { path:'lista-productos', component:ListaProductosComponent},
   { path: 'mis-pedidos', component: PedidoComponent },
   { path: 'mis-pedidos/productos/:modalidad', component: PedidoProductosComponent },
+  { path: 'mis-pedidos/calificacion/:id', component: PedidoCalificacionComponent },
+  { path: 'pedidos/gestion', component: PedidoGestionComponent },
+  { path: 'pedidos/gestion/:id', component: PedidoGestionFormComponent },
   { path: 'usuario-form/:id', component: UsuarioFormComponent, canActivate: [AdminGuardGuard]},
-  { path: 'usuarioGestion', component: UsuarioGestionComponent, canActivate: [AdminGuardGuard]}
+  { path: 'usuarioGestion', component: UsuarioGestionComponent, canActivate: [AdminGuardGuard]},
+  {path: 'gestion-carta', component: GestionCartaComponent, canActivate: [GestorGuardGuard]},
+  {path: 'local-info', component: LocalInfoComponent},
+  {path: 'about-us-page', component: AboutUsPageComponent},
+  {path: 'menu', component:CartaComponent},
+  {path: 'menu-productos/:id', component: CartaProductosComponent},
+  {path: 'gestion-whatsapp', component: GestionWhatsAppComponent},
 ];
 
 @NgModule({

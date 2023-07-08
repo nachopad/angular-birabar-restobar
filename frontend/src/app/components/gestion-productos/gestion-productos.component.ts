@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Categoria } from 'src/app/models/categoria';
 import { CategoriaService } from 'src/app/services/categoria.service';
 
@@ -11,15 +13,20 @@ import { CategoriaService } from 'src/app/services/categoria.service';
 export class GestionProductosComponent implements OnInit {
 
   listaCategorias!:Array<Categoria>;
-  constructor(private categoriaService: CategoriaService, private router:Router) { 
-    this.listaCategorias=new Array<Categoria>();
+  searchCategoria!:string;
+
+  constructor(private categoriaService: CategoriaService, private router:Router, 
+              private toastrService: ToastrService, private webTitle: Title) { 
+  
   }
 
   ngOnInit(): void {
+    this.webTitle.setTitle("Birabar - Gestión de productos");
     this.obtenerCategorias();
   }
 
   obtenerCategorias(){
+    this.listaCategorias=new Array<Categoria>();
     this.categoriaService.obtenerCategoriasDisponibles().subscribe(
       (result) =>{
         result.forEach((element:any) => {
@@ -39,6 +46,33 @@ export class GestionProductosComponent implements OnInit {
 
   registrarCategoria(){
     this.router.navigate(['alta-categoria', 0]);
+  }
+
+  editarCategoria(id: string){
+    this.router.navigate(["alta-categoria", id]);
+  }
+
+  eliminarCategoria(id: string){
+    this.categoriaService.eliminarCategoria(id).subscribe(
+      (result)=>{
+        if(result.status=="1"){
+          this.toastrService.success("Categoria eliminada con exito");
+        }else{
+          this.toastrService.warning("Esta intentando elimina una categoria que contiene un conjuntos de productos");
+        }
+      },
+      error=>{this.toastrService.error("Error");}
+    )
+  }
+
+
+  buscarPorCategoria(){
+    if (this.searchCategoria !== '') {
+      const categoriasEncontradas = this.listaCategorias.filter(categoria => categoria.nombreCategoria.includes(this.searchCategoria));
+      this.listaCategorias = categoriasEncontradas;
+    } else {
+      this.obtenerCategorias();
+    }
   }
 
 }

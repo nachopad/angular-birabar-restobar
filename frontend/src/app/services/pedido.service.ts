@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Pedido } from '../models/pedido';
+import { DetalleProductoService } from './detalle-producto.service';
 import { DetalleProducto } from '../models/detalle-producto';
 
 @Injectable({
@@ -12,27 +13,49 @@ export class PedidoService {
   constructor(private _http: HttpClient) {
   }
 
-  public createPedido(pedido:Pedido) : Observable<any>{
-    return this._http.post('http://localhost:3000/api/pedido/', pedido);
+  private getIdsDetalle(detProds: Array<DetalleProducto>): Array<string> {
+    let ids = new Array<string>();
+    detProds.forEach(d => {
+      ids.push(d._id);
+    });
+    return ids;
   }
 
-  public getPedidosEnCurso() : Observable<any>{
-    return this._http.get('http://localhost:3000/api/pedido/filtrar?estado=Pendiente&estado=En curso');
+  public createPedido(pedido: Pedido): Observable<any> {
+    let idsDetalles = this.getIdsDetalle(pedido.detalleProductos);
+    const body = {
+      ...pedido,
+      'detalleProductos': idsDetalles,
+    }
+    return this._http.post('http://localhost:3000/api/pedido/', body);
   }
 
-  public getPedidosFinalizados() : Observable<any>{
-    return this._http.get('http://localhost:3000/api/pedido/filtrar?estado=Finalizado&estado=Cancelado');
+  public cancelarPedido(id: string): Observable<any> {
+    return this._http.delete('http://localhost:3000/api/pedido/eliminar/' + id);
   }
 
-  public cancelarPedido(id:string) : Observable<any>{
-    return this._http.delete('http://localhost:3000/api/pedido/eliminar/'+id);
+  public getPedidosCliente(idCliente: string): Observable<any> {
+    return this._http.get('http://localhost:3000/api/pedido/cliente/' + idCliente);
   }
 
-  public createDetalleProd(detalleProd: DetalleProducto){
-    return this._http.post('http://localhost:3000/api/detalle-producto', detalleProd);
+  public getPedidoById(idPedido: string): Observable<any> {
+    return this._http.get('http://localhost:3000/api/pedido/id/' + idPedido);
   }
 
-  public getDetalle(id:String){
-    return this._http.get('http://localhost:3000/api/detalle-producto/'+id);
+  public editPedido(pedido: Pedido): Observable<any> {
+    let idsDetalles = this.getIdsDetalle(pedido.detalleProductos);
+    const body = {
+      ...pedido,
+      'detalleProductos': idsDetalles,
+    }
+    return this._http.put('http://localhost:3000/api/pedido/modificar/', body);
+  }
+
+  public getPedidos(): Observable<any> {
+    return this._http.get('http://localhost:3000/api/pedido/all');
+  }
+
+  public getPedidosByEstado(estado:string): Observable<any>{
+    return this._http.get('http://localhost:3000/api/pedido/filtrar?estado='+estado);
   }
 }

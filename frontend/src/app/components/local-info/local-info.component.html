@@ -1,0 +1,51 @@
+<div class="black-background text-white pb-5">   
+    <div class="justify-content-center align-content-center text-center pt-3 pb-4">
+        <h3 class="display-6">Ponte en contacto</h3>
+    </div>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="section col-sm-6 col-lg-4 m-2">
+                <div class="icon">
+                    <i class="fas fa-map-marker-alt fa-lg"></i>
+                </div>
+                <h2 class="display-6">Dirección</h2>
+                <p>Calle Humahuaca N°492</p>
+            </div>
+            <div class="section col-sm-6 col-lg-4 m-2">
+                <div class="icon">
+                    <i class="fas fa-phone fa-lg"></i>
+                </div>
+                <h2 class="display-6">Teléfono</h2>
+                <p>+ 0388 409-7748</p>
+            </div>
+            <div class="section col-lg-4 m-2">
+                <div class="icon">
+                    <i class="fas fa-envelope fa-lg"></i>
+                </div>
+                <h2 class="display-6">Email</h2>
+                <p>birabar@gmail.com</p>
+            </div>
+            <div class="section col-lg-6 m-2">
+                <div class="icon">
+                    <i class="fas fa-truck fa-lg"></i>
+                </div>
+                <h2 class="display-6">Delivery</h2>
+                <p *ngIf="deliveryStatus==='Disponible'">Servicio: <span class="text-success fw-bold">{{ deliveryStatus }}</span></p>
+                <p *ngIf="deliveryStatus==='No disponible'">Servicio: <span class="text-danger fw-bold">{{ deliveryStatus }}</span></p>
+                <button class="btn btn-danger" (click)="cambiarEstadoDelivery()" *ngIf="(deliveryStatus==='Disponible') && loginService.rolLogged()=='Gestor'">Deshabilitar</button>
+                <button class="btn btn-success" (click)="cambiarEstadoDelivery()" *ngIf="deliveryStatus==='No disponible' && loginService.rolLogged()=='Gestor'">Habilitar</button>
+            </div>
+            <div class="section col-lg-6 m-2">
+                <div class="icon">
+                    <i class="fas fa-store fa-lg"></i>
+                </div>
+                <h2 class="display-6">Local</h2>
+                <p *ngIf="localStatus==='Abierto'">Servicio: <span class="text-success fw-bold">{{ localStatus }}</span></p>
+                <p>Abre a las 20:00hs</p>
+                <p *ngIf="localStatus==='Cerrado'">Servicio: <span class="text-danger fw-bold">{{ localStatus }}</span></p>
+                <button class="btn btn-danger" (click)="cambiarEstadoLocal()" *ngIf="localStatus==='Abierto' && loginService.rolLogged()=='Gestor'">Cerrar</button>
+                <button class="btn btn-success" (click)="cambiarEstadoLocal()" *ngIf="localStatus==='Cerrado' && loginService.rolLogged()=='Gestor'">Abrir</button>
+            </div>
+        </div>
+    </div>
+</div>

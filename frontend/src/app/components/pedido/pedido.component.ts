@@ -2,12 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Pedido } from 'src/app/models/pedido';
 import { Title } from '@angular/platform-browser';
-import { ProductoService } from 'src/app/services/producto.service';
-import { Producto } from 'src/app/models/producto';
-import { Observable } from 'rxjs';
 import { PedidoService } from 'src/app/services/pedido.service';
 import { ToastrService } from 'ngx-toastr';
-import { DetalleProducto } from 'src/app/models/detalle-producto';
+import { LoginService } from 'src/app/services/login.service';
+import { ClienteService } from 'src/app/services/cliente.service';
+import { Calificacion } from 'src/app/models/calificacion';
 
 @Component({
   selector: 'app-pedido',
@@ -19,13 +18,17 @@ export class PedidoComponent implements OnInit {
   navSelected=true;
   pedidosEnCurso!: Array<Pedido>;
   pedidosFinalizados!: Array<Pedido>;
-  detalleProductos!: Array<DetalleProducto>
+  idcliente!:string;
+  pedido!:Pedido;
 
   constructor(private router: Router, private webTitle: Title,
-              private pedidoService: PedidoService, private toastrService: ToastrService) {
-    this.traerPedidosEnCurso();
-    this.traerPedidosFinalizados();
-    this.detalleProductos = new Array<DetalleProducto>();
+              private pedidoService: PedidoService, private toastrService: ToastrService,
+              private loginService: LoginService, private clienteService: ClienteService) {
+    this.pedido = new Pedido();
+    this.pedido.calificacion = new Calificacion();
+    this.pedidosEnCurso = new Array<Pedido>();
+    this.pedidosFinalizados = new Array<Pedido>();
+    this.traerPedidosCliente();
   }
 
   ngOnInit(): void {
@@ -44,46 +47,11 @@ export class PedidoComponent implements OnInit {
     this.router.navigate(["mis-pedidos/productos/", modalidad]);
   }
 
-  traerPedidosEnCurso(): void{
-    this.pedidosEnCurso = new Array<Pedido>();
-    let pedido;
-    this.pedidoService.getPedidosEnCurso().subscribe(
-      (result: any[]) => {
-        result.forEach(e => {
-          pedido = new Pedido();
-          Object.assign(pedido, e);
-          this.pedidosEnCurso.push(pedido);
-        });
-      },
-      error => {
-        console.log(error);
-      }
-     );
-  }
-
-  traerPedidosFinalizados(): void{
-    this.pedidosFinalizados = new Array<Pedido>();
-    let pedido;
-    this.pedidoService.getPedidosFinalizados().subscribe(
-      (result: any[]) => {
-        result.forEach(e => {
-          pedido = new Pedido();
-          Object.assign(pedido, e);
-          this.pedidosFinalizados.push(pedido);
-        });
-      },
-      error => {
-        console.log(error);
-      }
-    );
-  }
-
-  cancelarPedido(pedido:Pedido){
-    this.pedidoService.cancelarPedido(pedido._id).subscribe(
+  cancelarPedido(idpedido:string){
+    this.pedidoService.cancelarPedido(idpedido).subscribe(
       (result) => {
         this.toastrService.info("Se canceló el pedido, podes ver el estado en 'Finalizados'.");
-        this.traerPedidosEnCurso();
-        this.traerPedidosFinalizados();
+        this.traerPedidosCliente();
       },
       error => {
         console.log(error);
@@ -91,22 +59,62 @@ export class PedidoComponent implements OnInit {
     );
   }
 
-  traerDetalles():void {
-    let detalle;
-    this.pedidosEnCurso.forEach(p => {
-      p.detalleproductos.forEach(d => {
-        this.pedidoService.getDetalle(d).subscribe(
-          (result) => {
-            detalle = new DetalleProducto();
-            Object.assign(detalle, result);
-            this.detalleProductos.push(detalle);
+  getPedido(pedido:Pedido){
+    this.pedido = new Pedido();
+    Object.assign(this.pedido, pedido);
+  }
+
+  calificarPedido(idPedido:string){
+    this.router.navigate(['mis-pedidos/calificacion/', idPedido]);
+  }
+
+  getCalificacionPedido(idPedido:string){
+    this.pedidoService.getPedidoById(idPedido).subscribe(
+      (result) => {
+        this.pedido.calificacion = new Calificacion();
+        Object.assign(this.pedido.calificacion, result.calificacion);
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
+  traerPedidosCliente(){
+    this.pedidosEnCurso = new Array<Pedido>();
+    this.pedidosFinalizados = new Array<Pedido>();
+    let pedido;
+
+    if (this.loginService.userLoggedIn()) {
+      let idUser = this.loginService.idLogged();
+      if (idUser!=null){
+        this.clienteService.obtenerCliente(idUser).subscribe(
+          (resultC) => {
+            this.pedidoService.getPedidosCliente(resultC._id).subscribe(
+              (resultP: any[]) => {
+                resultP.forEach(e => {
+                  pedido = new Pedido();
+                  if (e.estado == 'En curso' || e.estado == 'Pendiente'){
+                    Object.assign(pedido, e);
+                    this.pedidosEnCurso.unshift(pedido);
+                  }else{
+                    if (e.estado == 'Finalizado' || e.estado == 'Cancelado'){
+                      Object.assign(pedido, e);
+                      this.pedidosFinalizados.unshift(pedido);
+                    }
+                  }
+                });
+              },
+              error => {
+                console.log(error);
+              }
+            );
           },
           error => {
             console.log(error);
           }
         );
-      });
-    });
+      }
+    }
   }
-
 }

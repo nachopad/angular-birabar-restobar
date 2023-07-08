@@ -32,6 +32,15 @@ import { PedidoProductosComponent } from './components/pedido-productos/pedido-p
 import { PedidoCalificacionComponent } from './components/pedido-calificacion/pedido-calificacion.component';
 import { UsuarioGestionComponent } from './components/usuario-gestion/usuario-gestion.component';
 import { UsuarioFormComponent } from './components/usuario-form/usuario-form.component';
+import { GestionCartaComponent } from './components/gestion-carta/gestion-carta.component';
+import { LocalInfoComponent } from './components/local-info/local-info.component';
+import { AboutUsPageComponent } from './components/about-us-page/about-us-page.component';
+import { PedidoGestionComponent } from './components/pedido-gestion/pedido-gestion.component';
+import { PedidoGestionFormComponent } from './components/pedido-gestion-form/pedido-gestion-form.component';
+import { CartaComponent } from './components/carta/carta.component';
+import { CartaProductosComponent } from './components/carta-productos/carta-productos.component';
+import { GestionWhatsAppComponent } from './components/gestion-whats-app/gestion-whats-app.component';
+import { QRCodeModule } from 'angularx-qrcode';
 
 @NgModule({
   declarations: [
@@ -58,7 +67,15 @@ import { UsuarioFormComponent } from './components/usuario-form/usuario-form.com
     PedidoProductosComponent,
     PedidoCalificacionComponent,
     UsuarioGestionComponent,
-    UsuarioFormComponent
+    UsuarioFormComponent,
+    GestionCartaComponent,
+    LocalInfoComponent,
+    AboutUsPageComponent,
+    PedidoGestionComponent,
+    PedidoGestionFormComponent,
+    CartaComponent,
+    CartaProductosComponent,
+    GestionWhatsAppComponent
   ],
   imports: [
     BrowserModule,
@@ -67,7 +84,8 @@ import { UsuarioFormComponent } from './components/usuario-form/usuario-form.com
     HttpClientModule,
     CommonModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    QRCodeModule
   ],
   providers: [
     LoginService, 

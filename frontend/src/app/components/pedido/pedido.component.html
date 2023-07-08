@@ -23,23 +23,27 @@
                 </div>
                 <div *ngIf="pedidosEnCurso.length != 0">
                     <div class="row" *ngFor="let pec of pedidosEnCurso">
-                        <div class="card col-md-8 offset-md-2 mb-3">
-                            <div class="card-header text-start">
-                                <b>IdPedido: {{pec._id}}</b>
+                        <div class="card col-md-6 offset-md-3 mb-3 bg-dark bg-gradient text-white">
+                            <div class="card-header text-start small">
+                                IdPedido: {{pec._id}}
                             </div>
                             <div class="card-body text-start">
-                                <h5 class="card-title"><i class="fa-solid fa-pizza-slice fa-spin me-2" style="color: #37b976;"></i>¡El restaurante recibió tu pedido!</h5>
-                                <p class="card-text">Estado: {{pec.estado}} - Demora: {{pec.demora}} - Servicio: {{pec.modalidad}}</p>
-                                <p *ngFor="let d of detalleProductos">ä</p>
+                                <h5 class="card-title"><i class="fa-solid fa-circle-check me-2"
+                                        style="color: #22a03b;"></i>¡El restaurante recibió tu pedido!</h5>
+                                <p class="card-text">Estado: {{pec.estado}} - Demora: {{pec.demora}} - Servicio:
+                                    {{pec.modalidad}}</p>
                                 <div class="text-end">
-                                    <a class="btn btn-dark" (click)="cancelarPedido(pec)"><i class="bi bi-x-circle"></i> Cancelar</a>
+                                    <button type="button" class="btn btn-bg-black" data-bs-toggle="modal"
+                                    data-bs-target="#detalleModal" (click)="getPedido(pec)"><i class="bi bi-file-earmark-text"></i>
+                                        Ver detalle
+                                    </button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <button type="button" class="btn btn-style mt-3 mb-2" data-bs-toggle="modal"
+                <button type="button" class="btn btn-success mt-3 mb-2" data-bs-toggle="modal"
                     data-bs-target="#exampleModal"><i class="fa-solid fa-plus me-1"></i> Nuevo pedido</button>
 
                 <!-- Seleccionar modalidad -->
@@ -53,10 +57,10 @@
                                     aria-label="Close"></button>
                             </div>
                             <div class="modal-body ">
-                                <div class="row">
+                                <div class="row pe-4 ps-4">
                                     <button type="button" class="btn btn-modal m-1 text-start d-flex"
                                         (click)="setModalidad('En el local')" data-bs-dismiss="modal">
-                                        <div class="col-2 btn-img rounded-circle">
+                                        <div class="col-2">
                                             <img src="./../../../assets/images/pedidos/food-and-restaurant.png" alt=""
                                                 width="60%" class="me-3 mx-auto d-block">
                                         </div>
@@ -68,7 +72,7 @@
 
                                     <button type="button" class="btn btn-modal m-1 text-start d-flex"
                                         (click)="setModalidad('Retiro')" data-bs-dismiss="modal">
-                                        <div class="col-2 btn-img rounded-circle">
+                                        <div class="col-2">
                                             <img src="./../../../assets/images/pedidos/quitar.png" alt="" width="60%"
                                                 class="me-3 mx-auto d-block">
                                         </div>
@@ -80,7 +84,7 @@
 
                                     <button type="button" class="btn btn-modal m-1 text-start d-flex"
                                         (click)="setModalidad('Delivery')" data-bs-dismiss="modal">
-                                        <div class="col-2 btn-img rounded-circle">
+                                        <div class="col-2">
                                             <img src="./../../../assets/images/pedidos/entrega-de-comida.png"
                                                 width="60%" class="me-3 mx-auto d-block">
                                         </div>
@@ -92,7 +96,7 @@
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-style" data-bs-dismiss="modal">Cancelar</button>
+                                <button type="button" class="btn btn-success" data-bs-dismiss="modal">Cancelar</button>
                             </div>
                         </div>
                     </div>
@@ -106,28 +110,80 @@
                 </div>
                 <div *ngIf="pedidosFinalizados.length != 0">
                     <div class="row" *ngFor="let pf of pedidosFinalizados">
-                        <div class="card col-md-8 offset-md-2 mb-3">
-                            <div class="card-header text-start">
-                                <b>IdPedido: {{pf._id}}</b>
+                        <div class="card col-md-6 offset-md-3 mb-3 bg-dark bg-gradient text-white">
+                            <div class="card-header text-start small">
+                                IdPedido: {{pf._id}}
                             </div>
                             <div class="card-body text-start">
                                 <h5 class="card-title" *ngIf="pf.estado == 'Cancelado'">
-                                    <i class="fa-regular fa-face-sad-tear" style="color: #002e83;"></i>
+                                    <i class="fa-solid fa-heart-crack" style="color: #d46767;"></i>
                                     Hemos cancelado tu pedido... lamentamos los inconvenientes.
                                 </h5>
                                 <h5 class="card-title" *ngIf="pf.estado == 'Finalizado'">
-                                    <i class="fa-regular fa-face-smile-beam fa-bounce" style="color: #257441;"></i>
+                                    <i class="fa-solid fa-circle-check" style="color: #22a03b;"></i>
                                     ¡Hemos finalizado tu pedido y está listo para ser entregado!
                                 </h5>
-                                <p class="card-text">Estado: {{pf.estado}} - Demora: {{pf.demora}} - Servicio: {{pf.modalidad}}</p>
+                                <p *ngIf="pf.estado == 'Finalizado'" class="card-text">Estado: {{pf.estado}} - Demora:
+                                    {{pf.demora}} - Servicio: {{pf.modalidad}}</p>
                                 <div class="text-end">
-                                    <a *ngIf="pf.estado == 'Finalizado'" class="btn btn-success"><i class="fa-solid fa-pencil"></i> Calificar</a>
+                                    <button type="button" class="btn btn-bg-black" data-bs-toggle="modal"
+                                    data-bs-target="#detalleModal" (click)="getPedido(pf)">
+                                        <i class="bi bi-file-earmark-text"></i>
+                                        Ver detalle
+                                    </button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <div class="modal fade" id="detalleModal" tabindex="-1" aria-labelledby="detalleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                  <div class="modal-content text-white black-dark-background">
+                    <div class="modal-header">
+                      <h1 class="modal-title fs-5" id="detalleModalLabel">Detalle del pedido</h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body text-start">
+                        <p class="card-text" *ngFor="let d of pedido.detalleProductos">
+                            <img src="{{d.producto.imagen}}" alt="" width="10%"> {{d.cantidad}} x {{d.producto.nombreProducto}} - Precio U.: {{d.producto.precio | currency: '$'}} - Subtotal: {{d.subtotal | currency: '$'}}
+                        </p>
+                        <p>
+                            <i class="bi bi-check-circle-fill text-success"></i> Total: {{pedido.total | currency: '$'}}
+                            <br><i class="bi bi-check-circle-fill text-success"></i> Forma de pago: {{pedido.formaDePago}} 
+                            <br><i class="bi bi-check-circle-fill text-success"></i> Tipo de servicio: {{pedido.modalidad}} 
+                            <br><i class="bi bi-check-circle-fill text-success"></i> Estado del pedido: {{pedido.estado}} 
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                      <button *ngIf="pedido.estado == 'Pendiente' || pedido.estado == 'En curso'" type="button" class="btn btn-danger" (click)="cancelarPedido(pedido._id)" data-bs-dismiss="modal"><i class="bi bi-x-circle"></i> Cancelar pedido</button>
+                      <button *ngIf="(pedido.estado == 'Finalizado' || pedido.estado == 'Cancelado') && pedido.calificacion == null" type="button" class="btn btn-success" data-bs-dismiss="modal" (click)="calificarPedido(pedido._id)"><i class="fa-solid fa-pencil me-2"></i>Calificar</button>
+                      <button *ngIf="(pedido.estado == 'Finalizado' || pedido.estado == 'Cancelado') && pedido.calificacion != null" type="button" class="btn btn-success" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" (click)="getCalificacionPedido(pedido._id)"><i class="fa-solid fa-star me-2"></i>Ver calificación</button>
+                    </div>
+                  </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+                <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content text-white black-dark-background">
+                    <div class="modal-header">
+                      <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">Tu calificación del pedido</h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body text-start" *ngIf="pedido.calificacion != null">
+                      <i class="bi bi-calendar-check"></i> Fecha: {{pedido.calificacion.fecha}}
+                      <br><i class="bi bi-star-fill"></i> Puntaje: {{pedido.calificacion.puntaje}}/5
+                      <br><i class="fa-solid fa-comment"></i> Observacion: {{pedido.calificacion.observacion}} <i *ngIf="pedido.calificacion.observacion == null"> - </i>
+                    </div>
+                    <div class="modal-footer">
+                      <button class="btn btn-secondary" data-bs-target="#detalleModal" data-bs-toggle="modal">Volver al detalle</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
         </section>
     </div>
 </div>

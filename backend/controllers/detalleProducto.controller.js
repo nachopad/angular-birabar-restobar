@@ -7,10 +7,7 @@ detProductoCtrl.createDetalleProducto = async (req, res) => {
 
     try {
         await detProd.save();
-        res.status(200).json({
-            'status': '1',
-            'msg': 'Detalle de productos guardado.'
-        })
+        res.json(detProd);
     } catch (error) {
         res.status(400).json({
             'status': '0',

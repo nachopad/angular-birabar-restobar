@@ -1,3 +1,4 @@
+<!--
 <div class="black-background container-fluid p-5">
     <form class="container align-content-center d-grid col-md-6 col-sm-12 mt-5 text-white" #categoriaForm="ngForm">
         <div class="border border-1 border-secondary bg-gradient rounded-3">
@@ -23,9 +24,7 @@
                             </div>
                         </div>
                     </div>
-                    </div>
-
-                    
+                    </div>        
                 </div>
 
                 <div class="row pt-4">
@@ -35,16 +34,15 @@
                     <div class="col-xl-8 col-md-12 col-sm-12 pe-4">
                         <input class="form-control" type="file" id="imagen" name="imagen" accept="image/*" (change)="onFileSelected($event)" ngModel #imagen="ngModel" required>
                         <div class="d-grid justify-content-center pt-3">
-                            <img [src]="categoria.imagen" class="img-thumbnail img-fluid" style="max-width: 300px"/>
+                          <img [src]="categoria.imagen" class="img-thumbnail img-fluid" style="max-width: 300px"/>
                         </div>
                         
                         <div *ngIf="imagen.invalid && (imagen.dirty || imagen.touched)" class="text-danger fw-bold">
-                            <div *ngIf="imagen.errors?.['required']">
+                          <div *ngIf="imagen.errors?.['required']">
                             Debe ingresar una imagen
-                            </div>
+                          </div>
                         </div>
-                        
-                    </div>
+                      </div>
                 </div>
 
                 <div class="d-grid justify-content-center pt-4">
@@ -56,7 +54,7 @@
                             <button type="submit" class="form-control bg-success rounded-3 fw-bold text-white producto" (click)="actualizarCategoria()" [disabled]="!categoriaForm.valid">Actualizar</button>
                         </div>
                         <div class="col-md-6 col-sm-6 col-12">
-                            <button type="submit" class="form-control bg-secondary rounded-3 text-white fw-bold producto" (click)="cancelar()"> Cancelar</button>
+                            <a type="submit" class="form-control bg-secondary rounded-3 text-white fw-bold producto text-decoration-none" href="/gestion-productos"> Cancelar</a>
                         </div>
                     </div>
                 </div>
@@ -65,3 +63,52 @@
         </div>
     </form>
 </div>
+-->
+
+
+<div class="black-background">
+    <div class="container pt-4 pb-5 text-light">
+        <h4 class="text-center mb-3">Gestión de Categorias</h4>
+        <div class="row mb-3 justify-content-center">
+            <div class="col-11 col-md-7 border rounded-3 border-secondary p-4">
+                <form #categoriaForm="ngForm">
+                    <div class="row justify-content-center">
+                        <div class="col-md-8">
+                            <label class="form-text text-secondary" for="nombreCategoria">Nombre de categoria:</label>
+                            <input type="text" class="form-control form-control-md" id="nombreCategoria"
+                                name="nombreCategoria" placeholder="Ej: Pizzas" autocomplete="off" required
+                                [(ngModel)]="categoria.nombreCategoria" #nombreCategoria="ngModel">
+                            <div *ngIf="nombreCategoria.invalid && (nombreCategoria.dirty || nombreCategoria.touched)"
+                                class="text-danger">
+                                <div *ngIf="nombreCategoria.errors?.['required']">
+                                    Debe ingresar el nombre de la categoria antes de continuar.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <label class="form-text text-secondary" for="imagen">Imagen:</label>
+                            <input class="form-control" type="file" id="imagen" name="imagen" accept="image/*"
+                                (change)="onFileSelected($event)" ngModel #imagen="ngModel" required>
+                            <div class="d-grid justify-content-center pt-3">
+                                <img [src]="categoria.imagen" class="img-thumbnail img-fluid"
+                                    style="max-width: 300px" />
+                            </div>
+                            <div *ngIf="imagen.invalid && (imagen.dirty || imagen.touched)" class="text-danger">
+                                <div *ngIf="imagen.errors?.['required']">
+                                    Debe ingresar una imagen para la categoria antes de continuar.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-3 justify-content-center align-content-center text-center">
+                            <button *ngIf="accion=='new'" type="submit" class="btn btn-light bi bi-plus-circle me-1"
+                                (click)="registrarCategoria()" [disabled]="!categoriaForm.valid">Crear</button>
+                            <button *ngIf="accion=='update'" type="submit"
+                                class="btn btn-light bi bi-pencil-square me-1" (click)="actualizarCategoria()"
+                                [disabled]="!categoriaForm.valid">Modificar</button>
+                            <a (click)="regresar()" class="btn btn-light bi bi-arrow-left"> Volver</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
