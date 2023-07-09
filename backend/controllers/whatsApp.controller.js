@@ -26,10 +26,9 @@ whatsappCtrl.createSession = async ( req, res)=> {
 }
 
 whatsappCtrl.sendMessage = async (req, res )=>{
-    console.log(req.body.to+"@c.us");
-    console.log(req.body.message);
+    console.log(req.body);
     client.sendMessage(req.body.to+"@c.us", req.body.message);
-    res.send("Mensaje enviado exitosamente.")
+    res.json("Mensaje enviado exitosamente.")
 }
 
 
