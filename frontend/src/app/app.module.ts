@@ -41,6 +41,8 @@ import { CartaComponent } from './components/carta/carta.component';
 import { CartaProductosComponent } from './components/carta-productos/carta-productos.component';
 import { GestionWhatsAppComponent } from './components/gestion-whats-app/gestion-whats-app.component';
 import { QRCodeModule } from 'angularx-qrcode';
+import { ReporteComponent } from './components/reporte/reporte.component';
+import { NgChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -75,7 +77,8 @@ import { QRCodeModule } from 'angularx-qrcode';
     PedidoGestionFormComponent,
     CartaComponent,
     CartaProductosComponent,
-    GestionWhatsAppComponent
+    GestionWhatsAppComponent,
+    ReporteComponent
   ],
   imports: [
     BrowserModule,
@@ -85,7 +88,8 @@ import { QRCodeModule } from 'angularx-qrcode';
     CommonModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
-    QRCodeModule
+    QRCodeModule,
+    NgChartsModule
   ],
   providers: [
     LoginService, 

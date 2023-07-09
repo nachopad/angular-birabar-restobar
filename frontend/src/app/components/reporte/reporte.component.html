@@ -1,0 +1,31 @@
+<div class="container">
+
+
+<h1 class="text-center">Reportes</h1>
+<div class="d-flex justify-content-start">
+<input type="date">
+<input type="date">
+</div>
+
+<div *ngIf="mostrar" class="d-flex justify-content-around ">
+
+<canvas baseChart width="400" height="400"
+        [data]="barChartData"
+        [options]="barChartOptions"
+        [plugins]="barChartPlugins"
+        [legend]="barChartLegend"
+        [type]="'bar'">
+</canvas>
+
+<canvas  baseChart width="400" height="400"
+  [type]="'pie'"
+  [datasets]="pieChartDatasets"
+  [labels]="pieChartLabels"
+  [options]="pieChartOptions"
+  [plugins]="pieChartPlugins"
+  [legend]="pieChartLegend">
+</canvas>
+
+</div>
+
+</div>

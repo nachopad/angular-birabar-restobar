@@ -25,4 +25,15 @@ calificacionCtrl.getCalificaciones = async (req, res) => {
     res.json(calificaciones);
 }
 
+calificacionCtrl.getResumen = async (req, res) => {
+    const calificaciones = await Calificacion.aggregate(
+        [
+            { $group: { _id: '$puntaje', count: { $sum: 1 } } },
+            { $project: { puntaje: '$_id', count: 1, _id: 0 } },
+            { $sort: { puntaje: 1 } }
+          ]
+    ) 
+    res.json(calificaciones);
+}
+
 module.exports = calificacionCtrl;
