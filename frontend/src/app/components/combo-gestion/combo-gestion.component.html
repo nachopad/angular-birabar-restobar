@@ -57,13 +57,13 @@
                     <div class="card-body">
                         <h4 class="card-title">Informar el combo por WhatsApp</h4>
                         <h5 class="card-text pt-4">{{comboEnviar.titulo}}</h5>
-                        <img >
+                        <img class="img-fluid" [src]="comboEnviar.imagen">
                         <p class="card-text p-3">Este mensaje solo sera enviado a los usuarios suscripto</p>
                     </div>
                 </div>
             </div>
             <div class="modal-footer justify-content-center">
-                <button type="button" class="btn btn-success bg-gradient bi bi-send-fill rounded-5" (click)="enviarMensaje()"></button>
+                <button type="button" class="btn btn-success bg-gradient bi bi-send-fill rounded-5" (click)="enviarMensaje()" ></button>
             </div>
         </div>
     </div>

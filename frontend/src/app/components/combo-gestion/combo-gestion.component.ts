@@ -3,8 +3,10 @@ import { Title } from '@angular/platform-browser';
 import { ToastrService } from 'ngx-toastr';
 import { Cliente } from 'src/app/models/cliente';
 import { Combo } from 'src/app/models/combo';
+import { Producto } from 'src/app/models/producto';
 import { ClienteService } from 'src/app/services/cliente.service';
 import { ComboService } from 'src/app/services/combo.service';
+import { ProductoService } from 'src/app/services/producto.service';
 import { WhatsappService } from 'src/app/services/whatsapp.service';
 
 @Component({
@@ -16,16 +18,18 @@ export class ComboGestionComponent implements OnInit {
 
   combos!:Array<Combo>;
   searchCombo!: string;
-
+  productosCombo!:Array<Producto>;
 
   constructor(private comboService:ComboService,
               private webTitle: Title,
               private toast:ToastrService,
               private clienteService:ClienteService,
               private whatsApp: WhatsappService,
-              private toastrService: ToastrService) {
+              private toastrService: ToastrService,
+              private productoService:ProductoService) {
     this.combos = new Array<Combo>(); 
     this.comboEnviar=new Combo();
+    this.productosCombo=new Array<Producto>(); 
    }
 
   ngOnInit(): void {
@@ -73,6 +77,7 @@ export class ComboGestionComponent implements OnInit {
   cargarCombo(combo:Combo){
     this.comboEnviar=combo;
     console.log(this.comboEnviar);
+    this.cargarProductosCombo();
   }
 
   async enviarMensaje(){
@@ -89,17 +94,16 @@ export class ComboGestionComponent implements OnInit {
     });
 
   }
-/*
+
   construirMensaje():string{
     return `Tenemos el agrado de informale que tenemos un combo imperdible:
   
           `+this.comboEnviar.titulo+ `  
     Con los siguientes productos: 
-       -`+ this.comboEnviar.productos.map(producto => `${producto.nombreProducto}`).join(`, 
+       -`+ this.productosCombo.map(producto => `${producto.nombreProducto}`).join(`, 
       `)+`
       Precio Final: `+this.comboEnviar.montoFinal;
   }
-*/
 
   buscarPorTitulo() {
     if (this.searchCombo.trim() !== '') {
@@ -126,6 +130,21 @@ export class ComboGestionComponent implements OnInit {
         this.toastrService.error("Error: ", error);
       }
     );
+  }
+
+  async cargarProductosCombo() {
+    this.productosCombo = new Array<Producto>();
+    this.comboEnviar.productos.forEach(id => {
+      this.productoService.obtenerProducto(id).subscribe(
+        result => {
+          let prod: Producto = new Producto();
+          result.forEach((element: any) => {
+            Object.assign(prod, element);
+            this.productosCombo.push(prod);
+          });
+        }
+      );
+    });
   }
 
 }

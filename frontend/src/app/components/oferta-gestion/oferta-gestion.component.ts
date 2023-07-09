@@ -126,6 +126,7 @@ export class OfertaGestionComponent implements OnInit {
   }
 
   productosOferta!:Array<Producto>;
+  
   async cargarProductosOferta() {
     this.productosOferta = new Array<Producto>();
     this.ofertaMensaje.productos.forEach(id => {
