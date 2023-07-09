@@ -33,6 +33,7 @@
             <li><a class="dropdown-item" [routerLink]="['ofertaGestion']">Ofertas</a></li>
             <li><a class="dropdown-item" [routerLink]="['gestion-whatsapp']">WhatssApp</a></li>
             <li><a class="dropdown-item" [routerLink]="['gestion-restobar']">Restobar</a></li>
+            <li><a class="dropdown-item" [routerLink]="['pedidos/gestion']">Pedidos</a></li>
           </ul>
         </li>
         <li class="nav-item dropdown" *ngIf="(loginService.rolLogged()==='Administrador')">
@@ -41,7 +42,7 @@
           </a>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" [routerLink]="['usuarioGestion']">Usuarios</a></li>
-            <li><a class="dropdown-item" [routerLink]="['']">Reporte Ventas</a></li>
+            <li><a class="dropdown-item" [routerLink]="['ventas']">Reporte Ventas</a></li>
             <li><a class="dropdown-item" [routerLink]="['']">Reporte Calificaciones</a></li>
           </ul>
         </li>

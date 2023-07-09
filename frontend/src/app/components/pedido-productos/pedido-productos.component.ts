@@ -128,7 +128,7 @@ export class PedidoProductosComponent implements OnInit {
   crearPedido(){
     this.pedido = new Pedido();
     this.pedido.cliente = this.cliente;
-    this.pedido.demora = "45 min";
+    this.pedido.demora = "45";
     this.pedido.detalleProductos = this.detalleProductos;
     this.pedido.estado = "Pendiente";
     this.pedido.modalidad = this.modalidad;
