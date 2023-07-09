@@ -24,6 +24,7 @@ app.use('/api/calificacion', require('./routes/calificacion.route'));
 app.use('/api/detalle-producto', require('./routes/detalleProducto.route'));
 app.use('/api/whatsApp', require('./routes/whatsApp.route.js'));
 app.use('/api/restobar', require('./routes/restobar.route.js'));
+app.use('/api/venta', require('./routes/venta.route.js'));
 
 //setting
 app.set('port', process.env.PORT || 3000);

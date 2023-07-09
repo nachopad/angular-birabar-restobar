@@ -34,6 +34,7 @@ import { CartaProductosComponent } from './components/carta-productos/carta-prod
 import { GestionWhatsAppComponent } from './components/gestion-whats-app/gestion-whats-app.component';
 import { RestobarFormComponent } from './components/restobar-form/restobar-form.component';
 import { RestobarGestionComponent } from './components/restobar-gestion/restobar-gestion.component';
+import { VentaComponent } from './components/venta/venta.component';
 
 const routes: Routes = [
   { path: "", redirectTo: "principal", pathMatch: "full" },
@@ -56,8 +57,8 @@ const routes: Routes = [
   { path: 'mis-pedidos', component: PedidoComponent },
   { path: 'mis-pedidos/productos/:modalidad', component: PedidoProductosComponent },
   { path: 'mis-pedidos/calificacion/:id', component: PedidoCalificacionComponent },
-  { path: 'pedidos/gestion', component: PedidoGestionComponent },
-  { path: 'pedidos/gestion/:id', component: PedidoGestionFormComponent },
+  { path: 'pedidos/gestion', component: PedidoGestionComponent, canActivate: [GestorGuardGuard] },
+  { path: 'pedidos/gestion/:id', component: PedidoGestionFormComponent, canActivate: [GestorGuardGuard] },
   { path: 'usuario-form/:id', component: UsuarioFormComponent, canActivate: [AdminGuardGuard]},
   { path: 'usuarioGestion', component: UsuarioGestionComponent, canActivate: [AdminGuardGuard]},
   {path: 'gestion-carta', component: GestionCartaComponent, canActivate: [GestorGuardGuard]},
@@ -67,7 +68,8 @@ const routes: Routes = [
   {path: 'menu-productos/:id', component: CartaProductosComponent},
   {path: 'gestion-whatsapp', component: GestionWhatsAppComponent, canActivate: [GestorGuardGuard]},
   {path: 'restobar-form/:id', component:  RestobarFormComponent, canActivate: [GestorGuardGuard]},
-  {path: 'gestion-restobar', component: RestobarGestionComponent, canActivate: [GestorGuardGuard]}
+  {path: 'gestion-restobar', component: RestobarGestionComponent, canActivate: [GestorGuardGuard]},
+  {path: 'ventas', component: VentaComponent, canActivate: [AdminGuardGuard]}
 ];
 
 @NgModule({

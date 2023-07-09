@@ -19,11 +19,11 @@ export class HomeComponent implements OnInit {
   }
   
   comprobarUsuario():void{
-    if (this.loginService.userLoggedIn() && this.loginService.rolLogged()=="Cliente"){
+    if (this.loginService.userLoggedIn()){
       this.router.navigate(['mis-pedidos']);
     }else{
       this.router.navigate(['login']);
-      this.toastrService.info("Ingresá o registrate para hacer un pedido.")
+      this.toastrService.info("Ingresá o registrate para hacer un pedido.");
     }
   }
 }
