@@ -1,31 +1,46 @@
-<div class="container">
+<div class="black-background text-light">
+  <div class="container pt-4 pb-5">
+    <h4 class="text-center mb-3">Reportes</h4>
+    <hr>
+    
+    <div class="row ">
+      <div class="col-12">
+        <h6 class="mb-3">Todas las calificaciones</h6>
+      </div>
+      <div class="col-auto pt-2">
+               <span>Elegir tipo</span>
+      </div>
+      <div class="col-2">
+        <select class="form-select " aria-label="" (change)="cambio($event)">
+          <option selected value="barra">Barra</option>
+          <option value="torta">Torta</option>
+        </select>
+    </div>
+    </div>
+    <div class="row">
+      
+    
+
+      <div *ngIf="mostrar" class="col-12 col-sm-12">
+
+        <div class="row gap-4 justify-content-center" >
+          <div class="col-8 reporte "*ngIf="grafico=='barra'">
+            <canvas baseChart [data]="barChartData" [options]="barChartOptions" [plugins]="barChartPlugins"
+              [legend]="barChartLegend" [type]="'bar'" >
+            </canvas>
+          </div>
 
 
-<h1 class="text-center">Reportes</h1>
-<div class="d-flex justify-content-start">
-<input type="date">
-<input type="date">
-</div>
+          <div class="col-5 reporte" *ngIf="grafico=='torta'">
+            <canvas baseChart [type]="'pie'" [datasets]="pieChartDatasets" [labels]="pieChartLabels"
+              [options]="pieChartOptions" [plugins]="pieChartPlugins" [legend]="pieChartLegend">
+            </canvas>
+          </div>
 
-<div *ngIf="mostrar" class="d-flex justify-content-around ">
+        </div>
 
-<canvas baseChart width="400" height="400"
-        [data]="barChartData"
-        [options]="barChartOptions"
-        [plugins]="barChartPlugins"
-        [legend]="barChartLegend"
-        [type]="'bar'">
-</canvas>
+      </div>
 
-<canvas  baseChart width="400" height="400"
-  [type]="'pie'"
-  [datasets]="pieChartDatasets"
-  [labels]="pieChartLabels"
-  [options]="pieChartOptions"
-  [plugins]="pieChartPlugins"
-  [legend]="pieChartLegend">
-</canvas>
-
-</div>
-
+    </div>
+  </div>
 </div>

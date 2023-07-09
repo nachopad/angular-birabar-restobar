@@ -67,7 +67,7 @@ const routes: Routes = [
   {path: 'about-us-page', component: AboutUsPageComponent},
   {path: 'menu', component:CartaComponent},
   {path: 'menu-productos/:id', component: CartaProductosComponent},
-  {path: 'reporte', component: ReporteComponent},
+  {path: 'reporte', component: ReporteComponent,canActivate: [AdminGuardGuard]},
   {path: 'gestion-whatsapp', component: GestionWhatsAppComponent, canActivate: [GestorGuardGuard]},
   {path: 'restobar-form/:id', component:  RestobarFormComponent, canActivate: [GestorGuardGuard]},
   {path: 'gestion-restobar', component: RestobarGestionComponent, canActivate: [GestorGuardGuard]}

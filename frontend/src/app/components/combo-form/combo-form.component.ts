@@ -19,6 +19,12 @@ export class ComboFormComponent implements OnInit {
   productos!:Array<Producto>;
   precioLista!:number; 
   descuentoSeleccionado="";
+  searchProducto!: string;
+  buscarProducto: boolean = false;
+  productosCombo!:Array<Producto>;
+
+
+
   constructor(private router:ActivatedRoute, private productoService:ProductoService, 
               private comboService:ComboService, private toast:ToastrService,
               private webTitle: Title,
@@ -30,96 +36,48 @@ export class ComboFormComponent implements OnInit {
     this.webTitle.setTitle("Birabar - Crear combo");
     this.precioLista = 0;
     this.productos=new Array<Producto>();
+
     this.cargarProductos();
     this.router.params.subscribe(params => {
       this.combo=new Combo();
       if (params['id'] == 0) {
         this.accion = "new";
       } else {
-        this.accion="update"
-        this.cargarCombo(params['id']);
+        this.accion="update";
+        this.descuentoSeleccionado="final";
+       this.cargarCombo(params['id']);
       }
     });
-
-
-    this.combo=new Combo();
   }
 
-  cargarProductos():void
-  {
-    this.productoService.obtenerProductosDisponibles().subscribe(
-      result => {
-        result.forEach((element: any) => {
-          let producto: Producto = new Producto();
-          Object.assign(producto, element);
-          this.productos.push(producto);
-        });
-      },
-      error => {
-        console.log("Error procesando la operacion");
-      }
-    );
-  }
-
-  marcarProducto(p:Producto)
-  {
-    this.perteneceProducto(p) ?  this.eliminarProducto(p) : this.agregarProducto(p); 
-  }
-
-  perteneceProducto(producto:Producto):boolean
-  {
-    return this.combo.productos.some((element: Producto) => element._id === producto._id);
 
 
-  }
+  cargarCombo(id:string)
+{
+  this.comboService.obtenerComboById(id).subscribe(
+    result=>
+    {
+      Object.assign(this.combo,result);
+      console.log(this.combo);
+      this.cargarProductosCombo();
+    },
+    error=>
+    {
 
-  eliminarProducto(p:Producto)
-  {
-    const index = this.combo.productos.findIndex((element: Producto) => element._id === p._id);
-  if (index !== -1) {
-    this.combo.productos.splice(index, 1);
-    this.calcularPrecioLista();
-    this.calcularMontoFinal();
-  }
-  if(this.combo.productos.length==0)
-   {
-    this.precioLista=0; 
-    this.combo.montoFinal = 0; 
-    this.combo.descuento = 0; 
-   }
+    }
+  )
+}
 
-  }
 
-  agregarProducto(p:Producto)
-  {
-    this.combo.productos.push(p);
-   this.calcularPrecioLista();
-   this.calcularMontoFinal();
-  }
+
+
+
 
   calcularPrecioLista():void{
-    const acumulado = this.combo.productos.reduce((total, producto) => total + producto.precio, 0);
+    const acumulado = this.productosCombo.reduce((total, producto) => total + producto.precio, 0);
    this.precioLista = acumulado; 
   }
 
-  registrarProducto():void{
-    this.calcularMontoFinal();
-    this.combo.productos.forEach((element)=>
-    {
-      element.imagen="";
-    })
-    this.comboService.registrarCombo(this.combo).subscribe(
-      result=>
-      {
-       this.toast.success("El combo fue registrado correctamente")
-       this.route.navigateByUrl("comboGestion")
-      },
-      error=>
-      {
-
-      }
-    )
-  }
 
   calcularMontoFinal()
   {
@@ -129,34 +87,131 @@ export class ComboFormComponent implements OnInit {
       this.combo.descuento=  parseFloat(((100-((this.combo.montoFinal*100)/this.precioLista))/100).toFixed(2));
   
   }
- 
-  cargarCombo(id:string)
-{
-  this.comboService.obtenerComboById(id).subscribe(
-    result=>
-    {
-      Object.assign(this.combo,result);
-      this.calcularPrecioLista();
-    },
-    error=>
-    {
 
-    }
-  )
-}
 
-editarCombo()
-{
-  this.comboService.editarCombo(this.combo).subscribe(
-    result=>
-    {
-      this.toast.success("Editado correctamente");
+  registrarCombo()
+  {
+    this.calcularMontoFinal();
+    this.comboService.registrarCombo(this.combo).subscribe(
+      result=>{
+
+      this.toast.success("El combo se registro correctamente");
       this.route.navigateByUrl("comboGestion");
-    },
-    error=>
-    {
+      },
+      error=>
+      { 
 
+      }
+    )
+  }
+  limpiarValores()
+  {
+    this.combo.montoFinal=0;
+    this.combo.descuento=0; 
+
+  }
+
+modificarCombo() {
+  this.calcularMontoFinal();
+  this.comboService.editarCombo(this.combo).subscribe(
+    result => {
+      this.toast.success("Combo modificada correctamente");
+      this.route.navigateByUrl("comboGestion")
+    },
+    error => {
+      this.toast.error("Error:", error);
     }
-  )
+  );
 }
+
+
+
+buscarPorNombreProducto() {
+  if (this.searchProducto.trim() !== '') {
+    const productosEncontrados = this.productos.filter(producto => producto.nombreProducto.toLowerCase().includes(this.searchProducto.toLowerCase()));
+    this.productos = productosEncontrados;
+  } else {
+    this.cargarProductos();
+  }
+}
+
+
+
+ cargarProductos() {
+  this.productos = new Array<Producto>();
+  this.productoService.obtenerProductosDisponibles().subscribe(
+    result => {
+      result.forEach((element: any) => {
+        let producto: Producto = new Producto();
+        Object.assign(producto, element);
+        this.productos.push(producto);
+      });
+    },
+    error => {
+      console.log("Error procesando la operacion");
+    }
+  );
+}
+
+
+  agregarProductoToCombo(producto: Producto) {
+    this.toast.success("Producto agregado al combo.");
+    this.combo.productos.push(producto._id);
+    this.cargarProductosCombo();
+    this.limpiarValores();
+  }
+
+
+
+  /**
+   * Permite carga un vector de productos.
+   */
+  cargarProductosCombo() {
+    this.productosCombo = new Array<Producto>();
+    this.combo.productos.forEach(id => { 
+      this.productoService.obtenerProducto(id).subscribe(
+        result => {
+            console.log("Producto encontrado "+ result)
+          let prod: Producto = new Producto();
+          result.forEach((element: any) => {
+            Object.assign(prod, element);
+            this.productosCombo.push(prod);
+          });
+          this.calcularPrecioLista();
+          this.calcularMontoFinal();
+
+        }
+      );
+    });
+  }
+
+
+   quitarProductoToCombo(idProducto: string) {
+    var indice: number = this.combo.productos.findIndex((prod) => prod == idProducto);
+    this.toast.info("Producto quitado del combo.");
+    this.combo.productos.splice(indice, 1);
+    this.cargarProductosCombo();
+    this.calcularPrecioLista();
+    this.limpiarValores();
+  }
+
+  /**
+   * Permite transformar una imagen a base64 y ademas permite validar el peso de dicha imagen.
+   * @param event 
+   */
+  onFileSeleccionado(event: any) {
+    if (event.target.files[0]) {
+      const file = event.target.files[0];
+      if (file.size > 70 * 1024) {
+        event.target.value = null;
+        this.toast.warning("La imagen no puede pesar más de 70KB.");
+      } else {
+        const reader = new FileReader();
+        reader.onload = () => {
+          this.combo.imagen = reader.result as string;
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+  }
 }

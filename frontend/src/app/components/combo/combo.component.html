@@ -1,19 +1,54 @@
-
-<div class="black-background  p-5">
-  <div class="container">
-      <div class="row">
-          <article class="col-9 ">
-              <div class="row">
-                  <div class="col-xl-3 col-md-6 col-sm-12 col-4 g-2" *ngFor="let combo of combos">
-                      <button class="form-control bg-white text-white producto"><img src="" class="card-img-top"> 
-                          <div>
-                              <p class="text-black">{{combo.titulo}}</p>
-                              <p class="text-black">{{combo.montoFinal | currency:'':'symbol':'0.0-4'}}</p>
-                          </div>
-                      </button>
-                  </div>
-              </div>
-          </article>
+<div class="black-background text-white">
+    <div class="container pt-5 pb-5 ">
+      <h4 class="text-center">Combos Disponibles</h4>
+      <div class="row justify-content-center" *ngIf="combos.length!=0">
+        <div class="col-xl-3 col-md-4 col-12 d-flex justify-content-center align-items-center"
+          *ngFor="let combo of combos">
+          <div class="combo text-center" (click)="cargarProductos(combo)" data-bs-toggle="modal"
+            data-bs-target="#modalCombo">
+            <p class="form-text text-light mb-1">{{combo.titulo}}</p>
+            <div style="height: 200px;width:200px;">
+              <img [src]="combo.imagen" class="object-fit-cover rounded-1 h-100 w-100" style="height: 100%;width: 100%;">
+            </div>
+            <small>{{combo.montoFinal | currency:'$'}}</small>
+          </div>
+        </div>
       </div>
+      <div *ngIf="combos.length==0" class="text-center mt-3">
+        <img src="./../../../assets/images/pedidos/lupulo.png" alt="" class="img-fluid img-opacity"
+        width="150px">
+        <p><i>No hay combos disponibles.</i></p>
+      </div>
+    </div>
   </div>
-</div>
+  <div class="modal fade" id="modalCombo" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+      <div class="modal-content black-background text-white">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel"><b>{{comboModal.titulo}}</b></h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p><b>Precio: </b> {{comboModal.montoFinal | currency:'$':'symbol':'1.0-2'}}</p>
+          <table class="text-center" style="width: 100%;">
+            <thead>
+              <tr>
+                <th scope="col" colspan="2">Producto</th>
+                <th scope="col">Precio unidad</th>
+              </tr>
+            </thead>
+            <tbody *ngFor="let d of productosModal">
+              <tr>
+                <th scope="row"><img src="{{d.imagen}}" height="50px" width="50px" class="object-fit-cover"></th>
+                <td>{{d.nombreProducto}}</td>
+                <td>{{d.precio | currency: '$'}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>

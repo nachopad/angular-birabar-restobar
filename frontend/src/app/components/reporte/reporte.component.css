@@ -1,0 +1,8 @@
+.reporte{
+   background-color: #202634;
+    border-radius: 15px;
+   
+}
+.reporte > canvas{
+    color: white;
+}

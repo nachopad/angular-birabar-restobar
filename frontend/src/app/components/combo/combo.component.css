@@ -1,23 +1,29 @@
-.black-background{
+.black-background {
     background-color: #202634;
-    background-color: #141a24;
 }
 
-/*Las tarjetas y su contenido*/
-.producto{
-    border-radius: 3px;
-    overflow: hidden;
-    border-radius: 10px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    cursor: default;
+.green-background {
+    background-color: #1fd08f;
+}
+
+.green-background:hover {
+    background-color: #2cf5ab;
+    color: #202634;
+}
+
+.combo{
+    width: 200px;
+    margin: 10px;
     transition: all 400ms ease;
 }
 
-.producto:hover{
-    box-shadow: 0 0.1rem 0.4rem rgba(0, 0, 0, 5);
-    transform: translateY(-5%);
+.combo:hover{
+    cursor:pointer;
+    transform: translateY(-3%);
 }
-.producto.contenido{
-    text-align: center;
-    padding: 10px;
+
+.modal-header,
+.modal-body,
+.modal-footer {
+  border-color: #141a24;
 }

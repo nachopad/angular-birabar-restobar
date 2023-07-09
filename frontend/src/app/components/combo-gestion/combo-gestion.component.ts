@@ -12,6 +12,9 @@ import { ComboService } from 'src/app/services/combo.service';
 export class ComboGestionComponent implements OnInit {
 
   combos!:Array<Combo>;
+  searchCombo!: string;
+
+
   constructor(private comboService:ComboService,
               private webTitle: Title,
               private toast:ToastrService) {
@@ -55,5 +58,15 @@ this.comboService.eliminarComboById(id).subscribe(
 
   }
 )
+  }
+
+
+  buscarPorTitulo() {
+    if (this.searchCombo.trim() !== '') {
+      const ofertasEncontradas = this.combos.filter(combo => combo.titulo.toLowerCase().includes(this.searchCombo.toLowerCase()));
+      this.combos = ofertasEncontradas;
+    } else {
+      this.cargarCombos();
+    }
   }
 }
