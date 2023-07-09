@@ -43,6 +43,7 @@ import { GestionWhatsAppComponent } from './components/gestion-whats-app/gestion
 import { QRCodeModule } from 'angularx-qrcode';
 import { RestobarFormComponent } from './components/restobar-form/restobar-form.component';
 import { RestobarGestionComponent } from './components/restobar-gestion/restobar-gestion.component';
+import { VentaComponent } from './components/venta/venta.component';
 
 @NgModule({
   declarations: [
@@ -79,7 +80,8 @@ import { RestobarGestionComponent } from './components/restobar-gestion/restobar
     CartaProductosComponent,
     GestionWhatsAppComponent,
     RestobarFormComponent,
-    RestobarGestionComponent
+    RestobarGestionComponent,
+    VentaComponent
   ],
   imports: [
     BrowserModule,

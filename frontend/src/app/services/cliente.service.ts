@@ -46,4 +46,7 @@ export class ClienteService {
     return this._http.get(this.hostBase+"obtener-clientes-suscripto", httpOptions);
   }
   
+  obtenerClientes():Observable<any>{
+    return this._http.get(this.hostBase);
+  }
 }
