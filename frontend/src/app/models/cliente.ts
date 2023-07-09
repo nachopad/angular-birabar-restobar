@@ -6,4 +6,5 @@ export class Cliente {
     email!: string;
     telefono!: string;
     usuario!: Usuario;
+    suscripto!:boolean;
 }

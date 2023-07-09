@@ -83,6 +83,13 @@
                             </div>
                         </div>
                     </div>
+                    
+                        
+                            
+                    <div class="mt-4 text-center" *ngIf="this.clienteLogueado.suscripto===false && edit==false"><button class="btn btn-success text-white fw-semibold rounded-5" type="button" (click)="suscribirse()">Suscribirse</button></div>
+                    <div class="mt-4 text-center" *ngIf="this.clienteLogueado.suscripto===true && edit==false"><button class="btn btn-secondary text-white fw-semibold rounded-5" type="button" (click)="suscribirse()">Anular Suscripcion</button></div>
+                      
+                   
                     <div class="mt-4 text-right"><button class="btn green-background text-white fw-semibold" type="button" *ngIf="edit==true" (click)="verificarTipoModificacion()">Guardar perfil</button></div>
                 </div>
             </div>

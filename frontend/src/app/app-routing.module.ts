@@ -35,6 +35,7 @@ import { GestionWhatsAppComponent } from './components/gestion-whats-app/gestion
 import { ReporteComponent } from './components/reporte/reporte.component';
 import { RestobarFormComponent } from './components/restobar-form/restobar-form.component';
 import { RestobarGestionComponent } from './components/restobar-gestion/restobar-gestion.component';
+import { VentaComponent } from './components/venta/venta.component';
 
 
 const routes: Routes = [
@@ -58,8 +59,8 @@ const routes: Routes = [
   { path: 'mis-pedidos', component: PedidoComponent },
   { path: 'mis-pedidos/productos/:modalidad', component: PedidoProductosComponent },
   { path: 'mis-pedidos/calificacion/:id', component: PedidoCalificacionComponent },
-  { path: 'pedidos/gestion', component: PedidoGestionComponent },
-  { path: 'pedidos/gestion/:id', component: PedidoGestionFormComponent },
+  { path: 'pedidos/gestion', component: PedidoGestionComponent, canActivate: [GestorGuardGuard] },
+  { path: 'pedidos/gestion/:id', component: PedidoGestionFormComponent, canActivate: [GestorGuardGuard] },
   { path: 'usuario-form/:id', component: UsuarioFormComponent, canActivate: [AdminGuardGuard]},
   { path: 'usuarioGestion', component: UsuarioGestionComponent, canActivate: [AdminGuardGuard]},
   {path: 'gestion-carta', component: GestionCartaComponent, canActivate: [GestorGuardGuard]},
@@ -70,8 +71,8 @@ const routes: Routes = [
   {path: 'reporte', component: ReporteComponent,canActivate: [AdminGuardGuard]},
   {path: 'gestion-whatsapp', component: GestionWhatsAppComponent, canActivate: [GestorGuardGuard]},
   {path: 'restobar-form/:id', component:  RestobarFormComponent, canActivate: [GestorGuardGuard]},
-  {path: 'gestion-restobar', component: RestobarGestionComponent, canActivate: [GestorGuardGuard]}
-
+  {path: 'gestion-restobar', component: RestobarGestionComponent, canActivate: [GestorGuardGuard]},
+  {path: 'ventas', component: VentaComponent, canActivate: [AdminGuardGuard]}
 ];
 
 @NgModule({

@@ -2,15 +2,35 @@
     <div class="container text-center">
         <legend class="mb-4 mt-4 text-white">Gestión de pedidos</legend>
 
-        <div class="mb-4 col-md-4 offset-md-4">
-            <label for="filtroEstado" class="text-white mb-2">Filtrar por estado de pedido:</label>
+        <div class="row">
+          <div class="mb-2 col-md-4">
+            <label for="filtroCliente" class="text-white mb-2">Cliente:</label>
+            <select class="form-select " aria-label="Default select example" id="filtroCliente" [(ngModel)]="idclienteSeleccionado" name="clienteS" required>
+                <option *ngFor="let c of clientes" [ngValue]="c._id">{{c.usuario.apellido}}, {{c.usuario.nombre}} ({{c.usuario.user}} - {{c.direccion}})</option>
+            </select>
+          </div>
+          <div class="mb-2 col-md-4">
+            <label for="filtroPago" class="text-white mb-2">Forma de pago:</label>
+            <select class="form-select " aria-label="Default select example" id="filtroPago" [(ngModel)]="formadepagoSeleccionada" name="formadepagoS" required>
+                <option value="Transferencia">Transferencia</option>
+                <option value="Link de pago">Link de pago</option>
+                <option value="Tarjeta">Tarjeta</option>
+                <option value="Efectivo">Efectivo</option>
+            </select>
+          </div>
+          <div class="mb-2 col-md-4">
+            <label for="filtroEstado" class="text-white mb-2">Estado de pedido:</label>
             <select class="form-select " aria-label="Default select example" id="filtroEstado" [(ngModel)]="estadoSeleccionado" name="estadoS" required>
                 <option value="Pendiente">Pendiente</option>
                 <option value="En curso">En curso</option>
                 <option value="Finalizado">Finalizado</option>
                 <option value="Cancelado">Cancelado</option>
             </select>
-            <button type="button" class="btn btn-secondary mt-4" (click)="filtrarEstado(estadoSeleccionado)" [disabled]="estadoSeleccionado == null">Filtrar</button>
+          </div>
+        </div>
+        <div>
+          <button type="button" class="btn btn-success mt-3 mb-4 me-1" (click)="filtrarPedidos(estadoSeleccionado, idclienteSeleccionado, formadepagoSeleccionada)" [disabled]="estadoSeleccionado == '' && formadepagoSeleccionada == '' && idclienteSeleccionado == ''">Filtrar</button>
+          <button type="button" class="btn btn-secondary mt-3 mb-4 ms-1" *ngIf="estadoSeleccionado != '' || formadepagoSeleccionada != '' || idclienteSeleccionado != ''" onclick="location.reload()">Reestablecer</button>
         </div>
 
         <div class="table-responsive">
@@ -25,7 +45,7 @@
                     <th scope="col">Forma de pago</th>
                     <th scope="col">Total</th>
                     <th scope="col">Detalle</th>
-                    <th scope="col" colspan="3">Acciones</th>
+                    <th scope="col" colspan="4">Acciones</th>
                   </tr>
                 </thead>
                 <tbody *ngFor="let p of pedidos">
@@ -38,7 +58,7 @@
                     <td>{{p.formaDePago}}</td>
                     <td>{{p.total | currency: '$'}}</td>
                     <td>
-                        <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#detalleModal" (click)="getPedido(p)">
+                        <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#detalleModal" (click)="setPedido(p)">
                             Ver
                         </button>
 
@@ -67,9 +87,13 @@
                         </div>
                     </td>
                     <td><button type="button" class="btn btn-success" (click)="enviarWhatsapp(p)" [disabled]="p.formaDePago == 'Efectivo'"><i class="bi bi-whatsapp"></i></button></td>
-                    <td><button type="button" class="btn btn-success" (click)="modificarPedido(p._id)"> Modificar</button></td>
-                    <td><button type="button" class="btn btn-danger" (click)="cancelarPedido(p._id)" [disabled]="p.estado == 'Cancelado'"> Cancelar</button></td>
-                    </tr>
+                    <td>
+                      <button type="button" class="btn btn-success" (click)="finalizarPedido(p._id)" *ngIf="p.estado != 'Pendiente'" [disabled]="p.estado != 'En curso'">Finalizado</button>
+                      <button type="button" class="btn btn-info" (click)="aceptarPedido(p._id)" *ngIf="p.estado == 'Pendiente'">Aceptar</button>
+                    </td>
+                    <td><button type="button" class="btn btn-danger" (click)="cancelarPedido(p._id)" [disabled]="p.estado == 'Cancelado' || p.estado == 'Finalizado'">Cancelar</button></td>
+                    <td><button type="button" class="btn btn-dark" (click)="modificarPedido(p._id)"><i class="bi bi-plus-lg"></i></button></td> 
+                  </tr>
                 </tbody>
             </table>
         </div>

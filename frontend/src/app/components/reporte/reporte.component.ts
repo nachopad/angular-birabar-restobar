@@ -89,6 +89,7 @@ export class ReporteComponent implements OnInit {
   ngOnInit(): void {
 
     this.grafico = "barra";
+    
     this.calificacionService.obtenerResumen().subscribe(
       result => {
         this.resumen = new Array();

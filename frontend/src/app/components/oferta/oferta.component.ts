@@ -14,13 +14,17 @@ import { ProductoService } from 'src/app/services/producto.service';
 export class OfertaComponent implements OnInit {
 
   ofertas!: Array<Oferta>;
+  ofertasDisponibles!: Array<Oferta>;
   ofertaModal: Oferta = new Oferta();
   productosModal!: Array<Producto>;
+  verOfertasDisponibles:Boolean =  true;
 
   constructor(private toastrService: ToastrService, private ofertaService: OfertaService, private webTitle: Title, private productoService: ProductoService) {
     this.toastrService.info("Para ver más información acerca de las ofertas hacer click.");
     this.ofertas = new Array<Oferta>();
+    this.ofertasDisponibles = new Array<Oferta>();
     this.cargarOfertas();
+    
   }
 
   ngOnInit(): void {
@@ -36,6 +40,7 @@ export class OfertaComponent implements OnInit {
           Object.assign(oferta, element);
           this.ofertas.push(oferta);
         });
+        this.cargarOfertasDisponibles();
       },
       error => {
         this.toastrService.error("Error: ", error);
@@ -62,4 +67,33 @@ export class OfertaComponent implements OnInit {
       );
     });
   }
+
+
+  cargarOfertasDisponibles(){
+    const diaHoy = this.obtenerDia();
+    this.ofertasDisponibles = new Array<Oferta>(); 
+    this.ofertas.forEach(oferta=>{
+      oferta.dias.forEach(dia=>{
+        if(dia==diaHoy)
+          this.ofertasDisponibles.push(oferta);
+      });
+    });
+  }
+
+  obtenerDia():string{
+    const fechaComoCadena = new Date(); // día lunes
+    const dias = [
+      'Domingo',
+      'Lunes',
+      'Martes',
+      'Miercoles',
+      'Jueves',
+      'Viernes',
+      'Sabado',
+    ];
+    const numeroDia = new Date(fechaComoCadena).getDay();
+    const nombreDia = dias[numeroDia];
+    return nombreDia;
+  }
+
 }

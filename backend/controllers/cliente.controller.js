@@ -107,6 +107,28 @@ clienteCtrl.getClientes = async (request, response) => {
 }
 
 /**
+ * Obtiene todos los clientes suscriptos para recibir mensajes.
+ * @function getClientes
+ * @param {Object} request - Objeto de solicitud de Express.
+ * @param {Object} response - Objeto de respuesta de Express.
+ * @returns {Promise<void>} Una promesa que resuelve cuando se obtienen los clientes y se envía la respuesta.
+ */
+clienteCtrl.getClientesSuscripto = async (request, response) => {
+    try{
+        var clientes = await Cliente.find({suscripto: true}).populate({ path: 'usuario', populate: { path: 'rol' } });
+        response.json(clientes);
+    }
+    catch (error) {
+    response.status(500).json({
+      status: '0',
+      msg: 'Error obteniendo todos los clientes.',
+      error: error.message
+    });
+  }
+}
+
+
+/**
  * Obtiene un cliente existente por su ObjectId.
  * @function getClienteById
  * @param {Object} request - Objeto de solicitud de Express.

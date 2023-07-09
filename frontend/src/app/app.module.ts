@@ -45,6 +45,7 @@ import { ReporteComponent } from './components/reporte/reporte.component';
 import { NgChartsModule } from 'ng2-charts';
 import { RestobarFormComponent } from './components/restobar-form/restobar-form.component';
 import { RestobarGestionComponent } from './components/restobar-gestion/restobar-gestion.component';
+import { VentaComponent } from './components/venta/venta.component';
 
 @NgModule({
   declarations: [
@@ -82,7 +83,8 @@ import { RestobarGestionComponent } from './components/restobar-gestion/restobar
     GestionWhatsAppComponent,
     ReporteComponent,
     RestobarFormComponent,
-    RestobarGestionComponent
+    RestobarGestionComponent,
+    VentaComponent
   ],
   imports: [
     BrowserModule,

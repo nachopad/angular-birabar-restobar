@@ -40,10 +40,37 @@
                                 style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .4rem; --bs-btn-font-size: .75rem; margin-right: 3px;"></a>
                             <a class="btn btn-danger bi bi-trash3" (click)="borrarOferta(oferta._id)"
                                 style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .4rem; --bs-btn-font-size: .75rem; margin-top: 0;"></a>
+                            <a class="btn btn-success bi bi-whatsapp" (click)="cargarOferta(oferta)"
+                                style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .4rem; --bs-btn-font-size: .75rem; margin-left: 3px;" data-bs-toggle="modal" data-bs-target="#exampleModal"></a>
                         </td>
                     </tr>
                 </tbody>
             </table>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="imagenModal" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content black-background">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5 text-white fw-bold">Enviar Mensaje</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mx-auto text-center text-white">
+                    <div class="card-body">
+                        <h4 class="card-title">Informar la oferta por WhatsApp</h4>
+                        <h5 class="card-text pt-4">{{ofertaMensaje.titulo}}</h5>
+                        <img [src]="ofertaMensaje.imagen">
+                        <p class="card-text p-3">Este mensaje solo sera enviado a los usuarios suscripto</p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer justify-content-center">
+                <button type="button" class="btn btn-success bg-gradient bi bi-send-fill rounded-5" (click)="enviarMensaje()"></button>
+            </div>
         </div>
     </div>
 </div>

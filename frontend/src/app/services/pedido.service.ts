@@ -55,7 +55,7 @@ export class PedidoService {
     return this._http.get('http://localhost:3000/api/pedido/all');
   }
 
-  public getPedidosByEstado(estado:string): Observable<any>{
-    return this._http.get('http://localhost:3000/api/pedido/filtrar?estado='+estado);
+  public getPedidosFiltrados(estado: string, idcliente:string, formaDePago: string):Observable<any>{
+    return this._http.get('http://localhost:3000/api/pedido/filtrados?estado='+estado+'&cliente='+idcliente+'&formaDePago='+formaDePago);
   }
 }

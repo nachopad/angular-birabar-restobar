@@ -33,6 +33,7 @@
             <li><a class="dropdown-item" [routerLink]="['ofertaGestion']">Ofertas</a></li>
             <li><a class="dropdown-item" [routerLink]="['gestion-whatsapp']">WhatssApp</a></li>
             <li><a class="dropdown-item" [routerLink]="['gestion-restobar']">Restobar</a></li>
+            <li><a class="dropdown-item" [routerLink]="['pedidos/gestion']">Pedidos</a></li>
           </ul>
         </li>
         <li class="nav-item dropdown" *ngIf="(loginService.rolLogged()==='Administrador')">

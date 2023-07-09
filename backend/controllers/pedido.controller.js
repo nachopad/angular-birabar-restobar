@@ -69,7 +69,7 @@ pedidoCtrl.editPedido = async (req, res) => {
 
 pedidoCtrl.deletePedido = async (req, res) => {
     try {
-        await Pedido.findOneAndUpdate({_id: req.params.id}, {estado: "Cancelado", demora: "-"});
+        await Pedido.findOneAndUpdate({_id: req.params.id}, {estado: "Cancelado", demora: "0"});
 
         res.status(200).json({
             'status': '1',
@@ -82,5 +82,35 @@ pedidoCtrl.deletePedido = async (req, res) => {
         });
     }
 }
+
+pedidoCtrl.getPedidosFiltrados = async (req, res) => {
+    try {
+      const { estado, cliente, formaDePago } = req.query;
+      
+      const filter = {};
+      if (estado) {
+        filter.estado = estado;
+      }
+      if (cliente) {
+        filter.cliente = cliente;
+      }
+      if (formaDePago) {
+        filter.formaDePago = formaDePago;
+      }
+  
+      const pedidos = await Pedido.find(filter)
+        .populate({ path: 'cliente', populate: { path: 'usuario' } })
+        .populate({ path: 'detalleProductos', populate: { path: 'producto' } })
+        .populate('calificacion');
+  
+      res.json(pedidos);
+    } catch (error) {
+      res.status(400).json({
+        status: '0',
+        msg: 'Error procesando la operación.',
+      });
+    }
+  }
+  
 
 module.exports = pedidoCtrl;

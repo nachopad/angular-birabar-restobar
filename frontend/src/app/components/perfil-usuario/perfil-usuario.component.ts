@@ -145,4 +145,15 @@ export class PerfilUsuarioComponent implements OnInit {
     Swal.fire({ icon, title, text})
   }
 
+
+
+  suscribirse(){
+    if(this.clienteLogueado.suscripto==true){
+      this.clienteLogueado.suscripto=false;
+    }else{
+      this.clienteLogueado.suscripto=true;
+    }
+    this.modificarDatosCliente();
+  }
+
 }
