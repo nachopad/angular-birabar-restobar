@@ -63,7 +63,7 @@ export class OfertaService {
       ),
       params: new HttpParams()
     };
-    return this._http.put("http://localhost:3000/api/oferta/borrarOferta/"+ id, httpOptions);
+    return this._http.delete("http://localhost:3000/api/oferta/borrarOferta/"+ id, httpOptions);
   }
 
 }

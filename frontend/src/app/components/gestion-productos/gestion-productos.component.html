@@ -2,14 +2,14 @@
     <div class="container pt-4 pb-5">
         <h4 class="text-center mb-3">Gestión de Categoria</h4>
         <div class="input-group mb-4">
-            <a class="btn green-background bi bi-plus-circle" href="/alta-categoria/0"> Crear categoria</a>
-            <button class="btn green-background bi bi-search" type="button"> Buscar categoria</button>
+            <a class="btn btn-black bi bi-plus-circle" href="/alta-categoria/0"> Crear categoria</a>
+            <button class="btn btn-black bi bi-search" type="button"> Buscar categoria</button>
             <input type="text" class="form-control" placeholder="Ingresar el username de una categoria. Ejemplo: Hamburguesa" [(ngModel)]="searchCategoria" (ngModelChange)="buscarPorCategoria()">
         </div>
         <div class="text-center border rounded-3 m-auto p-5" style="width: 300px;" *ngIf="listaCategorias.length==0">
             <h4 class="bi bi-exclamation-octagon"></h4>
             <h6 class="mb-3">No existen Categorias.</h6>
-            <a class="btn btn-success bg-gradient bi bi-plus-circle" href="/oferta-form/0"> Crear categoria</a>
+            <a class="btn btn-light bi bi-plus-circle" href="/alta-categoria/0"> Crear categoria</a>
         </div>
         <div class="text-center table-responsive" *ngIf="listaCategorias.length!=0">
             <table class="table">

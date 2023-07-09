@@ -29,3 +29,18 @@
     text-align: center;
     padding: 10px;
 }
+
+.btn-black {
+    background: linear-gradient( #202634, #191e27);
+    color:#fff;
+}
+
+.btn-black:hover{
+    background: linear-gradient( #181d27, #13161d);
+}
+
+.modal-header,
+.modal-body,
+.modal-footer {
+    border-color: #202634;
+}

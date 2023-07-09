@@ -1,9 +1,13 @@
-.green-background{
+.btn-green {
     background-color: #1fd08f;
-  }
+}
 
-.green-text{
-    color:  #1fd08f;
+.btn-green:hover {
+    background-color: #149c6b;
+}
+
+.green-text {
+    color: #1fd08f;
 }
 
 .zoom-image {

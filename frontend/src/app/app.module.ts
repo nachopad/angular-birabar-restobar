@@ -43,6 +43,8 @@ import { GestionWhatsAppComponent } from './components/gestion-whats-app/gestion
 import { QRCodeModule } from 'angularx-qrcode';
 import { ReporteComponent } from './components/reporte/reporte.component';
 import { NgChartsModule } from 'ng2-charts';
+import { RestobarFormComponent } from './components/restobar-form/restobar-form.component';
+import { RestobarGestionComponent } from './components/restobar-gestion/restobar-gestion.component';
 
 @NgModule({
   declarations: [
@@ -78,7 +80,9 @@ import { NgChartsModule } from 'ng2-charts';
     CartaComponent,
     CartaProductosComponent,
     GestionWhatsAppComponent,
-    ReporteComponent
+    ReporteComponent,
+    RestobarFormComponent,
+    RestobarGestionComponent
   ],
   imports: [
     BrowserModule,

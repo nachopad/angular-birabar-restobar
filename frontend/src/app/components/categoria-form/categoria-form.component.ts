@@ -86,4 +86,8 @@ export class CategoriaFormComponent implements OnInit {
     }
   }
 
+  regresar(){
+    this.router.navigate(['gestion-productos']);
+  }
+
 }

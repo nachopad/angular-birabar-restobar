@@ -33,6 +33,9 @@ import { CartaComponent } from './components/carta/carta.component';
 import { CartaProductosComponent } from './components/carta-productos/carta-productos.component';
 import { GestionWhatsAppComponent } from './components/gestion-whats-app/gestion-whats-app.component';
 import { ReporteComponent } from './components/reporte/reporte.component';
+import { RestobarFormComponent } from './components/restobar-form/restobar-form.component';
+import { RestobarGestionComponent } from './components/restobar-gestion/restobar-gestion.component';
+
 
 const routes: Routes = [
   { path: "", redirectTo: "principal", pathMatch: "full" },
@@ -64,8 +67,10 @@ const routes: Routes = [
   {path: 'about-us-page', component: AboutUsPageComponent},
   {path: 'menu', component:CartaComponent},
   {path: 'menu-productos/:id', component: CartaProductosComponent},
-  {path: 'gestion-whatsapp', component: GestionWhatsAppComponent},
-  {path: 'reporte', component: ReporteComponent}
+  {path: 'reporte', component: ReporteComponent},
+  {path: 'gestion-whatsapp', component: GestionWhatsAppComponent, canActivate: [GestorGuardGuard]},
+  {path: 'restobar-form/:id', component:  RestobarFormComponent, canActivate: [GestorGuardGuard]},
+  {path: 'gestion-restobar', component: RestobarGestionComponent, canActivate: [GestorGuardGuard]}
 
 ];
 

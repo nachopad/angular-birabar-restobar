@@ -31,7 +31,8 @@
                     </div>
                     <div class="col-md-6">
                         <label class="form-text text-secondary">
-                            <span class="bi bi-eye-fill me-2 link-green" *ngIf="oferta.imagen" data-bs-toggle="modal" data-bs-target="#imagenModal"></span>
+                            <span class="bi bi-eye-fill me-2 link-green" *ngIf="oferta.imagen" data-bs-toggle="modal"
+                                data-bs-target="#imagenModal"></span>
                             Subir imagen de la oferta:
                         </label>
                         <input type="file" class="form-control" name="imagen" ngModel required #imagen="ngModel"
@@ -160,28 +161,31 @@
                         <div *ngIf="oferta.productos.length==0 && buscarProducto == false;" class="text-center">
                             <h6 class="text-start ms-3">No hay productos seleccionados.</h6>
                         </div>
-                        <div *ngIf="productos.length==0 && buscarProducto == true" class="text-center">
-                            <h6 class="text-start ms-3">Debe crear productos. <a class="link-green"
-                                    href="/gestion-productos">Gestión Productos</a></h6>
-
-                        </div>
-                        <div *ngIf="buscarProducto == true && productos.length!=0">
+                        <div *ngIf="buscarProducto">
                             <div class="input-group mb-3">
-                                <button class="btn green-background bi bi-search" type="button" id="button-addon1">
+                                <button class="btn green-background bi bi-search" type="button" (click)="buscarPorNombreProducto()">
                                     Buscar</button>
-                                <input type="text" class="form-control" placeholder="EJ: Pizza">
+                                <input type="text" class="form-control" placeholder="EJ: Pizza" [(ngModel)]="searchProducto"
+                                    (ngModelChange)="buscarPorNombreProducto()">
                             </div>
-                            <div class="card mb-3" *ngFor="let p of productos">
-                                <div class="row g-0">
-                                    <div class="col-md-4">
-                                        <img [src]="p.imagen" class="img-fluid rounded-start">
-                                    </div>
-                                    <div class="col-md-8">
-                                        <div class="card-body">
-                                            <h5 class="card-title">{{p.nombreProducto}}</h5>
-                                            <p class="card-text">{{p.descripcion}}</p>
-                                            <p class="card-text text-body-secondary">{{p.precio | currency:'$'}}</p>
-                                            <button type="button" class="btn btn-dark bi bi-plus-circle" (click)="agregarProductoToOferta(p)"> Agregar</button>
+                            <div *ngIf="productos.length==0" class="text-center">
+                                <h6 class="text-start ms-3">Debe crear productos. <a class="link-green"
+                                        href="/gestion-productos">Gestión Productos</a></h6>
+                            </div>
+                            <div *ngIf="productos.length!=0">
+                                <div class="card mb-3" *ngFor="let p of productos">
+                                    <div class="row g-0">
+                                        <div class="col-md-4">
+                                            <img [src]="p.imagen" class="img-fluid rounded-start">
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="card-body">
+                                                <h5 class="card-title">{{p.nombreProducto}}</h5>
+                                                <p class="card-text">{{p.descripcion}}</p>
+                                                <p class="card-text text-body-secondary">{{p.precio | currency:'$'}}</p>
+                                                <button type="button" class="btn btn-dark bi bi-plus-circle"
+                                                    (click)="agregarProductoToOferta(p)"> Agregar</button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -198,7 +202,8 @@
                                             <h5 class="card-title">{{p.nombreProducto}}</h5>
                                             <p class="card-text">{{p.descripcion}}</p>
                                             <p class="card-text text-body-secondary">{{p.precio | currency:'$'}}</p>
-                                            <button class="btn btn-danger bi bi-dash-circle" (click)="quitarProductoToOferta(p._id)"> Quitar</button>
+                                            <button class="btn btn-danger bi bi-dash-circle"
+                                                (click)="quitarProductoToOferta(p._id)"> Quitar</button>
                                         </div>
                                     </div>
                                 </div>

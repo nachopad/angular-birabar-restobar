@@ -2,15 +2,15 @@
     <div class="container pt-4 pb-5">
         <h4 class="text-center mb-3">Gestión de Ofertas</h4>
         <div class="input-group mb-4">
-            <a class="btn green-background bi bi-plus-circle" href="/oferta-form/0"> Crear oferta</a>
-            <button class="btn green-background bi bi-search" type="button"> Buscar oferta</button>
+            <a class="btn btn-black text-white bi bi-plus-circle" href="/oferta-form/0"> Crear oferta</a>
+            <button class="btn btn-black text-white bi bi-search" type="button"> Buscar oferta</button>
             <input type="text" class="form-control"
-                placeholder="Ingresar el nombre de una oferta a buscar. Ejemplo: Happy Hour">
+                placeholder="Ingresar el nombre de una oferta a buscar. Ejemplo: Happy Hour" [(ngModel)]="searchOferta" (ngModelChange)="buscarPorTitulo()">
         </div>
         <div class="text-center border rounded-3 m-auto p-5" style="width: 300px;" *ngIf="ofertas.length==0">
             <h4 class="bi bi-exclamation-octagon"></h4>
             <h6 class="mb-3">No existen ofertas.</h6>
-            <a class="btn green-background bi bi-plus-circle" href="/oferta-form/0"> Crear oferta</a>
+            <a class="btn btn-light bi bi-plus-circle" href="/oferta-form/0"> Crear oferta</a>
         </div>
         <div class="text-center table-responsive" *ngIf="ofertas.length!=0">
             <table class="table">

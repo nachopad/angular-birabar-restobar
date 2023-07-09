@@ -17,6 +17,7 @@ import { Title } from '@angular/platform-browser';
 export class OfertaFormComponent implements OnInit {
 
   accion!: string;
+  searchProducto!: string;
   oferta: Oferta;
   productos!: Array<Producto>;
   productosOferta!: Array<Producto>;
@@ -79,6 +80,7 @@ export class OfertaFormComponent implements OnInit {
    * Se utiliza a la hora de seleccionar los productos de la oferta.
    */
   cargarProductos() {
+    this.productos = new Array<Producto>();
     this.productoService.obtenerProductosDisponibles().subscribe(
       result => {
         result.forEach((element: any) => {
@@ -288,5 +290,14 @@ export class OfertaFormComponent implements OnInit {
         }
       );
     });
+  }
+
+  buscarPorNombreProducto() {
+    if (this.searchProducto.trim() !== '') {
+      const productosEncontrados = this.productos.filter(producto => producto.nombreProducto.toLowerCase().includes(this.searchProducto.toLowerCase()));
+      this.productos = productosEncontrados;
+    } else {
+      this.cargarProductos();
+    }
   }
 }

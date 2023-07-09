@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-about-us-page',
@@ -8,10 +9,18 @@ import { Title } from '@angular/platform-browser';
 })
 export class AboutUsPageComponent implements OnInit {
 
-  constructor(private webTitle: Title) { }
+  constructor(private router: Router, private webTitle: Title) { }
 
   ngOnInit(): void {
     this.webTitle.setTitle("Birabar - Sobre nosotros")
+  }
+
+  navegarOfertas(){
+    this.router.navigate(['ofertas']);
+  }
+
+  navegarCarta(){
+    this.router.navigate(['menu']);
   }
 
 }

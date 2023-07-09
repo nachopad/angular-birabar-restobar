@@ -43,3 +43,9 @@
 .link-green:hover {
     color: #179164;
 }
+
+.modal-header,
+.modal-body,
+.modal-footer {
+    border-color: #202634;
+}

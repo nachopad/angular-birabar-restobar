@@ -1,4 +1,16 @@
-<div>
-    <button class="btn btn-info" (click)="iniciarSescion()">Iniciar Session</button>
-    <qrcode [qrdata]="qr" [width]="256" [errorCorrectionLevel]="'M'"></qrcode>
+<div class="black-background text-white pt-5">
+    <div class="container text-center">
+        <h1 class="mb-4">Iniciar sesión en WhatsApp Web</h1>
+        <h1 *ngIf="!generado"><i class="fa-brands fa-whatsapp fa-3x"></i></h1>
+        <div class="qr-container">
+            <qrcode [qrdata]="qr" [width]="256" [errorCorrectionLevel]="'M'"></qrcode>
+        </div>
+        <p class="mt-2">Escanea el código QR con tu dispositivo móvil para iniciar sesión en WhatsApp Web.</p>
+        <p class="mt-4 text-warning" *ngIf="generandoQR">Espere un momento, generando código QR...</p>
+        <div class="button-container">
+            <button class="btn green-background mt-4 mb-5 text-white" *ngIf="!generado" (click)="generarQR()" [disabled]="generandoQR">Generar QR</button>
+            <button class="btn green-background mt-4 mb-5 text-white" *ngIf="generado" (click)="generarQR()" [disabled]="generandoQR">Actualizar QR</button>
+            <button class="btn green-background mt-4 mb-5 text-white" (click)="navegarGestionDatos()">Gestionar Links de pago</button>
+        </div>
+    </div>
 </div>
