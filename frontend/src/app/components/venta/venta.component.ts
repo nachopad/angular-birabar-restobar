@@ -53,7 +53,6 @@ export class VentaComponent implements OnInit {
     let venta;
     this.ventaService.getVentas().subscribe(
       (result: any[]) => {
-        console.log(result);
         result.forEach(v => {
           venta = new Venta();
           Object.assign(venta, v);

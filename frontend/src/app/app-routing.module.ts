@@ -72,7 +72,8 @@ const routes: Routes = [
   {path: 'gestion-whatsapp', component: GestionWhatsAppComponent, canActivate: [GestorGuardGuard]},
   {path: 'restobar-form/:id', component:  RestobarFormComponent, canActivate: [GestorGuardGuard]},
   {path: 'gestion-restobar', component: RestobarGestionComponent, canActivate: [GestorGuardGuard]},
-  {path: 'ventas', component: VentaComponent, canActivate: [AdminGuardGuard]}
+  {path: 'ventas', component: VentaComponent, canActivate: [AdminGuardGuard]},
+  {path: 'gestion-whatsapp/enviarMensaje', component: GestionWhatsAppComponent, canActivate: [GestorGuardGuard]},
 ];
 
 @NgModule({

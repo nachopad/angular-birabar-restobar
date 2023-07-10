@@ -8,7 +8,11 @@ import { Pedido } from '../models/pedido';
 })
 export class WhatsappService {
 
-  constructor(private _http: HttpClient) { }
+  public qrGenerado!:boolean;
+  
+  constructor(private _http: HttpClient) { 
+    this.qrGenerado = false;
+  }
 
   postIniciarSession():Observable<any>{
     let httpOptions = {
@@ -17,6 +21,7 @@ export class WhatsappService {
         }
       )
     };
+    this.qrGenerado = true;
     return this._http.post("http://localhost:3000/api/whatsApp/iniciar", httpOptions);
   }
 
