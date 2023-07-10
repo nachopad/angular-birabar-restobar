@@ -8,8 +8,10 @@ import { Observable } from 'rxjs';
 export class LoginService {
 
   hostBase: string;
+  hostServe : string;
   constructor(private _http: HttpClient) {
-    this.hostBase = "http://localhost:3000/api/usuario/";
+    this.hostServe = "http://localhost:3000/api/";
+    this.hostBase = this.hostServe+"usuario/";
   }
 
   public login(username: string, password: string): Observable<any> {

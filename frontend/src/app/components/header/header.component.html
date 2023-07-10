@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg black-background bg-gradient">
   <div class="container-fluid">
     <a [routerLink]="['principal']">
-      <img src="../../../assets/images/homepage/birabar-logo.png" alt="Birabar" class="custom-logo">
+      <img src="assets/images/homepage/birabar-logo.png" alt="Birabar" class="custom-logo">
     </a>
     <span class="text-warning fw-semibold" *ngIf="(loginService.rolLogged()==='Gestor')">GESTIÓN</span>
     <span class="text-info fw-semibold" *ngIf="(loginService.rolLogged()==='Administrador')">ADMINISTRACIÓN</span>
