@@ -52,7 +52,7 @@ export class PedidoGestionComponent implements OnInit {
         result.forEach(p => {
           pedido = new Pedido();
           Object.assign(pedido, p);
-          this.pedidos.push(pedido);
+          this.pedidos.unshift(pedido);
         });
       },
       error => {
@@ -80,7 +80,7 @@ export class PedidoGestionComponent implements OnInit {
         result.forEach(p => {
           pedido = new Pedido();
           Object.assign(pedido, p);
-          this.pedidos.push(pedido);
+          this.pedidos.unshift(pedido);
         });
       },
       error => {
