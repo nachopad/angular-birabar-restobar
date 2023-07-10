@@ -11,7 +11,7 @@ import { CalificacionService } from 'src/app/services/calificacion.service';
 export class ReporteComponent implements OnInit {
 
   grafico!: string;
-  resumen!: Array<any>;
+  resumen: Array<any> = [0,0,0,0,0];
   mostrar = false;
   categorias = ['Muy malo', 'Malo', 'Regular', 'Muy bueno', 'Excelente'];
   //Propiedades del barChart
@@ -87,16 +87,28 @@ export class ReporteComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
     this.grafico = "barra";
+    this.cargarResumenTotal();
+
+  }
+  cambio(valor: any) {
+    this.grafico = valor.target.value;
+  }
+
+  cargarResumenTotal(){
     
     this.calificacionService.obtenerResumen().subscribe(
       result => {
         this.resumen = new Array();
         console.log(result);
-        result.forEach((element: any) => {
-          this.resumen.push(element.count);
+        result.forEach((element:any) => {
+          
+          this.resumen[element.puntaje-1] = element.count;
+
         });
+
+       
+       
 
         this.barChartData = {
           labels: this.categorias,
@@ -120,10 +132,13 @@ export class ReporteComponent implements OnInit {
   }
 
 
+  cargarResumenPorRango(fechaInicio:string,fechaFinal:string)
+  {
 
-
-  cambio(valor: any) {
-    this.grafico = valor.target.value;
   }
+
+
+  
+
 
 }
