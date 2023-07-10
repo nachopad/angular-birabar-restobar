@@ -4,13 +4,14 @@ import { Observable } from 'rxjs';
 import { Pedido } from '../models/pedido';
 import { DetalleProductoService } from './detalle-producto.service';
 import { DetalleProducto } from '../models/detalle-producto';
+import { LoginService } from './login.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PedidoService {
 
-  constructor(private _http: HttpClient) {
+  constructor(private _http: HttpClient, private loginService:LoginService) {
   }
 
   private getIdsDetalle(detProds: Array<DetalleProducto>): Array<string> {
@@ -27,19 +28,19 @@ export class PedidoService {
       ...pedido,
       'detalleProductos': idsDetalles,
     }
-    return this._http.post('http://localhost:3000/api/pedido/', body);
+    return this._http.post(this.loginService.hostServe+'pedido/', body);
   }
 
   public cancelarPedido(id: string): Observable<any> {
-    return this._http.delete('http://localhost:3000/api/pedido/eliminar/' + id);
+    return this._http.delete(this.loginService.hostServe+'pedido/eliminar/' + id);
   }
 
   public getPedidosCliente(idCliente: string): Observable<any> {
-    return this._http.get('http://localhost:3000/api/pedido/cliente/' + idCliente);
+    return this._http.get(this.loginService.hostServe+'pedido/cliente/' + idCliente);
   }
 
   public getPedidoById(idPedido: string): Observable<any> {
-    return this._http.get('http://localhost:3000/api/pedido/id/' + idPedido);
+    return this._http.get(this.loginService.hostServe+'pedido/id/' + idPedido);
   }
 
   public editPedido(pedido: Pedido): Observable<any> {
@@ -48,14 +49,14 @@ export class PedidoService {
       ...pedido,
       'detalleProductos': idsDetalles,
     }
-    return this._http.put('http://localhost:3000/api/pedido/modificar/', body);
+    return this._http.put(this.loginService.hostServe+'pedido/modificar/', body);
   }
 
   public getPedidos(): Observable<any> {
-    return this._http.get('http://localhost:3000/api/pedido/all');
+    return this._http.get(this.loginService.hostServe+'pedido/all');
   }
 
   public getPedidosFiltrados(estado: string, idcliente:string, formaDePago: string):Observable<any>{
-    return this._http.get('http://localhost:3000/api/pedido/filtrados?estado='+estado+'&cliente='+idcliente+'&formaDePago='+formaDePago);
+    return this._http.get(this.loginService.hostServe+'pedido/filtrados?estado='+estado+'&cliente='+idcliente+'&formaDePago='+formaDePago);
   }
 }

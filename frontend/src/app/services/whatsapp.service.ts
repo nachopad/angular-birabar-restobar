@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Pedido } from '../models/pedido';
+import { LoginService } from './login.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ export class WhatsappService {
 
   public qrGenerado!:boolean;
   
-  constructor(private _http: HttpClient) { 
+  constructor(private _http: HttpClient, private loginService:LoginService) { 
     this.qrGenerado = false;
   }
 
@@ -22,7 +23,7 @@ export class WhatsappService {
       )
     };
     this.qrGenerado = true;
-    return this._http.post("http://localhost:3000/api/whatsApp/iniciar", httpOptions);
+    return this._http.post(this.loginService.hostServe+"whatsApp/iniciar", httpOptions);
   }
 
   enviarMensaje(numero:string, mensaje:string):Observable<any>{
@@ -43,7 +44,7 @@ export class WhatsappService {
     
     let body = JSON.stringify(menssage);
     
-    return this._http.post("http://localhost:3000/api/whatsApp/send", body, httpOptions);
+    return this._http.post(this.loginService.hostServe+"whatsApp/send", body, httpOptions);
   }
 
 

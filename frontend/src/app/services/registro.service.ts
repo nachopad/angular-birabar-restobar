@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Usuario } from '../models/usuario';
 import { Cliente } from '../models/cliente';
+import { LoginService } from './login.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,10 +14,10 @@ export class RegistroService {
   hostBaseCliente: string;
   hostBaseRol:string;
 
-  constructor(private _http: HttpClient) {
-    this.hostBaseUsuario = "http://localhost:3000/api/usuario/";
-    this.hostBaseCliente = "http://localhost:3000/api/cliente/";
-    this.hostBaseRol = "http://localhost:3000/api/rol/";
+  constructor(private _http: HttpClient, private loginService:LoginService) {
+    this.hostBaseUsuario = this.loginService.hostServe+"usuario/";
+    this.hostBaseCliente = this.loginService.hostServe+"cliente/";
+    this.hostBaseRol = this.loginService.hostServe+"rol/";
   }
 
   public registerUser(usuario: Usuario): Observable<any> {

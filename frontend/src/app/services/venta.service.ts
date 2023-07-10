@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Venta } from '../models/venta';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { LoginService } from './login.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,8 +10,8 @@ import { HttpClient } from '@angular/common/http';
 export class VentaService {
 
   url!:string;
-  constructor(private _http: HttpClient) { 
-    this.url = 'http://localhost:3000/api/venta/';
+  constructor(private _http: HttpClient, private loginService:LoginService) { 
+    this.url = this.loginService.hostServe+'venta/';
   }
 
   public guardarVenta(fecha:string, idpedido:string) : Observable<any>{

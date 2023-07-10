@@ -9,15 +9,17 @@ import { LoginService } from './login.service';
 })
 export class CalificacionService {
 
-  constructor(private _http: HttpClient, private loginService:LoginService) { }
+  constructor(private _http: HttpClient, private loginService:LoginService) { 
+
+  }
 
   public guardarCalificacion(calificacion:Calificacion):Observable<any>{
-    return this._http.post('http://localhost:3000/api/calificacion/',calificacion);
+    return this._http.post(this.loginService.hostServe+'calificacion/',calificacion);
   }
   public obtenerCalificaciones():Observable<any>{
-    return this._http.get('http://localhost:3000/api/calificacion/');
+    return this._http.get(this.loginService.hostServe+'calificacion/');
   }
   public obtenerResumen():Observable<any>{
-    return this._http.get('http://localhost:3000/api/calificacion/resumen');
+    return this._http.get(this.loginService.hostServe+'calificacion/resumen');
   }
 }

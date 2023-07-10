@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Usuario } from '../models/usuario';
+import { LoginService } from './login.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,8 +11,8 @@ export class UsuarioService {
 
   hostBase: string;
 
-  constructor(private _http: HttpClient) {
-    this.hostBase = "http://localhost:3000/api/usuario/";
+  constructor(private _http: HttpClient, private loginService:LoginService) {
+    this.hostBase = this.loginService.hostServe+"usuario/";
    }
 
    getUsuarios():Observable<any>{
