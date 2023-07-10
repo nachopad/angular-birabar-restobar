@@ -4,8 +4,10 @@
       <div class="container-fluid">
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div class="navbar-nav mx-auto">
-            <a class="nav-link active bi bi-check" onclick="selectTab(this)" (click)="verOfertasDisponibles=true"> Ofertas disponibles</a>
-            <a class="nav-link bi bi-check-all" onclick="selectTab(this)" (click)="verOfertasDisponibles=false"> Ver todas las ofertas</a>
+            <a class="nav-link active bi bi-check" onclick="selectTab(this)" (click)="verOfertasDisponibles=true">
+              Ofertas disponibles</a>
+            <a class="nav-link bi bi-check-all" onclick="selectTab(this)" (click)="verOfertasDisponibles=false"> Ver
+              todas las ofertas</a>
           </div>
         </div>
       </div>
@@ -24,7 +26,11 @@
         </div>
       </div>
     </div>
-    <div class="row justify-content-center" *ngIf="ofertasDisponibles.length!=0 && verOfertasDisponibles">
+    <div *ngIf="ofertas.length==0 && !verOfertasDisponibles" class="text-center mt-3">
+      <img src="./../../../assets/images/pedidos/lupulo.png" alt="" class="img-fluid img-opacity" width="150px">
+      <p><i>No existen ofertas disponibles.</i></p>
+    </div>
+    <div class="row justify-content-center" *ngIf="verOfertasDisponibles && ofertasDisponibles.length!=0">
       <p class="text-center form-text text-white mb-3">Ofertas disponibles del día: {{obtenerDia()}}</p>
       <div class="col-xl-3 col-md-4 col-12 d-flex justify-content-center align-items-center "
         *ngFor="let oferta of ofertasDisponibles">
@@ -38,8 +44,13 @@
         </div>
       </div>
     </div>
+    <div *ngIf="ofertasDisponibles.length==0 && verOfertasDisponibles" class="text-center mt-3">
+      <img src="./../../../assets/images/pedidos/lupulo.png" alt="" class="img-fluid img-opacity" width="150px">
+      <p><i>No hay ofertas disponibles en este momento.</i></p>
+    </div>
   </div>
 </div>
+<!-- Modal -->
 <div class="modal fade" id="modalOferta" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-dialog-scrollable">
     <div class="modal-content black-background text-white">

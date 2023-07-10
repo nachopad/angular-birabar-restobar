@@ -53,11 +53,10 @@ export class VentaComponent implements OnInit {
     let venta;
     this.ventaService.getVentas().subscribe(
       (result: any[]) => {
-        console.log(result);
         result.forEach(v => {
           venta = new Venta();
           Object.assign(venta, v);
-          this.ventas.push(venta);
+          this.ventas.unshift(venta);
         });
       },
       error => {
@@ -93,7 +92,7 @@ export class VentaComponent implements OnInit {
         result.forEach(v => {
           venta = new Venta();
           Object.assign(venta, v);
-          this.ventas.push(venta);
+          this.ventas.unshift(venta);
         });
       }, 
       error => {
