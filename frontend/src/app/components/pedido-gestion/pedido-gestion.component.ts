@@ -3,9 +3,12 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Cliente } from 'src/app/models/cliente';
 import { Pedido } from 'src/app/models/pedido';
+import { Restobar } from 'src/app/models/restobar';
 import { ClienteService } from 'src/app/services/cliente.service';
 import { PedidoService } from 'src/app/services/pedido.service';
+import { RestobarService } from 'src/app/services/restobar.service';
 import { VentaService } from 'src/app/services/venta.service';
+import { WhatsappService } from 'src/app/services/whatsapp.service';
 
 @Component({
   selector: 'app-pedido-gestion',
@@ -23,9 +26,12 @@ export class PedidoGestionComponent implements OnInit {
 
   pedidoS!: Pedido;
 
+  restobar!: Restobar;
+
   constructor(private pedidoService: PedidoService, private router: Router,
     private toastrService: ToastrService, private clienteService: ClienteService,
-    private ventaService: VentaService) {
+    private ventaService: VentaService, private whatsApp: WhatsappService,
+    private restobarService: RestobarService) {
     this.estadoSeleccionado = "";
     this.formadepagoSeleccionada = "";
     this.idclienteSeleccionado = "";
@@ -33,6 +39,7 @@ export class PedidoGestionComponent implements OnInit {
     this.pedidos = new Array<Pedido>();
     this.traerPedidos();
     this.traerClientes();
+    this.buscarLocal();
   }
 
   ngOnInit(): void {
@@ -91,10 +98,6 @@ export class PedidoGestionComponent implements OnInit {
     this.router.navigate(['pedidos/gestion', idpedido]);
   }
 
-  enviarWhatsapp(pedido: Pedido): void {
-
-  }
-
   traerClientes(): void {
     this.clientes = new Array<Cliente>();
     let cliente;
@@ -143,5 +146,75 @@ export class PedidoGestionComponent implements OnInit {
         );
       }
     );
+  }
+
+  /**
+ * Agregando la funcionalidad para enviar mensaje
+ */
+
+  enviarMensaje() {
+    if (this.whatsApp.qrGenerado == true) {
+      let mensaje = this.obtenerMensajePago();
+      if (this.pedido.formaDePago !== "Efectivo") {
+        this.whatsApp.enviarMensaje(this.pedido.cliente.telefono, mensaje).subscribe(
+          (result) => {
+            this.toastrService.info("Se le envio un mensaje para que realize el pago");
+          },
+          error => { alert("Error"); }
+        )
+      }
+    }else{
+      this.router.navigate(['gestion-whatsapp/enviarMensaje']);
+    }
+  }
+
+  obtenerMensajePago(): any {
+    return `Estimado/a ` + this.pedido.cliente.usuario.nombre + `
+  
+        Hemos recibido su pedido y deseamos informarle sobre los detalles de su compra:
+  
+        -Total a pagar: `+ this.pedido.total + `
+        -Productos solicitados: 
+        `+ this.pedido.detalleProductos.map(detalle => `${detalle.producto.nombreProducto} - $ ${detalle.producto.precio} `).join(`, 
+        `) + `.
+        - Método de pago: `+ this.pedido.formaDePago + `
+  
+  
+        A continuación, le proporcionamos los datos necesarios para que pueda realizar el pago:
+        `+ this.obtenerDatosPago() + `
+  
+        
+        Su satisfacción es nuestra prioridad y nos esforzamos por brindarle una experiencia culinaria excepcional.
+        
+        Si tiene alguna solicitud especial o requerimiento adicional, no dude en hacérnoslo saber.
+  
+        ¡Esperamos con ansias recibirlo/a en nuestro Restobar y brindarle una deliciosa experiencia gastronómica!
+  
+        Atentamente,
+        Equipo de Birabar
+  
+        `;
+  }
+
+  obtenerDatosPago(): string {
+    let medio;
+    if (this.pedido.formaDePago === "Tarjeta") {
+      medio = this.restobar.linkTarjeta;
+    } else if (this.pedido.formaDePago === "Link de pago") {
+      medio = this.restobar.linkPago;
+    } else {
+      medio = this.restobar.linkTransferencia;
+    }
+    return medio;
+  }
+
+  buscarLocal() {
+    this.restobarService.obtenerRestobarPorNombre('Birabar').subscribe(
+      (result) => {
+        this.restobar = new Restobar();
+        Object.assign(this.restobar, result);
+      },
+      error => { alert("Error"); }
+    )
   }
 }

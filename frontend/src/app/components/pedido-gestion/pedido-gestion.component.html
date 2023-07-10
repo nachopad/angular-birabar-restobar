@@ -86,7 +86,7 @@
                             </div>
                         </div>
                     </td>
-                    <td><button type="button" class="btn btn-success" (click)="enviarWhatsapp(p)" [disabled]="p.formaDePago == 'Efectivo'"><i class="bi bi-whatsapp"></i></button></td>
+                    <td><button type="button" class="btn btn-success" [disabled]="p.formaDePago == 'Efectivo'" (click)="setPedido(p); enviarMensaje()"><i class="bi bi-whatsapp"></i></button></td>
                     <td>
                       <button type="button" class="btn btn-success" (click)="finalizarPedido(p._id)" *ngIf="p.estado != 'Pendiente'" [disabled]="p.estado != 'En curso'">Finalizado</button>
                       <button type="button" class="btn btn-info" (click)="aceptarPedido(p._id)" *ngIf="p.estado == 'Pendiente'">Aceptar</button>

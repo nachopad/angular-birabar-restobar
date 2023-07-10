@@ -38,4 +38,12 @@ export class GestionWhatsAppComponent implements OnInit {
     this.router.navigate(['gestion-restobar']);
   }
 
+  rutaEnviarMensaje():boolean{
+    return this.router.url.includes('enviarMensaje');
+  }
+
+  volver():void{
+    this.router.navigate(['pedidos/gestion']);
+  }
+
 }
