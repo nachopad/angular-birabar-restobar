@@ -9,6 +9,7 @@ import Swal from 'sweetalert2';
 import { ToastrService } from 'ngx-toastr';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { RolService } from 'src/app/services/rol.service';
+import { ClienteService } from 'src/app/services/cliente.service';
 
 @Component({
   selector: 'app-registro-cliente',
@@ -28,7 +29,7 @@ export class RegistroClienteComponent implements OnInit {
 
   constructor(private registerService: RegistroService, private toastrService: ToastrService,
               private usuarioService: UsuarioService , private rolService: RolService,
-              private webTitle: Title) {
+              private webTitle: Title, private clienteService: ClienteService) {
     this.usuario = new Usuario();
     this.cliente = new Cliente();
     this.obtenerRolCliente();
@@ -53,8 +54,8 @@ export class RegistroClienteComponent implements OnInit {
           }
         },
         (error) => {
-          console.log(error)
-          this.msgAlert('error', 'Oops...', 'Algo ha salido mal!');
+          console.log(error.error.msg)
+          this.msgAlert('error', 'Oops...', error.error.msg);
           reject();
         }
       )
@@ -99,7 +100,7 @@ export class RegistroClienteComponent implements OnInit {
       },
       (error) => {
         console.log(error)
-        this.msgAlert('error', 'Oops...', 'Algo ha salido mal!');
+        this.msgAlert('error', 'Oops...', error.error.msg);
       }
     )
   }
@@ -162,9 +163,36 @@ export class RegistroClienteComponent implements OnInit {
  * Establece la variable element en true.
  */
   pasoSiguiente() {
-    this.element = true;
+    this.usuarioService.getUsuarioByUserName(this.usuario.user).subscribe(
+      (result) => {
+        if(result == null){
+          this.obtenerCliente();
+        }else{
+          this.msgAlert('error', 'Oops...', 'El usuario '+ result.user+' ya se encuentra registrado');
+        }
+      },
+      (error) => {
+        console.log(error.error.msg);
+        this.msgAlert('error', 'Oops...', 'Algo ha salido mal!');
+      }
+    )
   }
 
+  obtenerCliente(){
+    this.clienteService.obtenerClientePorEmail(this.cliente.email).subscribe(
+      (result) => {
+        if(result == null){
+          this.element=true;
+        }else{
+          this.msgAlert('error', 'Oops...', 'El usuario '+ result.email+' ya se encuentra registrado');
+        }
+      },
+      (error) => {
+        console.log(error.error.msg);
+        this.msgAlert('error', 'Oops...', 'Algo ha salido mal!');
+      }
+    )
+  }
   /**
  * Método para retroceder al paso anterior.
  * Establece la variable element en false.

@@ -7,6 +7,7 @@ const express = require('express');
 const router = express.Router();
 //definimos las rutas para la gestion de usuario.
 router.get('/', autCtrl.verifyToken, usuarioCtrl.getUsuarios);
+router.get('/:user',usuarioCtrl.getUsuarioByUserName);
 //router.post('/', usuarioCtrl.createUsuario);
 router.post('/registro', usuarioCtrl.createUsuario);
 router.delete('/:id', autCtrl.verifyToken, usuarioCtrl.deleteUsuario);

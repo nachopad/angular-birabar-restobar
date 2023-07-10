@@ -39,6 +39,27 @@ usuarioCtrl.createUsuario = async (request, response) => {
 }
 
 /**
+ * Obtiene un usuario existente por su ObjectId.
+ * @function getUsuarioById
+ * @param {Object} request - Objeto de solicitud de Express.
+ * @param {Object} response - Objeto de respuesta de Express.
+ * @returns {Promise<void>} Una promesa que resuelve cuando se obtiene el usuario y se envía la respuesta.
+ */
+usuarioCtrl.getUsuarioByUserName = async (request, response) => {
+    try {
+        const usuario = await Usuario.findOne({ user: request.params.user}).populate('rol');
+        response.json(usuario);
+    }
+    catch (error) {
+        response.status(500).json({
+            status: '0',
+            msg: 'Error obteniendo el usuario.',
+            error: error.message
+        });
+    }
+}
+
+/**
  * Elimina un usuario existente.
  * @function deleteUsuario
  * @param {Object} request - Objeto de solicitud de Express.

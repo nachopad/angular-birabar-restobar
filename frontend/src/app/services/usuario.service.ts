@@ -32,6 +32,15 @@ export class UsuarioService {
     return this._http.get(this.hostBase+"obtener-usuario/"+id, httpOptions);
   }
 
+  getUsuarioByUserName(user:string):Observable<any>{
+    let httpOptions = {
+      headers: new HttpHeaders({
+      }),
+      params: new HttpParams()
+    }
+    return this._http.get(this.hostBase+user, httpOptions);
+  }
+
   deleteUsuario(id:string):Observable<any>{
     let httpOptions = {
       headers: new HttpHeaders({

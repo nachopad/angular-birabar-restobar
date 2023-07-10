@@ -11,5 +11,6 @@ router.put('/:id', clienteCtrl.editCliente);
 router.get('/obtener-usuario/:id', clienteCtrl.getClienteById);
 router.get('/obtener-cliente/:id', clienteCtrl.getClienteByUserId);
 router.get('/obtener-clientes-suscripto', clienteCtrl.getClientesSuscripto);
+router.get('/obtener-cliente-email/:email', clienteCtrl.getClienteByEmail);
 //exportamos el modulo de rutas
 module.exports = router;

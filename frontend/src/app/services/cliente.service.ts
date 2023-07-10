@@ -23,6 +23,17 @@ export class ClienteService {
     return this._http.get(this.hostBase+"obtener-cliente/"+userId, httpOptions);
   }
 
+  obtenerClientePorEmail(email: string):Observable<any>{
+    let httpOptions = {
+      headers: new HttpHeaders({
+
+        }
+      ), 
+      params: new HttpParams()
+    };
+    return this._http.get(this.hostBase+"obtener-cliente-email/"+email, httpOptions);
+  }
+
   editCliente(cliente: Cliente):Observable<any>{
     let httpOptions = {
       headers: new HttpHeaders({
