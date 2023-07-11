@@ -3,7 +3,7 @@
     <h4 class="text-center mb-3">Reportes</h4>
     <hr>
     
-    <div class="row ">
+    <div class="row">
       <div class="col-12">
         <h6 class="mb-3">Todas las calificaciones</h6>
       </div>
@@ -16,11 +16,23 @@
           <option value="torta">Torta</option>
         </select>
     </div>
-    </div>
-    <div class="row">
-      
-    
 
+    <div class="col-auto">
+      <button class="btn  green-background" data-bs-toggle="modal"
+      data-bs-target="#modalFecha">
+      Filtro
+      </button>
+    </div>
+    <div class="col-2" *ngIf="filtro">
+      <button class="btn  green-background"
+       (click)="limpiarFiltro()" >
+      Borrar Filtro de fecha
+      </button>
+    </div>
+
+    </div>
+  
+    <div class="row "   >
       <div *ngIf="mostrar" class="col-12 col-sm-12">
 
         <div class="row gap-4 justify-content-center" >
@@ -41,6 +53,45 @@
 
       </div>
 
+    </div>
+  </div>
+</div>
+
+ 
+
+
+
+
+<div class="modal fade" id="modalFecha" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable">
+    <div class="modal-content black-background text-white">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel"><b>Filtro por Fecha</b></h1>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      
+
+        <div class="row">
+          <div class="col-12">
+                <h5 class="text-center">Desde:</h5>
+              <div class=" d-flex mb-4" >  
+                <div class="col-auto pt-2">
+              </div>
+                <input type="date" id="fechaDesde" class="form-control" [(ngModel)]="fechaDesde" name="fechaDesdeS" required>
+            </div>
+            <h5 class="text-center">Hasta:</h5>
+            <div class="  d-flex">
+                <input type="date" id="fechaHasta" class="form-control" [(ngModel)]="fechaHasta" name="fechaHastaS" required>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="filtrar()">Filtrar</button>
+      </div>
     </div>
   </div>
 </div>
