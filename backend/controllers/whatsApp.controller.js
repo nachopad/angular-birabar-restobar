@@ -10,10 +10,14 @@ const SESSION_FILE_PATH = '.session.json';
 
 whatsappCtrl.createSession = async ( req, res)=> {
     console.log('No tenemos session guardada');
-    client = new Client();
+    client = new Client({
+        puppeteer: {
+		args: ['--no-sandbox'],
+	    }
+    });
+    
     try{
         client.on('qr', qr =>{
-            qrcode.generate(qr, {small: true})
             res.json(qr);
         });
         client.on('ready', () =>{
