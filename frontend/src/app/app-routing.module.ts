@@ -58,6 +58,7 @@ const routes: Routes = [
   { path:'lista-productos', component:ListaProductosComponent},
   { path: 'mis-pedidos', component: PedidoComponent },
   { path: 'mis-pedidos/productos/:modalidad', component: PedidoProductosComponent },
+  { path: 'mis-pedidos/productos/:modalidad/:idcombo', component: PedidoProductosComponent },
   { path: 'mis-pedidos/calificacion/:id', component: PedidoCalificacionComponent },
   { path: 'pedidos/gestion', component: PedidoGestionComponent, canActivate: [GestorGuardGuard] },
   { path: 'pedidos/gestion/:id', component: PedidoGestionFormComponent, canActivate: [GestorGuardGuard] },

@@ -5,6 +5,7 @@ export class Combo {
     titulo!:string; 
     descuento!:number;
     montoFinal!:number; 
+    montoLista!:number;
     productos!:Array<string>;
     estado!:boolean;
     imagen!:string; 
