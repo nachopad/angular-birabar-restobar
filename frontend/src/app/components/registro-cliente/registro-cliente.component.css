@@ -55,7 +55,8 @@ button:disabled {
   cursor: not-allowed;
 }
 
-.smaller-image {
-  max-width: 400px;
-  height: auto;
+.image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
