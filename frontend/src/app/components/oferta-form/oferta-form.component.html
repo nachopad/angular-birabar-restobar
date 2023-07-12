@@ -35,7 +35,7 @@
                                 data-bs-target="#imagenModal"></span>
                             Subir imagen de la oferta:
                         </label>
-                        <input type="file" class="form-control" name="imagen" ngModel required #imagen="ngModel"
+                        <input type="file" class="form-control" name="imagen" ngModel [required]="accion==='new'" #imagen="ngModel"
                             (change)="onFileSeleccionado($event)">
                         <div *ngIf="imagen.invalid && imagen.touched" class="text-danger">
                             <div *ngIf="imagen.errors?.['required']">

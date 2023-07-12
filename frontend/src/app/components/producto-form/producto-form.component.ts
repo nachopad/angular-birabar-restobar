@@ -62,9 +62,7 @@ export class ProductoFormComponent implements OnInit {
     this.productoService.obtenerProducto(id).subscribe(
       (result)=>{  
         result.forEach((elemnt:any)=>{
-          let unProducto:Producto=new Producto();
-          Object.assign(unProducto, elemnt); // (this.producto, element) ahorra una linea abajo.
-          this.producto=unProducto;
+          Object.assign(this.producto, elemnt);
           this.producto.categoria = this.listaCategorias.find(cat => (cat._id == this.producto.categoria._id))!;
         })
       }, 

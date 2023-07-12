@@ -39,7 +39,7 @@ export class CartaProductosComponent implements OnInit {
       (result)=>{  
         Object.assign(this.categoria, result);
       }, 
-      error=>{this.toastrService.error("Error al obtener la categoria");}
+      error=>{this.toastrService.error("Error al obtener la categoria.");}
     )
   }
 
@@ -50,11 +50,10 @@ export class CartaProductosComponent implements OnInit {
         result.forEach((element:any)=>{
           let unProducto:Producto=new Producto();
           Object.assign(unProducto, element);
-          console.log(unProducto);
           this.listaProductos.push(unProducto);
         })
       },
-      error=>{this.toastrService.error("Error");}
+      error=>{this.toastrService.error("Error al obtener los productos por categoria.");}
     )
   }
   

@@ -47,9 +47,7 @@ export class LoginComponent implements OnInit {
           }
         },
         error => {
-          alert("Error de conexion");
-          console.log("error en conexion");
-          console.log(error);
+          this.toastrService.error("Error de conexión.");
         });
   }
 

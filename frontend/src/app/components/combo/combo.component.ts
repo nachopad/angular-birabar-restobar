@@ -49,7 +49,6 @@ export class ComboComponent implements OnInit {
     this.productosModal = new Array<Producto>();
     this.comboModal = combo;
     this.comboModal.productos.forEach(id => { 
-      console.log(id);
       this.productoService.obtenerProducto(id).subscribe(
         result => {
           let prod: Producto = new Producto();

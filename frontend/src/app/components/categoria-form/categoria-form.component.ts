@@ -17,8 +17,8 @@ export class CategoriaFormComponent implements OnInit {
   accion:string="new";
 
   constructor(private categoriaService: CategoriaService, private router:Router,
-    private activatedRoute:ActivatedRoute, private domSanitizer: DomSanitizer,
-    private toastrService: ToastrService, private webTitle: Title) { 
+              private activatedRoute:ActivatedRoute, private toastrService: ToastrService, 
+              private webTitle: Title) { 
     this.categoria = new Categoria();
   }
 
@@ -43,7 +43,7 @@ export class CategoriaFormComponent implements OnInit {
           this.toastrService.error("Error al intentar registrar la categoria");
         }
       },
-      error=>{this.toastrService.error("Error"+ error);;}
+      (error) =>{this.toastrService.error("Error: "+ error);}
     )
     
   }
@@ -53,7 +53,7 @@ export class CategoriaFormComponent implements OnInit {
       (result)=>{  
         Object.assign(this.categoria, result);
       }, 
-      error=>{this.toastrService.error("Error al buscar la categoria");}
+      (error) =>{this.toastrService.error("Error al buscar la categoria.");}
     )
   }
 
@@ -61,12 +61,12 @@ export class CategoriaFormComponent implements OnInit {
     this.categoriaService.updateCategoria(this.categoria).subscribe(
       (result)=>{
         if(result.status=='1'){
-          alert(result.msg);
+          this.toastrService.success("Categoria modificada correctamente.");
         }else{
           alert(result.msg);
         }
       },
-      error=>{alert("Error en la actualizacion");}
+      (error) =>{alert("Error en la actualizacion");}
     )
   }
 
