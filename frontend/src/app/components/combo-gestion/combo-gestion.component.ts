@@ -96,13 +96,13 @@ export class ComboGestionComponent implements OnInit {
   }
 
   construirMensaje():string{
-    return `Tenemos el agrado de informale que tenemos un combo imperdible:
+    return `Desde Birabar tenemos el agrado de informale que tenemos un combo imperdible:
   
-          `+this.comboEnviar.titulo+ `  
-    Con los siguientes productos: 
-       -`+ this.productosCombo.map(producto => `${producto.nombreProducto}`).join(`, 
-      `)+`
-      Precio Final: `+this.comboEnviar.montoFinal;
+    Combo `+this.comboEnviar.titulo+ ` con los siguientes productos: 
+
+    `+ this.productosCombo.map(producto => `- ${producto.nombreProducto}`).join(`, 
+    `) + `.
+    * Precio Final: `+this.comboEnviar.montoFinal;
   }
 
   buscarPorTitulo() {

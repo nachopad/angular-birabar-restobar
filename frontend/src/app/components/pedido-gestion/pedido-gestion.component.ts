@@ -173,11 +173,11 @@ export class PedidoGestionComponent implements OnInit {
   
         Hemos recibido su pedido y deseamos informarle sobre los detalles de su compra:
   
-        -Total a pagar: `+ this.pedido.total + `
-        -Productos solicitados: 
-        `+ this.pedido.detalleProductos.map(detalle => `${detalle.producto.nombreProducto} - $ ${detalle.producto.precio} `).join(`, 
+        * Total a pagar: $ `+ this.pedido.total + `
+        * Productos solicitados: 
+        `+ this.pedido.detalleProductos.map(detalle => `- ${detalle.producto.nombreProducto} - $ ${detalle.producto.precio} `).join(`, 
         `) + `.
-        - Método de pago: `+ this.pedido.formaDePago + `
+        * Método de pago: `+ this.pedido.formaDePago + `
   
   
         A continuación, le proporcionamos los datos necesarios para que pueda realizar el pago:

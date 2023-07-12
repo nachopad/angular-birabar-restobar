@@ -5,6 +5,9 @@
     </a>
     <span class="text-warning fw-semibold" *ngIf="(loginService.rolLogged()==='Gestor')">GESTIÓN</span>
     <span class="text-info fw-semibold" *ngIf="(loginService.rolLogged()==='Administrador')">ADMINISTRACIÓN</span>
+    <button class="navbar-toggler bg-secondary bg-gradient" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
     <div class="collapse navbar-collapse justify-content-center fw-semibold" id="navbarNavDropdown">
       <ul class="navbar-nav">
         <li class="nav-item">
