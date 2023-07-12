@@ -114,8 +114,8 @@ export class ProductoFormComponent implements OnInit {
   onFileSelected(event: any) {
     this.producto.imagen=""
     const files = event.target.files[0];
-    if(files.size > 80000){
-      this.toastrService.warning("El tamaño maximo que se puede subir es de 80Kb");
+    if(files.size > 1500000){
+      this.toastrService.warning("El tamaño maximo que se puede subir es de 15Mb");
       event.target.value="";
     }else{
       const reader = new FileReader();

@@ -3,13 +3,13 @@ const cors = require('cors');
 const { mongoose } = require('./database');
 var app = express();
 
+var bodyParser = require('body-parser');
+app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
+
 //middlewares
 app.use(express.json());
 app.use(cors({ origin: 'http://localhost:4200' }));
-
-const bodyParser = require('body-parser');
-// Aumentar el límite de tamaño de solicitud a 10 MB
-app.use(bodyParser.json({ limit: '10mb' }));
 
 //Cargamos el modulo de direccionamiento de rutas
 app.use('/api/rol', require('./routes/rol.route.js'));

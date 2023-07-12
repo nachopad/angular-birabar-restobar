@@ -37,7 +37,7 @@ export class WhatsappService {
     
     const menssage = {
       'message': mensaje,
-      'to':numero
+      'to':"549"+numero
     }
     
     console.log(menssage.message);

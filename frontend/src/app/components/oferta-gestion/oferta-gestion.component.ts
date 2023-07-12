@@ -93,17 +93,17 @@ export class OfertaGestionComponent implements OnInit {
   }
 
   construirMensaje():string{
-    return `
-
-    Tenemos el agrado de informale que tenemos una oferta imperdible:
+    return `Desde Birabar tenemos el agrado de informale que tenemos una oferta que no te podes perder:
     
-    `+this.ofertaMensaje.titulo+ `:
+    Oferta `+this.ofertaMensaje.titulo+ `:
+
     `+this.ofertaMensaje.descripcion+ `
-      Dias:`+this.ofertaMensaje.dias.map(dias => `${dias} `) + `
-      Horario desde: ` + this.ofertaMensaje.desde+ ` hasta:`+this.ofertaMensaje.hasta+`
-      Productos: ` + this.productosOferta.map(producto => `${producto.nombreProducto}`).join(`, 
-      `)+`
-      Precio: $`+this.ofertaMensaje.precio;
+
+    Dias: `+this.ofertaMensaje.dias.map(dias => `${dias} `) + `
+    Horario desde: ` + this.ofertaMensaje.desde+ ` hasta: `+this.ofertaMensaje.hasta+`
+    Productos: ` + this.productosOferta.map(producto => `- ${producto.nombreProducto}`).join(`, 
+    ` )+ `.
+    Precio: $`+this.ofertaMensaje.precio;
       
   }
 
