@@ -10,8 +10,9 @@ export class LoginService {
   hostBase: string;
   hostServe : string;
   constructor(private _http: HttpClient) {
-    // this.hostServe = "http://54.157.182.219:3000/api/";
-    this.hostServe = "http://localhost:3000/api/";
+    this.hostServe = "http://54.157.182.219:3000/api/";
+    //this.hostServe = "http://100.24.204.191:3000/api/";
+    //this.hostServe = "http://localhost:3000/api/";
     this.hostBase = this.hostServe+"usuario/";
   }
 

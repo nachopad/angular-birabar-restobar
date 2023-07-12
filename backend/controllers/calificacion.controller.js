@@ -36,4 +36,56 @@ calificacionCtrl.getResumen = async (req, res) => {
     res.json(calificaciones);
 }
 
+calificacionCtrl.getCalificacionFiltradas = async (req, res) => {
+    const { fechaDesde, fechaHasta} = req.query;
+
+    try {
+        let filtro = {};
+
+        if (fechaDesde && fechaHasta) {
+            filtro.fecha = {
+                $gte: fechaDesde,
+                $lte: fechaHasta
+            };
+        } else if (fechaDesde) {
+            filtro.fecha = {
+                $gte: fechaDesde
+            };
+        } else if (fechaHasta) {
+            filtro.fecha = {
+                $lte: fechaHasta
+            };
+        }
+   
+        const resumenCalificaciones = await Calificacion.aggregate([
+          {
+            $match: filtro
+          },
+          {
+            $group: {
+              _id: '$puntaje',
+              count: { $sum: 1 }
+            }
+          },
+          {
+            $project: {
+              puntaje: '$_id',
+              count: 1,
+              _id: 0
+            }
+          },
+          {
+            $sort: {
+              puntaje: 1
+            }
+          }
+        ]);
+
+        res.json(resumenCalificaciones);
+    } catch (error) {
+        console.error('Error al filtrar las ventas:', error);
+        res.status(500).json({ message: 'Error al filtrar las ventas' });
+    }
+};  
+
 module.exports = calificacionCtrl;

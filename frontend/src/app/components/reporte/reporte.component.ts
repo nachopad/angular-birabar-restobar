@@ -14,6 +14,9 @@ export class ReporteComponent implements OnInit {
   resumen: Array<any> = [0,0,0,0,0];
   mostrar = false;
   categorias = ['Muy malo', 'Malo', 'Regular', 'Muy bueno', 'Excelente'];
+  fechaDesde!:string; 
+  fechaHasta!:string;
+  filtro!:boolean;
   //Propiedades del barChart
   public barChartLegend = true;
   public barChartPlugins = [];
@@ -95,21 +98,14 @@ export class ReporteComponent implements OnInit {
     this.grafico = valor.target.value;
   }
 
-  cargarResumenTotal(){
-    
+  cargarResumenTotal(){ 
     this.calificacionService.obtenerResumen().subscribe(
       result => {
-        this.resumen = new Array();
-        console.log(result);
+        this.resumen = [0,0,0,0,0];
         result.forEach((element:any) => {
-          
           this.resumen[element.puntaje-1] = element.count;
-
         });
-
-       
-       
-
+        
         this.barChartData = {
           labels: this.categorias,
           datasets: [
@@ -132,13 +128,58 @@ export class ReporteComponent implements OnInit {
   }
 
 
-  cargarResumenPorRango(fechaInicio:string,fechaFinal:string)
+  filtrar()
   {
+     let fechaDesdeDate = new Date(this.fechaDesde);
+     fechaDesdeDate.setHours(24);
+    let fechaHastaDate = new Date(this.fechaHasta);
+    fechaHastaDate.setHours(24);
 
+   let desde = fechaDesdeDate.toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' });
+   let hasta = fechaHastaDate.toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' });
+    console.log(desde + " "+  hasta);
+
+   this.calificacionService.obtenerResumenPorFecha(desde,hasta).subscribe(
+    result=>{
+      this.filtro=true;
+      this.mostrar=false;
+       this.resumen = [0,0,0,0,0];
+       console.log("resumen " +result)
+        result.forEach((element:any) => {
+          console.log(element)
+          this.resumen[element.puntaje-1] = element.count;
+        });
+        
+        this.barChartData = {
+          labels: this.categorias,
+          datasets: [
+            { data: this.resumen, label: 'Calificaciones' },
+          ]
+        };
+
+        this.pieChartDatasets = [{
+          data: this.resumen
+        }]
+
+
+        this.mostrar = true;
+    },
+    error=>
+    {
+      this.filtro=false;
+      this.cargarResumenTotal();
+    }
+   )
+
+   
   }
 
-
+  limpiarFiltro()
+  {
+   this.cargarResumenTotal();
+   this.filtro=false;
+  }
   
-
+ 
 
 }
