@@ -18,11 +18,13 @@ export class OfertaComponent implements OnInit {
   ofertaModal: Oferta = new Oferta();
   productosModal!: Array<Producto>;
   verOfertasDisponibles: Boolean = true;
+  dia!:string;
 
   constructor(private toastrService: ToastrService, private ofertaService: OfertaService, private webTitle: Title, private productoService: ProductoService) {
     this.toastrService.info("Para ver más información acerca de las ofertas hacer click.");
     this.ofertas = new Array<Oferta>();
     this.ofertasDisponibles = new Array<Oferta>();
+    this.dia = this.ofertaService.obtenerDia();
     this.cargarOfertas();
   }
 
@@ -67,63 +69,19 @@ export class OfertaComponent implements OnInit {
     });
   }
 
-
   cargarOfertasDisponibles() {
-    const diaHoy = this.obtenerDia();
+    const diaHoy = this.ofertaService.obtenerDia();
     this.ofertasDisponibles = new Array<Oferta>();
     this.ofertas.forEach(oferta => {
       oferta.dias.forEach(dia => {
-        if (dia == diaHoy)
-          this.ofertasDisponibles.push(oferta);
+        if (dia == diaHoy){
+            this.ofertasDisponibles.push(oferta);
+        }
       });
     });
   }
 
-  obtenerDia(): string {
-    const fechaComoCadena = new Date(); // día lunes
-    const dias = [
-      'Domingo',
-      'Lunes',
-      'Martes',
-      'Miercoles',
-      'Jueves',
-      'Viernes',
-      'Sabado',
-    ];
-    const numeroDia = new Date(fechaComoCadena).getDay();
-    const nombreDia = dias[numeroDia];
-    return nombreDia;
-  }
-
   disponibleAhoraMismo(oferta:Oferta): boolean {
-    const desde: string = oferta.desde;
-    const hasta: string = oferta.hasta;
-
-    const fechaDesde: Date = new Date();
-    const [horaDesde, minutosDesde] = desde.split(':');
-    fechaDesde.setHours(Number(horaDesde), Number(minutosDesde), 0);
-
-    const fechaHasta: Date = new Date();
-    const [horaHasta, minutosHasta] = hasta.split(':');
-    fechaHasta.setHours(Number(horaHasta), Number(minutosHasta), 0);
-
-    const fechaActual: Date = new Date();
-    const hora: number = fechaActual.getHours();
-    const minutos: number = fechaActual.getMinutes();
-    const horaActual: string = `${hora.toString().padStart(2, '0')}:${minutos.toString().padStart(2, '0')}`;
-
-    const fechaHoraActual: Date = new Date();
-    const [horaActu, minutosActual] = horaActual.split(':');
-    fechaHoraActual.setHours(parseInt(horaActu, 10), parseInt(minutosActual, 10), 0);
-
-    if (
-      (fechaDesde <= fechaHasta && fechaHoraActual >= fechaDesde && fechaHoraActual <= fechaHasta) ||
-      (fechaDesde > fechaHasta && (fechaHoraActual >= fechaDesde || fechaHoraActual <= fechaHasta))
-    ) {
-      return true;
-    } else {
-      return false;
-    }
+    return this.ofertaService.ofertaDisponible(oferta);
   }
-
 }

@@ -11,6 +11,8 @@ import { DetalleProducto } from 'src/app/models/detalle-producto';
 import { DetalleProductoService } from 'src/app/services/detalle-producto.service';
 import { Pedido } from 'src/app/models/pedido';
 import { ClienteService } from 'src/app/services/cliente.service';
+import { Oferta } from 'src/app/models/oferta';
+import { OfertaService } from 'src/app/services/oferta.service';
 
 @Component({
   selector: 'app-pedido-productos',
@@ -25,14 +27,16 @@ export class PedidoProductosComponent implements OnInit {
   detalleProductos!: Array<DetalleProducto>;
   arrayIds!: Array<string>;
   pedido!: Pedido;
-  formaDePago!:string;
+  formaDePago!: string;
+  ofertas!: Array<Oferta>;
 
   constructor(private webTitle: Title, private productoService: ProductoService,
     private activatedRoute: ActivatedRoute, public loginService: LoginService,
     private toastrService: ToastrService, private pedidoService: PedidoService,
     private router: Router, private detProdService: DetalleProductoService,
-    private clienteService: ClienteService) {
+    private clienteService: ClienteService, private ofertaService: OfertaService) {
     this.productos = new Array<Producto>();
+    this.ofertas = new Array<Oferta>();
     this.detalleProductos = new Array<DetalleProducto>();
     this.getCliente();
   }
@@ -42,6 +46,7 @@ export class PedidoProductosComponent implements OnInit {
 
     this.activatedRoute.params.subscribe(params => {
       this.modalidad = params['modalidad'];
+      this.cargarOfertas();
       this.cargarProductos();
     });
   }
@@ -53,6 +58,9 @@ export class PedidoProductosComponent implements OnInit {
         result.forEach(e => {
           producto = new Producto();
           Object.assign(producto, e);
+          if (this.productoEnOferta(producto)) {
+            producto = this.productoOferta(producto);
+          }
           this.productos.push(producto);
         });
       },
@@ -60,6 +68,34 @@ export class PedidoProductosComponent implements OnInit {
         console.log(error);
       }
     );
+  }
+
+  productoOferta(producto: Producto): Producto {
+    let prod: Producto = producto;
+    this.ofertas.forEach(oferta => {
+      oferta.productos.forEach(productoOferta => {
+        if (producto._id == productoOferta) {
+          prod.precio = oferta.precio;
+        }
+      });
+    });
+    return prod;
+  }
+
+  productoEnOferta(producto: Producto): boolean {
+    let retorno: boolean = false;
+    if (this.ofertas.length == 0) {
+      retorno = false;
+    } else {
+      this.ofertas.forEach(oferta => {
+        oferta.productos.forEach(productoOferta => {
+          if (producto._id == productoOferta) {
+            retorno = true;
+          }
+        });
+      });
+    }
+    return retorno;
   }
 
   agregarAlPedido(producto: Producto) {
@@ -118,7 +154,7 @@ export class PedidoProductosComponent implements OnInit {
     }
   }
 
-  crearPedido(){
+  crearPedido() {
     this.pedido = new Pedido();
     this.pedido.cliente = this.cliente;
     this.pedido.demora = "45";
@@ -135,7 +171,7 @@ export class PedidoProductosComponent implements OnInit {
       this.detProdService.createDetalleProd(d.cantidad, d.producto._id, d.subtotal).subscribe(
         (resultD) => {
           d._id = resultD._id;
-          if (contador == this.detalleProductos.length){
+          if (contador == this.detalleProductos.length) {
             this.crearPedido();
             this.pedidoService.createPedido(this.pedido).subscribe(
               (resultP) => {
@@ -147,7 +183,7 @@ export class PedidoProductosComponent implements OnInit {
                 console.log(error);
               }
             );
-          }else{
+          } else {
             contador++;
           }
         },
@@ -165,4 +201,27 @@ export class PedidoProductosComponent implements OnInit {
     });
     return total;
   }
+
+  cargarOfertas() {
+    this.ofertaService.cargarOfertas().subscribe(
+      result => {
+        this.ofertas = new Array<Oferta>();
+        result.forEach((element: any) => {
+          let oferta: Oferta = new Oferta();
+          Object.assign(oferta, element);
+          oferta.dias.forEach(dia => {
+            if (dia == this.ofertaService.obtenerDia()) {
+              if (this.ofertaService.ofertaDisponible(oferta)) {
+                this.ofertas.push(oferta);
+              }
+            }
+          });
+        });
+      },
+      error => {
+        this.toastrService.error("Error: ", error);
+      }
+    );
+  }
+
 }

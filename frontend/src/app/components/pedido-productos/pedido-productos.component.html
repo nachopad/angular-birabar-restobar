@@ -7,7 +7,6 @@
                 <i class="fa-solid fa-pizza-slice me-2" style="color: white;"></i>
                 Ver mi pedido.
             </a>
-
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
@@ -81,8 +80,8 @@
                                 <div class="card-body">
                                     <h5 class="card-title">{{p.nombreProducto}}</h5>
                                     <p class="card-text">{{p.descripcion}}</p>
-                                    <p class="card-text"><small class="card-text">{{p.precio | currency: '$'}}</small>
-                                    </p>
+                                    <small class="text-success" *ngIf="productoEnOferta(p)">OFERTA</small>
+                                    <p class="card-text"><small class="card-text">{{p.precio | currency: '$'}} </small></p>
                                     <div class="row justify-content-center align-items-center">
                                         <div class="col-5 text-end">
                                             <button type="button" class="btn btn-prods" (click)="quitarDelPedido(p)"><i
