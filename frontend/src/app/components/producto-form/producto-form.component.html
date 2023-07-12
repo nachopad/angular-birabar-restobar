@@ -163,7 +163,7 @@
                             <label class="form-text text-secondary" for="categoriaProducto">Categoria:</label>
                             <select class="form-control" id="categoriaProducto" name="categoriaProducto" required
                                     #categoriaProducto="ngModel" [(ngModel)]="producto.categoria">
-                              <option *ngFor="let categoria of listaCategorias" [ngValue]="categoria._id">{{ categoria.nombreCategoria }}</option>
+                              <option *ngFor="let categoria of listaCategorias" [ngValue]="categoria">{{ categoria.nombreCategoria }}</option>
                             </select>
                             <div *ngIf="categoriaProducto.invalid && (categoriaProducto.dirty || categoriaProducto.touched)" class="text-danger">
                               <div *ngIf="categoriaProducto.errors?.['required']">
@@ -174,7 +174,7 @@
                         <div class="col-md-8">
                             <label class="form-text text-secondary" for="imagen">Imagen:</label>
                             <input class="form-control" type="file" id="imagen" name="imagen" accept="image/*"
-                                (change)="onFileSelected($event)" ngModel #imagen="ngModel" required>
+                                (change)="onFileSelected($event)" ngModel #imagen="ngModel" [required]="accion==='new'">
                             <div class="d-grid justify-content-center pt-3">
                                 <img [src]="producto.imagen" class="img-thumbnail img-fluid"
                                     style="max-width: 300px" />

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Categoria } from 'src/app/models/categoria';
 import { Producto } from 'src/app/models/producto';
 import { CategoriaService } from 'src/app/services/categoria.service';
@@ -16,8 +17,8 @@ export class CartaComponent implements OnInit {
   listaProductos!:Array<Producto>;
   listaCategorias!:Array<Categoria>;
 
-  constructor(private categoriaService: CategoriaService, private productoService: ProductoService,
-              private router:Router, private webTitle: Title) { 
+  constructor(private categoriaService: CategoriaService, private router:Router, 
+              private webTitle: Title, private toastrService: ToastrService) { 
     this.listaCategorias=new Array<Categoria>();
   }
 
@@ -35,9 +36,10 @@ export class CartaComponent implements OnInit {
           this.listaCategorias.push(unaCategoria);
         });
       },
-      error => {alert("Error al cargar las lista de Categorias");}
+      (error) => {
+        this.toastrService.error("Error al cargar la lista de categorias.");
+      }
     )
-    console.log(this.listaCategorias);
   }
 
   productosPorCategoria(id:string){
