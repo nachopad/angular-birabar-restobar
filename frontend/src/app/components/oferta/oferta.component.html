@@ -5,7 +5,7 @@
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div class="navbar-nav mx-auto">
             <a class="nav-link active bi bi-check" onclick="selectTab(this)" (click)="verOfertasDisponibles=true">
-              Ofertas disponibles</a>
+              Ofertas {{obtenerDia()}}</a>
             <a class="nav-link bi bi-check-all" onclick="selectTab(this)" (click)="verOfertasDisponibles=false"> Ver
               todas las ofertas</a>
           </div>
@@ -18,7 +18,7 @@
         *ngFor="let oferta of ofertas">
         <div class="oferta text-center" (click)="cargarProductos(oferta)" data-bs-toggle="modal"
           data-bs-target="#modalOferta">
-          <p class="display-1 mb-1" style="font-size: 18px;">{{oferta.titulo}}</p>
+          <p class="display-1 mb-1" style="font-size: 18px;">{{oferta.titulo}} <i *ngIf="disponibleAhoraMismo(oferta)" class="text-green bi bi-check-circle-fill"></i></p>
           <div style="height: 200px;width:200px;">
             <img [src]="oferta.imagen" class="object-fit-cover rounded-1 h-100 w-100" style="height: 100%;width: 100%;">
           </div>
@@ -31,12 +31,12 @@
       <p><i>No existen ofertas disponibles.</i></p>
     </div>
     <div class="row justify-content-center" *ngIf="verOfertasDisponibles && ofertasDisponibles.length!=0">
-      <p class="text-center form-text text-white mb-3">Ofertas disponibles del día: {{obtenerDia()}}</p>
+      <p class="text-center form-text text-white mb-3">Ofertas disponibles ahora mismo <i class="text-green bi bi-check-circle-fill"></i></p>
       <div class="col-xl-3 col-md-4 col-12 d-flex justify-content-center align-items-center "
         *ngFor="let oferta of ofertasDisponibles">
         <div class="oferta text-center" (click)="cargarProductos(oferta)" data-bs-toggle="modal"
           data-bs-target="#modalOferta">
-          <p class="display-1 mb-1" style="font-size: 18px;">{{oferta.titulo}}</p>
+          <p class="display-1 mb-1" style="font-size: 18px;">{{oferta.titulo}} <i *ngIf="disponibleAhoraMismo(oferta)" class="text-green bi bi-check-circle-fill"></i></p>
           <div style="height: 200px;width:200px;">
             <img [src]="oferta.imagen" class="object-fit-cover rounded-1 h-100 w-100" style="height: 100%;width: 100%;">
           </div>
