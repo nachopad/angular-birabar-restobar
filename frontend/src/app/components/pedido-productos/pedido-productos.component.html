@@ -1,6 +1,7 @@
 <div class="black-dark-background">
     <div class="container p-4 text-center">
-        <legend class="text-white mb-4">¿Qué vas a pedir hoy?</legend>
+        <legend class="text-white mb-4" *ngIf="idcombo == null">¿Qué vas a pedir hoy?</legend>
+        <legend class="text-white mb-4" *ngIf="idcombo != null">¿Querés agregar productos a tu pedido?</legend>
         <div class="mb-4">
             <a class="link-light link-underline-opacity-25 link-underline-opacity-100-hover" data-bs-toggle="modal"
                 data-bs-target="#exampleModal" *ngIf="productos.length != 0">
@@ -17,12 +18,29 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <div *ngIf="detalleProductos.length == 0">
+                            <div *ngIf="detalleProductos.length == 0 && combo == null">
                                 <i style="font-size: medium;">No tenés productos seleccionados.</i>
                             </div>
 
-                            <div *ngIf="detalleProductos.length != 0" class="text-start pe-3 ps-3">
-                                    <table class="table-bordered text-center mb-4">
+                            <div *ngIf="detalleProductos.length != 0 || combo!=null" class="text-start pe-3 ps-3">
+                                    <table class="table-bordered text-center mb-4" *ngIf="combo!=null">
+                                        <thead>
+                                            <tr>
+                                            <th scope="col">Combo</th>
+                                            <th scope="col">Productos</th>
+                                            <th scope="col">Subtotal</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                            <td style="width: auto;"><img src="{{combo.imagen}}" alt="" width="20%">{{combo.titulo}}</td> 
+                                            <td><div *ngFor="let d of detallesCombo">{{d.producto.nombreProducto}} x {{d.cantidad}}</div></td>
+                                            <td>{{combo.montoFinal | currency: '$'}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+                                    <table class="table-bordered text-center mb-4" *ngIf="detalleProductos.length != 0">
                                         <thead>
                                             <tr>
                                               <th scope="col">Llevas</th>
@@ -59,7 +77,7 @@
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Volver</button>
                                 <button type="button" class="btn btn-success" data-bs-dismiss="modal"
-                                    [disabled]="detalleProductos.length == 0 || formaDePago == null"
+                                    [disabled]="(detalleProductos.length == 0 && combo == null) || formaDePago == null"
                                     (click)="guardarPedido()">Finalizar</button>
                             </div>
                         </div>
@@ -91,7 +109,7 @@
                                             {{calcularCantidad(p._id)}}
                                         </div>
                                         <div class="col-5 text-start">
-                                            <button type="button" class="btn btn-prods" (click)="agregarAlPedido(p)"><i
+                                            <button type="button" class="btn btn-prods" (click)="agregarAlPedido(p, detalleProductos)"><i
                                                     class="bi bi-plus-circle"></i></button>
                                         </div>
                                     </div>
