@@ -63,10 +63,10 @@ export class CategoriaFormComponent implements OnInit {
         if(result.status=='1'){
           this.toastrService.success("Categoria modificada correctamente.");
         }else{
-          alert(result.msg);
+          this.toastrService.error(result.msg);
         }
       },
-      (error) =>{alert("Error en la actualizacion");}
+      (error) =>{this.toastrService.error("Error en la actualizacion");}
     )
   }
 

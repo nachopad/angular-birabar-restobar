@@ -39,7 +39,6 @@ export class LoginComponent implements OnInit {
             sessionStorage.setItem("user", user.username);
             sessionStorage.setItem("userid", user.userid);
             sessionStorage.setItem("rol", user.rol);
-            console.log(this.loginService.rolLogged());
             this.router.navigateByUrl(this.returnUrl);
             this.toastrService.success("Ha ingresado al sistema exitosamente");
           } else {

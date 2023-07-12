@@ -50,11 +50,10 @@ export class GestionCategoriaProductoComponent implements OnInit {
         result.forEach((element:any)=>{
           let unProducto:Producto=new Producto();
           Object.assign(unProducto, element);
-          console.log(unProducto);
           this.listaProductos.push(unProducto);
         })
       },
-      error=>{alert("Error");}
+      error=>{this.toastrService.error("Error");}
     )
   }
 
@@ -93,7 +92,7 @@ export class GestionCategoriaProductoComponent implements OnInit {
           this.toastrService.error("Error al intentar dar de baja el producto");
         }
       }, 
-      error=>{alert("Error al eliminar el producto");}
+      error=>{this.toastrService.error("Error al eliminar el producto");}
     )
   }
 

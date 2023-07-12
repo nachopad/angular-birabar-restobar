@@ -40,16 +40,9 @@ export class WhatsappService {
       'to':"549"+numero
     }
     
-    console.log(menssage.message);
-    
     let body = JSON.stringify(menssage);
     
     return this._http.post(this.loginService.hostServe+"whatsApp/send", body, httpOptions);
   }
-
-
-
-  
-
 
 }

@@ -33,7 +33,7 @@ export class GestionCartaComponent implements OnInit {
           this.listaProductos.push(unProducto);
         })
       },
-      error=>{alert("Error");}
+      error=>{this.toastrService.error("Error al cargar los productos");}
     );
   }
 
@@ -58,7 +58,7 @@ export class GestionCartaComponent implements OnInit {
           this.toastrService.error("Error actualizacion de producto");
         }
       },
-      error=>{alert("Error en la actualizacion");}
+      error=>{this.toastrService.error("Error en la actualizacion");}
     )
   }
 
@@ -73,7 +73,7 @@ export class GestionCartaComponent implements OnInit {
           this.toastrService.error("Error actualizacion de producto");
         }
       },
-      error=>{alert("Error en la actualizacion");}
+      error=>{this.toastrService.error("Error en la actualizacion");}
     )
   }
 
