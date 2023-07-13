@@ -47,6 +47,7 @@ import { RestobarFormComponent } from './components/restobar-form/restobar-form.
 import { RestobarGestionComponent } from './components/restobar-gestion/restobar-gestion.component';
 import { VentaComponent } from './components/venta/venta.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,

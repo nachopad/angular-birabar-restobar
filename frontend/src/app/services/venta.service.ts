@@ -29,4 +29,14 @@ export class VentaService {
   public getVentasFiltradas(fechaDesde:string, fechaHasta:string, idusuario:string) : Observable<any> {
     return this._http.get(this.url+'filtrar/ventas'+'?fechaDesde='+fechaDesde+'&fechaHasta='+fechaHasta+'&usuario='+idusuario);
   }
+  
+  public getVentasResumen() : Observable<any> {
+    return this._http.get(this.url+'resumen/filtro');
+  }
+  public getVentasProductoResumen(mes:number) : Observable<any> {
+    return this._http.get(this.url+'resumen/mes/'+mes);
+  }
+  public getVentasClienteResumen(mes:number) : Observable<any> {
+    return this._http.get(this.url+'resumen/cliente/'+mes);
+  }
 }
