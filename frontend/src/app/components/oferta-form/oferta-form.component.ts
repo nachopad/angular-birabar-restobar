@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Oferta } from 'src/app/models/oferta';
 import { Producto } from 'src/app/models/producto';
 import { ProductoService } from 'src/app/services/producto.service';
@@ -38,7 +38,7 @@ export class OfertaFormComponent implements OnInit {
    * @param ofertaService 
    * @param webTitle 
    */
-  constructor(private rutaActiva: ActivatedRoute, private productoService: ProductoService, private toastrService: ToastrService, private ofertaService: OfertaService, private webTitle: Title) {
+  constructor(private rutaActiva: ActivatedRoute, private productoService: ProductoService, private toastrService: ToastrService, private ofertaService: OfertaService, private webTitle: Title, private router:Router) {
     this.oferta = new Oferta();
     this.productos = new Array<Producto>();
     this.oferta.productos = new Array<string>();
@@ -68,6 +68,7 @@ export class OfertaFormComponent implements OnInit {
     this.ofertaService.registrarOferta(this.oferta).subscribe(
       result => {
         this.toastrService.success("Oferta registrada correctamente");
+        this.router.navigate(['ofertaGestion']);
       },
       error => {
         this.toastrService.error("Error:", error);
@@ -227,9 +228,9 @@ export class OfertaFormComponent implements OnInit {
   onFileSeleccionado(event: any) {
     if (event.target.files[0]) {
       const file = event.target.files[0];
-      if (file.size > 70 * 1024) {
+      if (file.size > 1500000) {
         event.target.value = null;
-        this.toastrService.warning("La imagen no puede pesar más de 70KB.");
+        this.toastrService.warning("El tamaño maximo de la imagen es 15Mb");
       } else {
         const reader = new FileReader();
         reader.onload = () => {
@@ -267,6 +268,7 @@ export class OfertaFormComponent implements OnInit {
     this.ofertaService.modificarOferta(this.oferta).subscribe(
       result => {
         this.toastrService.success("Oferta modificada correctamente");
+        this.router.navigate(['ofertaGestion']);
       },
       error => {
         this.toastrService.error("Error:", error);

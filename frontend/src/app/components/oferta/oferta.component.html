@@ -18,7 +18,9 @@
         *ngFor="let oferta of ofertas">
         <div class="oferta text-center" (click)="cargarProductos(oferta)" data-bs-toggle="modal"
           data-bs-target="#modalOferta">
-          <p class="display-1 mb-1" style="font-size: 18px;">{{oferta.titulo}} <i *ngIf="disponibleAhoraMismo(oferta)" class="text-green bi bi-check-circle-fill"></i></p>
+          <p class="display-1 mb-1" style="font-size: 18px;">{{oferta.titulo}} <i *ngIf="disponibleAhoraMismo(oferta)"
+              class="text-green bi bi-check-circle-fill"></i></p>
+          <small class="form-text text-white">{{oferta.desde}}hs - {{oferta.hasta}}hs</small>
           <div style="height: 200px;width:200px;">
             <img [src]="oferta.imagen" class="object-fit-cover rounded-1 h-100 w-100" style="height: 100%;width: 100%;">
           </div>
@@ -31,12 +33,15 @@
       <p><i>No existen ofertas disponibles.</i></p>
     </div>
     <div class="row justify-content-center" *ngIf="verOfertasDisponibles && ofertasDisponibles.length!=0">
-      <p class="text-center form-text text-white mb-3">Ofertas disponibles ahora mismo <i class="text-green bi bi-check-circle-fill"></i></p>
+      <p class="text-center form-text text-white mb-3">Ofertas disponibles ahora mismo <i
+          class="text-green bi bi-check-circle-fill"></i></p>
       <div class="col-xl-3 col-md-4 col-12 d-flex justify-content-center align-items-center "
         *ngFor="let oferta of ofertasDisponibles">
         <div class="oferta text-center" (click)="cargarProductos(oferta)" data-bs-toggle="modal"
           data-bs-target="#modalOferta">
-          <p class="display-1 mb-1" style="font-size: 18px;">{{oferta.titulo}} <i *ngIf="disponibleAhoraMismo(oferta)" class="text-green bi bi-check-circle-fill"></i></p>
+          <p class="display-1 mb-1" style="font-size: 18px;">{{oferta.titulo}} <i *ngIf="disponibleAhoraMismo(oferta)"
+              class="text-green bi bi-check-circle-fill"></i></p>
+          <small class="form-text text-white">{{oferta.desde}}hs - {{oferta.hasta}}hs</small>
           <div style="height: 200px;width:200px;">
             <img [src]="oferta.imagen" class="object-fit-cover rounded-1 h-100 w-100" style="height: 100%;width: 100%;">
           </div>
