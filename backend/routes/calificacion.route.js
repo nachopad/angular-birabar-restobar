@@ -5,6 +5,6 @@ const router = express.Router();
 
 router.post('/', calificacionCtrl.createCalificacion);
 router.get('/', calificacionCtrl.getCalificaciones);
-router.get("/resumen",autCtrl.verifyToken, calificacionCtrl.getResumen);
-router.get("/resumenPorFecha", autCtrl.verifyToken,calificacionCtrl.getCalificacionFiltradas);
+router.get("/resumen", autCtrl.verifyToken,calificacionCtrl.getResumen);
+router.get("/resumenPorFecha",autCtrl.verifyToken,calificacionCtrl.getCalificacionFiltradas);
 module.exports = router;

@@ -4,7 +4,7 @@
     
  }
  .reporte > canvas{
-     color: white;
+     color: rgb(192, 167, 167);
  }
  
  .final{
@@ -52,3 +52,39 @@
      border-bottom-color: #069460;
      color: white;
  }
+
+ 
+
+
+
+
+.torta{
+  padding-bottom: 11px ;
+}
+ 
+.navbar-dots {
+    display: flex;
+    align-items: center;
+  }
+  
+  .dot {
+    width: 5px;
+    height: 5px;
+    background-color: #000;
+    border-radius: 100%;
+    margin: 2px;
+  }
+
+
+  .reporte-carta
+  {
+    position: relative;
+    border-radius: 15px;
+    
+  }
+  .detalles{
+    position: absolute;
+    right: 10px;
+    top: 5px;
+    cursor: pointer;
+  }

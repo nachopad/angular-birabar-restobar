@@ -9,4 +9,7 @@ router.get('/all', autCtrl.verifyToken, ventaCtrl.getVentas);
 router.get('/:id', autCtrl.verifyToken, ventaCtrl.getVentaById);
 router.get('/filtrar/ventas', autCtrl.verifyToken, ventaCtrl.getVentasFiltradas);
 
+router.get('/resumen/filtro', autCtrl.verifyToken,ventaCtrl.getVentasResumen);
+router.get('/resumen/cliente/:mes',autCtrl.verifyToken,  ventaCtrl.getVentasCliente);
+router.get('/resumen/mes/:mes',autCtrl.verifyToken,  ventaCtrl.getVentasPorMes);
 module.exports = router;

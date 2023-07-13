@@ -1,5 +1,5 @@
 const Calificacion = require('./../models/calificacion');
-
+const moment = require('moment');
 const calificacionCtrl = {};
 
 calificacionCtrl.createCalificacion = async (req, res) => {
@@ -39,53 +39,50 @@ calificacionCtrl.getResumen = async (req, res) => {
 calificacionCtrl.getCalificacionFiltradas = async (req, res) => {
     const { fechaDesde, fechaHasta} = req.query;
 
+
     try {
-        let filtro = {};
+      const fechaDesde = req.query.fechaDesde; // Suponiendo que la fecha "desde" se envía como un parámetro de consulta llamado 'desde'
+      const fechaHasta = req.query.fechaHasta; // Suponiendo que la fecha "hasta" se envía como un parámetro de consulta llamado 'hasta'
 
-        if (fechaDesde && fechaHasta) {
-            filtro.fecha = {
-                $gte: fechaDesde,
-                $lte: fechaHasta
-            };
-        } else if (fechaDesde) {
-            filtro.fecha = {
-                $gte: fechaDesde
-            };
-        } else if (fechaHasta) {
-            filtro.fecha = {
-                $lte: fechaHasta
-            };
-        }
-   
-        const resumenCalificaciones = await Calificacion.aggregate([
-          {
-            $match: filtro
-          },
-          {
-            $group: {
-              _id: '$puntaje',
-              count: { $sum: 1 }
-            }
-          },
-          {
-            $project: {
-              puntaje: '$_id',
-              count: 1,
-              _id: 0
-            }
-          },
-          {
-            $sort: {
-              puntaje: 1
-            }
-          }
-        ]);
+      // Convertir las fechas a objetos Date
+      const fechaDesdeDate = moment(fechaDesde, 'DD/MM/YYYY').subtract(24, 'hours').toDate();
+      const fechaHastaDate = moment(fechaHasta, 'DD/MM/YYYY').toDate();
 
-        res.json(resumenCalificaciones);
+      // Realizar la consulta utilizando el preprocesamiento para convertir el campo de fecha a Date y filtrar por rango
+      const resultados = await Calificacion.aggregate([
+        {
+          $addFields: {
+            fecha: {
+              $dateFromString: {
+                dateString: '$fecha',
+                format: '%d/%m/%Y',
+              },
+            },
+          },
+        },
+        {
+          $match: {
+            fecha: {
+              $gte: fechaDesdeDate,
+              $lte: fechaHastaDate,
+            },
+          },
+        },
+        { $group: { _id: '$puntaje', count: { $sum: 1 } } },
+        { $project: { puntaje: '$_id', count: 1, _id: 0 } },
+        { $sort: { puntaje: 1 } }
+      ]);
+
+      // Hacer algo con los resultados
+      res.json(resultados);
     } catch (error) {
-        console.error('Error al filtrar las ventas:', error);
-        res.status(500).json({ message: 'Error al filtrar las ventas' });
+      console.error(error);
+      // Manejar el error y enviar una respuesta de error apropiada
+      res.status(500).json({ error: 'Error al filtrar por fecha' });
     }
+  
+
+       
 };  
 
 module.exports = calificacionCtrl;
