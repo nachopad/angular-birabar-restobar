@@ -58,7 +58,6 @@ export class ComboFormComponent implements OnInit {
     result=>
     {
       Object.assign(this.combo,result);
-      console.log(this.combo);
       this.cargarProductosCombo();
     },
     error=>
@@ -171,7 +170,6 @@ buscarPorNombreProducto() {
     this.combo.productos.forEach(id => { 
       this.productoService.obtenerProducto(id).subscribe(
         result => {
-            console.log("Producto encontrado "+ result)
           let prod: Producto = new Producto();
           result.forEach((element: any) => {
             Object.assign(prod, element);
@@ -202,6 +200,7 @@ buscarPorNombreProducto() {
   onFileSeleccionado(event: any) {
     if (event.target.files[0]) {
       const file = event.target.files[0];
+
       if (file.size >  1500000) {
         event.target.value = null;
         this.toast.warning("El tamaño maximo de la imagen es 15Mb");

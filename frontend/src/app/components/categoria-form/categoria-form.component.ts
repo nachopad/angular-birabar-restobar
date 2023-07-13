@@ -74,7 +74,7 @@ export class CategoriaFormComponent implements OnInit {
     this.categoria.imagen = "";
     const files = event.target.files[0];
     if (files.size > 16000000) { 
-      this.toastrService.warning("El tamaño máximo que se puede subir es de 16MB");
+      this.toastrService.warning("El tamaño máximo que se puede subir es de 16Mb");
       event.target.value = "";
     } else {
       const reader = new FileReader();
