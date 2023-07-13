@@ -18,11 +18,11 @@
     transform: translateY(-5%);
 }
 
-.btn-primary, .btn-danger{
+.btn-primary, .btn-danger, .btn-success:hover{
     transition: all 400ms ease;
 }
 
-.btn-primary:hover, .btn-danger:hover
+.btn-primary:hover, .btn-danger:hover, .btn-success:hover
 {
     box-shadow: 0 0.1rem 0.4rem rgba(0, 0, 0, 5);
     transform: translateY(-5%);
