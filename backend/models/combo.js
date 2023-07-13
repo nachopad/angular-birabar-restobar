@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 const ComboSchema = new Schema({
-    git : { type: String, required: true },
+    titulo: { type: String, required: true },
     descuento: { type: Number, required: true },
     montoFinal: { type: Number, required: true },
     productos : [{type: Schema.Types.ObjectId, ref: 'Producto', required: true }],

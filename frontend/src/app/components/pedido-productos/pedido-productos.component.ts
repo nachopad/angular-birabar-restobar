@@ -13,6 +13,8 @@ import { Pedido } from 'src/app/models/pedido';
 import { ClienteService } from 'src/app/services/cliente.service';
 import { Oferta } from 'src/app/models/oferta';
 import { OfertaService } from 'src/app/services/oferta.service';
+import { ComboService } from 'src/app/services/combo.service';
+import { Combo } from 'src/app/models/combo';
 
 @Component({
   selector: 'app-pedido-productos',
@@ -30,11 +32,17 @@ export class PedidoProductosComponent implements OnInit {
   formaDePago!: string;
   ofertas!: Array<Oferta>;
 
+  idcombo!: string;
+  combo!: Combo;
+  detallesCombo!: Array<DetalleProducto>;
+  productosCombo!: Array<Producto>;
+
   constructor(private webTitle: Title, private productoService: ProductoService,
     private activatedRoute: ActivatedRoute, public loginService: LoginService,
     private toastrService: ToastrService, private pedidoService: PedidoService,
     private router: Router, private detProdService: DetalleProductoService,
-    private clienteService: ClienteService, private ofertaService: OfertaService) {
+    private clienteService: ClienteService, private ofertaService: OfertaService,
+    private comboService: ComboService) {
     this.productos = new Array<Producto>();
     this.ofertas = new Array<Oferta>();
     this.detalleProductos = new Array<DetalleProducto>();
@@ -46,9 +54,37 @@ export class PedidoProductosComponent implements OnInit {
 
     this.activatedRoute.params.subscribe(params => {
       this.modalidad = params['modalidad'];
+      this.idcombo = params['idcombo'];
+      if(this.idcombo){
+        this.cargarCombo();
+      }
       this.cargarOfertas();
       this.cargarProductos();
     });
+  }
+
+  async cargarProductosdelCombo(combo:Combo){
+    let producto;
+    this.productosCombo = new Array<Producto>();
+    for ( let i=0; i<combo.productos.length; i++ ){
+      const resultP = await this.productoService.obtenerProducto(combo.productos[i]).toPromise();
+      producto = new Producto();
+      Object.assign(producto, resultP[0]);
+      this.productosCombo.push(producto);
+    }
+  }
+
+  async cargarCombo() {
+    this.detallesCombo = new Array<DetalleProducto>();
+    const result = await this.comboService.obtenerComboById(this.idcombo).toPromise();
+    this.combo = new Combo();
+    Object.assign(this.combo, result);
+    await this.cargarProductosdelCombo(this.combo);
+    this.productosCombo.forEach(p => {
+      p.precio = this.combo.montoFinal / this.productosCombo.length;
+      this.agregarAlPedido(p, this.detallesCombo);
+    });
+    this.toastrService.success("Combo agregado al pedido.");
   }
 
   cargarProductos() {
@@ -98,9 +134,9 @@ export class PedidoProductosComponent implements OnInit {
     return retorno;
   }
 
-  agregarAlPedido(producto: Producto) {
+  agregarAlPedido(producto: Producto, arrayDetalle: Array<DetalleProducto>) {
     let detalle = new DetalleProducto();
-    const existingDetalle = this.detalleProductos.find(detalle => detalle.producto._id === producto._id);
+    const existingDetalle = arrayDetalle.find(detalle => detalle.producto._id === producto._id);
     if (existingDetalle) {
       existingDetalle.cantidad++;
       existingDetalle.subtotal = existingDetalle.producto.precio * existingDetalle.cantidad;
@@ -108,9 +144,10 @@ export class PedidoProductosComponent implements OnInit {
       detalle.producto = producto;
       detalle.cantidad = 1;
       detalle.subtotal = producto.precio;
-      this.detalleProductos.push(detalle);
+      arrayDetalle.push(detalle);
     }
-    this.toastrService.success("Producto agregado al pedido.");
+    if (arrayDetalle == this.detalleProductos)
+      this.toastrService.success("Producto agregado al pedido.");
   }
 
   quitarDelPedido(producto: Producto) {
@@ -165,8 +202,18 @@ export class PedidoProductosComponent implements OnInit {
     this.pedido.formaDePago = this.formaDePago;
   }
 
+  cargarDetallesDelCombo():void{
+    if (this.idcombo){
+      this.detallesCombo.forEach(dc => {
+        this.detalleProductos.push(dc);  
+        console.log(dc.subtotal);
+      });
+    }
+  }
+
   guardarPedido() {
     let contador = 1;
+    this.cargarDetallesDelCombo();
     this.detalleProductos.forEach(d => {
       this.detProdService.createDetalleProd(d.cantidad, d.producto._id, d.subtotal).subscribe(
         (resultD) => {
@@ -178,6 +225,7 @@ export class PedidoProductosComponent implements OnInit {
                 this.pedido._id = resultP.pedido._id;
                 this.toastrService.success("Pedido enviado.");
                 this.router.navigate(['mis-pedidos']);
+                console.log(resultP.pedido.total);
               },
               error => {
                 console.log(error);
@@ -199,6 +247,9 @@ export class PedidoProductosComponent implements OnInit {
     this.detalleProductos.forEach(d => {
       total = d.subtotal + total;
     });
+    if (this.combo && !this.pedido){
+      total = total + this.combo.montoFinal;
+    }
     return total;
   }
 

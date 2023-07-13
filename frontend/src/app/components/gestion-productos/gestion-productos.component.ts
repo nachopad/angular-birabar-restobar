@@ -35,9 +35,8 @@ export class GestionProductosComponent implements OnInit {
           this.listaCategorias.push(unaCategoria);
         });
       },
-      error => {alert("Error al cargar las lista de Categorias");}
+      error => {this.toastrService.error("Error al cargar las lista de Categorias");}
     )
-    console.log(this.listaCategorias);
   }
 
   verProductos(id: string){

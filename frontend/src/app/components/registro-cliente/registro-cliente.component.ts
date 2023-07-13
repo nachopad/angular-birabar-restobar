@@ -54,7 +54,6 @@ export class RegistroClienteComponent implements OnInit {
           }
         },
         (error) => {
-          console.log(error.error.msg)
           this.msgAlert('error', 'Oops...', error.error.msg);
           reject();
         }
@@ -76,7 +75,6 @@ export class RegistroClienteComponent implements OnInit {
           resolve();
         },
         (error) => {
-          console.log(error)
           this.msgAlert('error', 'Oops...', 'Algo ha salido mal!');
           reject();
         }
@@ -99,7 +97,6 @@ export class RegistroClienteComponent implements OnInit {
         }
       },
       (error) => {
-        console.log(error)
         this.msgAlert('error', 'Oops...', error.error.msg);
       }
     )
@@ -113,10 +110,8 @@ export class RegistroClienteComponent implements OnInit {
       (result) => {
         this.usuario.rol = new Rol();
         Object.assign(this.usuario.rol, result);
-        console.log(this.usuario.rol.nombre);
       },
       (error) => {
-        console.log(error);
         this.msgAlert('error', 'Oops...', 'Algo ha salido mal!');
       }
     )
@@ -172,7 +167,6 @@ export class RegistroClienteComponent implements OnInit {
         }
       },
       (error) => {
-        console.log(error.error.msg);
         this.msgAlert('error', 'Oops...', 'Algo ha salido mal!');
       }
     )
@@ -188,7 +182,6 @@ export class RegistroClienteComponent implements OnInit {
         }
       },
       (error) => {
-        console.log(error.error.msg);
         this.msgAlert('error', 'Oops...', 'Algo ha salido mal!');
       }
     )

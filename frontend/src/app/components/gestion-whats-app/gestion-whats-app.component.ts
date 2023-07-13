@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Restobar } from 'src/app/models/restobar';
 import { WhatsappService } from 'src/app/services/whatsapp.service';
 
@@ -16,7 +17,7 @@ export class GestionWhatsAppComponent implements OnInit {
   generado: boolean = false;
   
   constructor(private whatsAppService:WhatsappService, private webTitle: Title,
-              private router: Router) { }
+              private router: Router, private toastrService: ToastrService) { }
 
   ngOnInit(): void {
     this.webTitle.setTitle("Birabar - Gestion WhatssApp");
@@ -28,7 +29,7 @@ export class GestionWhatsAppComponent implements OnInit {
       const result = await this.whatsAppService.postIniciarSession().toPromise();
       this.qr = result;
     } catch (error) {
-      alert("Error al generar el código QR.");
+      this.toastrService.error("Error al generar el código QR.");
     }
     this.generandoQR = false;
     this.generado = true;
