@@ -76,7 +76,6 @@ export class ComboGestionComponent implements OnInit {
 
   cargarCombo(combo:Combo){
     this.comboEnviar=combo;
-    console.log(this.comboEnviar);
     this.cargarProductosCombo();
   }
 
@@ -123,7 +122,6 @@ export class ComboGestionComponent implements OnInit {
           let cliente = new Cliente();
           Object.assign(cliente, element);
           this.clientes.push(cliente);
-          console.log(this.clientes);
         });
       },
       (error) => {

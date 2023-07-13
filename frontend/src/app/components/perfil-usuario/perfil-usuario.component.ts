@@ -97,7 +97,6 @@ export class PerfilUsuarioComponent implements OnInit {
         }
       },
       (error) => { 
-        console.log(error) 
         this.msgAlert('error', 'Oops...', 'Algo ha salido mal!');
       }
     )

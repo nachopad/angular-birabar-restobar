@@ -116,7 +116,6 @@ export class OfertaGestionComponent implements OnInit {
           let cliente = new Cliente();
           Object.assign(cliente, element);
           this.clientes.push(cliente);
-          console.log(this.clientes);
         });
       },
       (error) => {

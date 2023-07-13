@@ -228,9 +228,9 @@ export class OfertaFormComponent implements OnInit {
   onFileSeleccionado(event: any) {
     if (event.target.files[0]) {
       const file = event.target.files[0];
-      if (file.size > 1500000) {
+      if (file.size > 1600000) {
         event.target.value = null;
-        this.toastrService.warning("El tamaño maximo de la imagen es 15Mb");
+        this.toastrService.warning("El tamaño maximo de la imagen es 16Mb");
       } else {
         const reader = new FileReader();
         reader.onload = () => {
