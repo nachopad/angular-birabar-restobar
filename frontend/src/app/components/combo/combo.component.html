@@ -49,7 +49,7 @@
         </table>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
         <button type="button" class="btn btn-success" *ngIf="!loginService.userLoggedIn() || loginService.rolLogged() != 'Cliente'" (click)="comprobarUsuario()" data-bs-dismiss="modal">Pedir</button>
         <button type="button" class="btn btn-success" *ngIf="loginService.userLoggedIn() && loginService.rolLogged() == 'Cliente'" data-bs-toggle="modal" data-bs-target="#elegirModal">Pedir</button>
       </div>
