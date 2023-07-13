@@ -38,7 +38,7 @@ export class OfertaFormComponent implements OnInit {
    * @param ofertaService 
    * @param webTitle 
    */
-  constructor(private rutaActiva: ActivatedRoute, private productoService: ProductoService, private toastrService: ToastrService, private ofertaService: OfertaService, private webTitle: Title, private router:Router) {
+  constructor(private rutaActiva: ActivatedRoute, private productoService: ProductoService, private toastrService: ToastrService, private ofertaService: OfertaService, private webTitle: Title, private router: Router) {
     this.oferta = new Oferta();
     this.productos = new Array<Producto>();
     this.oferta.productos = new Array<string>();
@@ -102,9 +102,13 @@ export class OfertaFormComponent implements OnInit {
    * @param producto 
    */
   agregarProductoToOferta(producto: Producto) {
-    this.toastrService.success("Producto agregado a la oferta.");
-    this.oferta.productos.push(producto._id);
-    this.cargarProductosOferta();
+    if(this.oferta.productos.includes(producto._id)){
+      this.toastrService.warning("El producto ya está en la oferta.");
+    }else{
+      this.toastrService.success("Producto agregado a la oferta.");
+      this.oferta.productos.push(producto._id);
+      this.cargarProductosOferta();
+    }
   }
 
   /**
