@@ -12,7 +12,7 @@ import { VentaService } from 'src/app/services/venta.service';
   styleUrls: ['./reporte.component.css']
 })
 export class ReporteComponent implements OnInit {
-
+  //propiedades del bar y pie chart
   grafico!: string;
   resumen: Array<any> = [0, 0, 0, 0, 0];
   mostrar = false;
@@ -20,17 +20,9 @@ export class ReporteComponent implements OnInit {
   fechaDesde: string = "";
   fechaHasta: string = "";
   filtro!: boolean;
-  mesProducto: number = 13;
-  mostrarLine = false;
-  mostrarCliente = false;
-  filtroProductoVendidos = false;
-  filtroCliente = false;
-  mesCliente: number = 13;
-  //tabla 
-  tabla!: Array<any>;
-  //propiedades de 
-  datosVentas = { labels: [" ", " "], datos: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], paso: 0 }
 
+  dataProductos: number[] = [];
+  dataCliente:number[]=[];
   //Propiedades del barChart
   public barChartLegend = true;
   public barChartPlugins = [];
@@ -38,6 +30,31 @@ export class ReporteComponent implements OnInit {
   public barChartData!: ChartConfiguration<'bar'>['data'];
   public barChartOptions: ChartConfiguration<'bar'>['options'] = {
     responsive: true,
+    scales: {
+      x: {
+        ticks: {
+          color: 'white', // Color de las etiquetas del eje x
+        },
+        grid: {
+          color: 'rgba(255, 255, 255, 0.2)', // Color de las líneas de la cuadrícula del eje x
+        },
+      },
+      y: {
+        ticks: {
+          color: 'white', // Color de las etiquetas del eje y
+        },
+        grid: {
+          color: 'rgba(255, 255, 255, 0.2)', // Color de las líneas de la cuadrícula del eje y
+        },
+      },
+    },
+    plugins: {
+      legend: {
+        labels: {
+          color: 'white', // Color de las etiquetas de la leyenda
+        },
+      },
+    }
   };
 
 
@@ -62,6 +79,13 @@ export class ReporteComponent implements OnInit {
           'rgba(255, 105, 180, 0.8)'
         ],
       },
+    },
+    plugins: {
+      legend: {
+        labels: {
+          color: 'white', // Color de las etiquetas de la leyenda
+        },
+      },
     }
   };
 
@@ -71,8 +95,19 @@ export class ReporteComponent implements OnInit {
   }]
   public pieChartLegend = true;
   public pieChartPlugins = [];
+  mesProducto: number = 13;
+  mostrarLine = false;
+  mostrarCliente = false;
+  filtroProductoVendidos = false;
+  filtroCliente = false;
+  mesCliente: number = 13;
+  labelMesCliente!:number; 
+  labelMesProducto!:number; 
+  //tabla 
+  tabla!: Array<any>;
+  datosVentas = { labels: [" ", " "], datos: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]}
 
-
+  
 
   //Line Chart 
   public lineChartData: ChartConfiguration<'line'>['data'] = {
@@ -96,14 +131,42 @@ export class ReporteComponent implements OnInit {
         label: 'Ventas',
         fill: true,
         tension: 0.5,
-        borderColor: 'black',
-        backgroundColor: 'rgba(255,0,0,0.3)'
+        borderColor: 'rgba(52, 166, 59, 1)',
+        backgroundColor: 'rgba(52, 166, 59, 0.8)',
+        pointBackgroundColor :'rgba(52, 166, 59, 1)'
       }
     ]
   };
   public lineChartOptions: ChartOptions<'line'> = {
     responsive: true,
+    scales: {
+      x: {
+        ticks: {
+          color: 'white', // Color de las etiquetas del eje x
+        },
+        grid: {
+          color: 'rgba(255, 255, 255, 0.2)', // Color de las líneas de la cuadrícula del eje x
+        },
+      },
+      y: {
+        ticks: {
+          color: 'white', // Color de las etiquetas del eje y
+        },
+        grid: {
+          color: 'rgba(255, 255, 255, 0.2)', // Color de las líneas de la cuadrícula del eje y
+        },
+      },
+    },
+    plugins: {
+      legend: {
+        labels: {
+          color: 'white', // Color de las etiquetas de la leyenda
+        },
+      },
+    }
   };
+  
+
   public lineChartLegend = true;
 
 
@@ -140,6 +203,8 @@ export class ReporteComponent implements OnInit {
     this.calificacionService.obtenerResumen().subscribe(
       result => {
         this.resumen = [0, 0, 0, 0, 0];
+        if(result.length==0)
+        this.resumen=[];
         result.forEach((element: any) => {
           this.resumen[element.puntaje - 1] = element.count;
         });
@@ -147,7 +212,7 @@ export class ReporteComponent implements OnInit {
         this.barChartData = {
           labels: this.categorias,
           datasets: [
-            { data: this.resumen, label: 'Calificaciones' },
+            { data: this.resumen, label: 'Calificaciones', backgroundColor: "rgba(255, 211, 0, 0.8)" , hoverBackgroundColor: "rgba(255, 211, 0, 1)"},
           ]
 
         };
@@ -176,11 +241,14 @@ export class ReporteComponent implements OnInit {
     let hasta = fechaHastaDate.toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' });
     console.log(desde + " " + hasta);
 
+    
     this.calificacionService.obtenerResumenPorFecha(desde, hasta).subscribe(
       result => {
         this.filtro = true;
         this.mostrar = false;
         this.resumen = [0, 0, 0, 0, 0];
+        if(result.length==0)
+        this.resumen=[];
         console.log("resumen " + result)
         result.forEach((element: any) => {
           console.log(element)
@@ -265,32 +333,58 @@ export class ReporteComponent implements OnInit {
   public barChartData2!: ChartConfiguration<'bar'>['data'];
   public barChartOptions2: ChartConfiguration<'bar'>['options'] = {
     responsive: true,
-    indexAxis: 'y', // Agregar esta línea para mostrar barras horizontales
+    indexAxis: 'y', 
+    scales: {
+      x: {
+        ticks: {
+          color: 'white', // Color de las etiquetas del eje x
+        },
+        grid: {
+          color: 'rgba(255, 255, 255, 0.2)', // Color de las líneas de la cuadrícula del eje x
+        },
+      },
+      y: {
+        ticks: {
+          color: 'white', // Color de las etiquetas del eje y
+        },
+        grid: {
+          color: 'rgba(255, 255, 255, 0.2)', // Color de las líneas de la cuadrícula del eje y
+        },
+      },
+    },
+    plugins: {
+      legend: {
+        labels: {
+          color: 'white', // Color de las etiquetas de la leyenda
+        },
+      },
+    }
+    // Agregar esta línea para mostrar barras horizontales
   };
 
 
   cargarDatosResumenProducto() {
     let labels: string[] = [];
-    let data: number[] = [];
+    this.dataProductos = [];
     this.ventaService.getVentasProductoResumen(this.mesProducto).subscribe(
       result => {
 
         result.forEach((element: any) => {
           labels.push(element.nombre);
-          data.push(element.cantidad);
+         this.dataProductos.push(element.cantidad);
         })
 
         if (this.mesProducto != 13) {
           this.filtroProductoVendidos = true;
-          let mesTitulo = labels[this.mesProducto - 1];
         }
+
         this.barChartData2 = {
           labels: labels,
           datasets: [
-            { data: data, label: 'Productos Vendidos' },
+            { data: this.dataProductos, label: 'Productos Vendidos', backgroundColor:"rgba(21, 155, 217, 0.8)" , hoverBackgroundColor: "rgba(21, 155, 217, 1)"},
           ]
         }
-
+       this.labelMesProducto = this.mesProducto;
       },
       error => {
 
@@ -307,31 +401,61 @@ export class ReporteComponent implements OnInit {
   public barChartOptions3: ChartConfiguration<'bar'>['options'] = {
     responsive: true,
     indexAxis: 'y', // Agregar esta línea para mostrar barras horizontales
+    scales: {
+      x: {
+        ticks: {
+          color: 'white', // Color de las etiquetas del eje x
+        },
+        grid: {
+          color: 'rgba(255, 255, 255, 0.2)', // Color de las líneas de la cuadrícula del eje x
+        },
+      },
+      y: {
+        ticks: {
+          color: 'white', // Color de las etiquetas del eje y
+        },
+        grid: {
+          color: 'rgba(255, 255, 255, 0.2)', // Color de las líneas de la cuadrícula del eje y
+        },
+      },
+    },
+    plugins: {
+      legend: {
+        labels: {
+          color: 'white', // Color de las etiquetas de la leyenda
+        },
+      },
+    }
   };
 
 
   cargarDatosResumenCliente() {
     let labels: string[] = [];
-    let data: number[] = [];
+     this.dataCliente = [];
     this.tabla = [];
     this.ventaService.getVentasClienteResumen(this.mesCliente).subscribe(
       result => {
 
         result.forEach((element: any) => {
           labels.push(element.cliente.usuario);
-          data.push(element.totalCompras);
+          this.dataCliente.push(element.totalCompras);
           this.tabla.push(element);
         })
 
         this.barChartData3 = {
           labels: labels,
           datasets: [
-            { data: data, label: 'Clientes con compras' },
+            { data: this.dataCliente, label: 'Clientes con compras', backgroundColor: "rgba(255, 211, 0, 0.8)" , hoverBackgroundColor: "rgba(255, 211, 0, 1)" },
           ]
         }
+       
         this.mostrarCliente = true;
         if (this.mesCliente != 13)
           this.filtroCliente = true
+      
+          this.labelMesCliente = this.mesCliente;
+      
+
       },
       error => {
 

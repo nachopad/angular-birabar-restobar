@@ -46,6 +46,7 @@ import { NgChartsModule } from 'ng2-charts';
 import { RestobarFormComponent } from './components/restobar-form/restobar-form.component';
 import { RestobarGestionComponent } from './components/restobar-gestion/restobar-gestion.component';
 import { VentaComponent } from './components/venta/venta.component';
+import { MesPipe } from './pipes/mes.pipe';
 
 
 @NgModule({
@@ -85,7 +86,8 @@ import { VentaComponent } from './components/venta/venta.component';
     ReporteComponent,
     RestobarFormComponent,
     RestobarGestionComponent,
-    VentaComponent
+    VentaComponent,
+    MesPipe
   ],
   imports: [
     BrowserModule,

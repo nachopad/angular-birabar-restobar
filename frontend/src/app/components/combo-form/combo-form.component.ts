@@ -202,9 +202,9 @@ buscarPorNombreProducto() {
   onFileSeleccionado(event: any) {
     if (event.target.files[0]) {
       const file = event.target.files[0];
-      if (file.size > 70 * 1024) {
+      if (file.size >  1500000) {
         event.target.value = null;
-        this.toast.warning("La imagen no puede pesar más de 70KB.");
+        this.toast.warning("El tamaño maximo de la imagen es 15Mb");
       } else {
         const reader = new FileReader();
         reader.onload = () => {

@@ -87,7 +87,7 @@ export class ComboGestionComponent implements OnInit {
       ` +this.construirMensaje();
       this.whatsApp.enviarMensaje(cliente.telefono, mensaje).subscribe(
         (result)=>{
-            this.toastrService.info("Se le envio un mensaje para que realize el pago");
+            this.toastrService.info("Se envio los detalles del combo a los usuarios");
         },
         error=>{alert("Error");}
       )

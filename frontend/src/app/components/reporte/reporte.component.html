@@ -3,7 +3,7 @@
   <h1 class="mb-3">Reportes</h1>
   <div class="row">
     <div class="col-xl-6">
-      <div class="card mb-4">
+      <div class="card mb-4 card-grafico">
           <div class="card-header">
               <i class="fas fa-chart-bar me-1"></i>
               Ventas
@@ -22,8 +22,11 @@
   
   
       <div class="col-xl-6">
-          <div class="card mb-4 reporte-carta ">
+          <div class="card mb-4 reporte-carta card-grafico">
 
+            <div *ngIf="this.resumen.length==0" class="aviso">
+              <h4 class="text-center">No se encontraron Calificaciones</h4>
+           </div>
 
             <div class="detalles " data-bs-toggle="modal"
             data-bs-target="#modalFecha">
@@ -39,7 +42,7 @@
               <div class="card-header">
                   <i class="fas fa-chart-area me-1"></i>
                  Calificaciones 
-                 <label *ngIf="filtro">  [Filtro Aplicado]</label>
+                 <label *ngIf="filtro">- Filtro Por Fecha</label>
               </div>
               <div class="card-body ">
 
@@ -48,6 +51,9 @@
                         <canvas  *ngIf="mostrar" baseChart [data]="barChartData" [options]="barChartOptions" [plugins]="barChartPlugins"
                           [legend]="barChartLegend" [type]="'bar'"   width="100%" >
                         </canvas>
+
+                       
+
                       </div>
             
             
@@ -77,8 +83,13 @@
   <div class="row py-4">
      
       <div class="col-xl-12 py-4">
-        <div class="card mb-4  reporte-carta">
+        <div class="card mb-4  reporte-carta card-grafico">
           
+          <div *ngIf="this.dataProductos.length==0" class="aviso">
+            <h4 class="text-center">No se encontraron Productos</h4>
+         </div>
+
+
           <div class="detalles"  data-bs-toggle="modal"
           data-bs-target="#modalProducto">
             <nav class="navbar">
@@ -91,7 +102,7 @@
           </div>
             <div class="card-header">
                 <i class="fas fa-chart-bar me-1"></i>
-                Productos Mas vendidos
+                Productos Mas vendidos - {{ labelMesProducto | mes}}
             </div>
             <div class="card-body">
 
@@ -109,12 +120,15 @@
   </div>
 
   
-  <div class="card">
+  <div class="card card-grafico">
     
 
       <div class="col-xl-12">
-        <div class="card mb-4 reporte-carta" >
+        <div class="card  reporte-carta card-grafico" >
 
+          <div *ngIf="this.dataCliente.length==0" class="aviso">
+            <h4 class="text-center">No se encontraron Clientes</h4>
+         </div>
           <div class="detalles" data-bs-toggle="modal"
           data-bs-target="#modalCliente">
             <nav class="navbar">
@@ -128,7 +142,7 @@
 
             <div class="card-header">
                 <i class="fas fa-chart-bar me-1"></i>
-                Clientes con mas Compras
+                Clientes con mas Compras - {{ labelMesCliente | mes}}
             </div>
             <div class="card-body">
               <canvas baseChart *ngIf="mostrarCliente"
@@ -147,10 +161,10 @@
    Detalles de los clientes
   </div>
 
-  <div class="card-body" *ngIf="tabla.length > 0">
-    <div class="table-responsive">
+  <div class="card-body p-0" *ngIf="tabla.length > 0">
+    <div class="table-responsive table-dark">
       <table id="datatablesSimple" class="table">
-        <thead>
+        <thead class="thead-dark">
           <tr>
             <th>Username</th>
             <th>Nombre</th>
@@ -250,11 +264,11 @@
         
         <div class="row mb-3" *ngIf="mostrarLine">
 
-          <div class="col-12 py-1">
-            <label class="text-center" for="tipo">Mes </label>
+          <div class="col-2 py-1">
+            <label class="text-center" for="tipo">Mes: </label>
           </div>
-          <div class="col-4">
-            <select class="form-select " aria-label="" (change)="cambiarMesProductos($event)" required>
+          <div class="col-10">
+            <select class="form-select " aria-label="" [(ngModel)]="mesProducto" required>
               <option *ngFor="let meses of datosVentas.labels; index as i" value="{{i+1}}">{{meses}}</option>
             </select>
         </div>
@@ -291,11 +305,11 @@
         
         <div class="row mb-3" *ngIf="mostrarLine">
 
-          <div class="col-12 py-1">
+          <div class="col-2 py-1">
             <label class="text-center" for="tipo">Mes </label>
           </div>
-          <div class="col-4">
-            <select class="form-select " aria-label="" (change)="cambiarMesCliente($event)" required>
+          <div class="col-12">
+            <select class="form-select " aria-label="" [(ngModel)]="mesCliente" required>
               <option *ngFor="let meses of datosVentas.labels; index as i" value="{{i+1}}">{{meses}}</option>
             </select>
         </div>

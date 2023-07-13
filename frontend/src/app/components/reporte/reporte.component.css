@@ -88,3 +88,24 @@
     top: 5px;
     cursor: pointer;
   }
+
+  .card-grafico
+  {
+    border: 0px !important;
+  }
+  .card-body
+  {
+    background-color: #1f232d;
+  }
+
+  .thead-dark
+  {
+    background-color: #1f232d !important;
+  }
+    .aviso {
+      position: absolute;
+      color: white;
+      top: 50%;
+      margin: auto;
+      width: 100%;
+  }
