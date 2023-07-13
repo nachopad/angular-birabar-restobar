@@ -10,6 +10,7 @@ app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 //middlewares
 app.use(express.json());
 app.use(cors({ origin: 'http://localhost:4200' }));
+//app.use(cors({ origin: 'http://100.24.204.191:4200' }));
 
 //Cargamos el modulo de direccionamiento de rutas
 app.use('/api/rol', require('./routes/rol.route.js'));
