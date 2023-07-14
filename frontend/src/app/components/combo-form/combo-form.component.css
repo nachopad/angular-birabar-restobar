@@ -1,34 +1,56 @@
+.black-background {
+    background-color: #202634;
+}
 
-.carta-producto
-{
-    position: relative;
-    transition: all 0.2s;
+.green-background {
+    background-color: #1fd08f;
+}
+
+.green-background:hover {
+    background-color: #2cf5ab;
+    color: #202634;
+}
+
+.green-background:disabled {
+    background-color: #179c6b;
+    color: #202634;
+}
+
+.nav-link {
+    text-align: center;
     cursor: pointer;
-}
-.select-producto
-{
-    display: block;
-    position:absolute;
-    max-width: 20%;
-    right: -3px;
-    top: -4px;
-  
-}
-.carta-producto:hover{
-
+    border-bottom: 5px solid transparent;
+    color: #000;
+    color: white;
 }
 
-.preview-producto
-{
-    position:relative;
+.nav-link.active {
+    border-bottom-color: #069460;
+    color: white;
 }
-.delete-producto
-{
-    position:absolute;
-    max-width: 13%;
-    min-width: 13%;
-    right: 2px;
-    top: 2px;
+
+.modal-header,
+.modal-body,
+.modal-footer {
+    border-color: #141a24;
+}
+
+.link-green {
     cursor: pointer;
+    color: #1fd08f;
 }
 
+.link-green:hover {
+    color: #179164;
+}
+
+.modal-header,
+.modal-body,
+.modal-footer {
+    border-color: #202634;
+}
+
+.precioLista
+{
+    color: #179164;
+}

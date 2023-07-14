@@ -35,11 +35,10 @@ export class ListaProductosComponent implements OnInit {
         result.forEach((element:any)=>{
           let unProducto:Producto=new Producto();
           Object.assign(unProducto, element);
-          console.log(unProducto);
           this.listaProductos.push(unProducto);
         })
       },
-      error=>{alert("Error");}
+      error=>{this.toastrService.error("Error al obtener los productos");}
     );
   }
   
@@ -52,9 +51,8 @@ export class ListaProductosComponent implements OnInit {
           this.listaCategorias.push(unaCategoria);
         });
       },
-      error => {alert("Error al cargar las lista de Categorias");}
+      error => {this.toastrService.error("Error al cargar las lista de Categorias");}
     )
-    console.log(this.listaCategorias);
   }
 
   filtrarProducto(id:string){
@@ -66,11 +64,10 @@ export class ListaProductosComponent implements OnInit {
         result.forEach((element:any)=>{
           let unProducto:Producto=new Producto();
           Object.assign(unProducto, element);
-          console.log(unProducto);
           this.listaProductos.push(unProducto);
         })
       },
-      error=>{alert("Error");}
+      error=>{this.toastrService.error("Error");}
     )
   }
 }

@@ -5,7 +5,7 @@ const Pedido = require('./pedido');
 
 const CalificacionSchema = new Schema ({
     puntaje: { type: Number, required: true},
-    observacion: { type: String, required: true },
+    observacion: { type: String },
     fecha: { type: String, required: true },
 });
 

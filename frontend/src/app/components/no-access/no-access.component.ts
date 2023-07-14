@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-no-access',
@@ -7,9 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NoAccessComponent implements OnInit {
 
-  constructor() { }
+  constructor(private webTitle: Title) { }
 
   ngOnInit(): void {
+    this.webTitle.setTitle("No tiene acceso a este sitio")
   }
 
 }

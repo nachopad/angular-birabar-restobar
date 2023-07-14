@@ -7,4 +7,5 @@ export class Producto {
     precio!: number;
     estado!: boolean;
     categoria!: Categoria;
+    disponible!:Boolean;
 }

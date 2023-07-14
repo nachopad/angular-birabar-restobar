@@ -8,6 +8,8 @@ import 'sweetalert2/src/sweetalert2.scss';
 import Swal from 'sweetalert2';
 import { ToastrService } from 'ngx-toastr';
 import { UsuarioService } from 'src/app/services/usuario.service';
+import { RolService } from 'src/app/services/rol.service';
+import { ClienteService } from 'src/app/services/cliente.service';
 
 @Component({
   selector: 'app-registro-cliente',
@@ -19,24 +21,18 @@ export class RegistroClienteComponent implements OnInit {
   usuario!: Usuario;
   cliente!: Cliente;
   user_id!: string;
-  rol_id: string = "648cff3e0f19ad1be1545869";
   first_element: boolean = false;
   passwordsMatch: boolean = true;
   aceptoTerminos: boolean = false;
   element: boolean = false;
   repitPassword!: string;
 
-
-  /**
- * Constructor del componente.
- * @param registerService - Servicio de registro para interactuar con la API.
- * @param toastrService - Servicio de Toastr para mostrar mensajes.
- */
   constructor(private registerService: RegistroService, private toastrService: ToastrService,
-              private usuarioService: UsuarioService ,private webTitle: Title) {
+              private usuarioService: UsuarioService , private rolService: RolService,
+              private webTitle: Title, private clienteService: ClienteService) {
     this.usuario = new Usuario();
     this.cliente = new Cliente();
-    this.obtenerRol();
+    this.obtenerRolCliente();
   }
 
   ngOnInit(): void {
@@ -58,8 +54,7 @@ export class RegistroClienteComponent implements OnInit {
           }
         },
         (error) => {
-          console.log(error)
-          this.msgAlert('error', 'Oops...', 'Algo ha salido mal!');
+          this.msgAlert('error', 'Oops...', error.error.msg);
           reject();
         }
       )
@@ -80,7 +75,6 @@ export class RegistroClienteComponent implements OnInit {
           resolve();
         },
         (error) => {
-          console.log(error)
           this.msgAlert('error', 'Oops...', 'Algo ha salido mal!');
           reject();
         }
@@ -103,24 +97,21 @@ export class RegistroClienteComponent implements OnInit {
         }
       },
       (error) => {
-        console.log(error)
-        this.msgAlert('error', 'Oops...', 'Algo ha salido mal!');
+        this.msgAlert('error', 'Oops...', error.error.msg);
       }
     )
   }
 
   /**
- * Método para obtener el rol del usuario.
- * El rol se obtiene utilizando el rol_id y se asigna al objeto usuario.rol.
- */
-  obtenerRol() {
-    this.registerService.getRolById(this.rol_id).subscribe(
+   * Metodo para obtener el rol de tipo Cliente.
+   */
+  obtenerRolCliente(){
+    this.rolService.getRolByName("Cliente").subscribe(
       (result) => {
         this.usuario.rol = new Rol();
         Object.assign(this.usuario.rol, result);
       },
       (error) => {
-        console.log(error)
         this.msgAlert('error', 'Oops...', 'Algo ha salido mal!');
       }
     )
@@ -167,9 +158,34 @@ export class RegistroClienteComponent implements OnInit {
  * Establece la variable element en true.
  */
   pasoSiguiente() {
-    this.element = true;
+    this.usuarioService.getUsuarioByUserName(this.usuario.user).subscribe(
+      (result) => {
+        if(result == null){
+          this.obtenerCliente();
+        }else{
+          this.msgAlert('error', 'Oops...', 'El usuario '+ result.user+' ya se encuentra registrado');
+        }
+      },
+      (error) => {
+        this.msgAlert('error', 'Oops...', 'Algo ha salido mal!');
+      }
+    )
   }
 
+  obtenerCliente(){
+    this.clienteService.obtenerClientePorEmail(this.cliente.email).subscribe(
+      (result) => {
+        if(result == null){
+          this.element=true;
+        }else{
+          this.msgAlert('error', 'Oops...', 'El usuario '+ result.email+' ya se encuentra registrado');
+        }
+      },
+      (error) => {
+        this.msgAlert('error', 'Oops...', 'Algo ha salido mal!');
+      }
+    )
+  }
   /**
  * Método para retroceder al paso anterior.
  * Establece la variable element en false.

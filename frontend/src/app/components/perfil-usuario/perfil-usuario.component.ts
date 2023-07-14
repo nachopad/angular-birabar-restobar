@@ -32,6 +32,9 @@ export class PerfilUsuarioComponent implements OnInit {
     this.verificarTipoUsuario();
   }
 
+  /**
+   * Obtiene los datos del usuario logueado llamando al servicio getUsuarioById.
+   */
   obtenerUsuario(){
     this.usuarioService.getUsuarioById(this.userId).subscribe(
       (result) => {
@@ -44,6 +47,9 @@ export class PerfilUsuarioComponent implements OnInit {
     )
   }
 
+  /**
+   * Obtiene los datos del cliente logueado llamando al servicio obtenerCliente.
+   */
   obtenerCliente(){
     this.clienteService.obtenerCliente(this.userId).subscribe(
       (result) => {
@@ -56,6 +62,9 @@ export class PerfilUsuarioComponent implements OnInit {
     )
   }
 
+  /**
+   * Verifica el tipo de usuario (cliente o usuario) y obtiene los datos correspondientes.
+   */
   verificarTipoUsuario(){
     if(this.userRol=='Cliente'){
       this.obtenerCliente();
@@ -64,6 +73,9 @@ export class PerfilUsuarioComponent implements OnInit {
     }
   }
 
+  /**
+   * Habilita o deshabilita la edición de datos del perfil.
+   */
   habilitarModificacion(){
     if(this.edit==false){
       this.edit=true;
@@ -72,6 +84,10 @@ export class PerfilUsuarioComponent implements OnInit {
     }
   }
 
+  /**
+   * Modifica los datos del cliente llamando al servicio editCliente.
+   * Si la modificación es exitosa, se llama al método modificarDatosUsuario.
+   */
   modificarDatosCliente(){
     this.clienteService.editCliente(this.clienteLogueado).subscribe(
       (result) => {
@@ -81,12 +97,14 @@ export class PerfilUsuarioComponent implements OnInit {
         }
       },
       (error) => { 
-        console.log(error) 
         this.msgAlert('error', 'Oops...', 'Algo ha salido mal!');
       }
     )
   }
 
+  /**
+   * Modifica los datos del usuario llamando al servicio editUsuario.
+   */
   modificarDatosUsuario(){
     let usuarioModificado = new Usuario();
     Object.assign(usuarioModificado, this.usuarioLogueado);
@@ -103,6 +121,10 @@ export class PerfilUsuarioComponent implements OnInit {
     )
   }
 
+  /**
+   * Verifica el tipo de modificación a realizar (cliente o usuario) y llama a los métodos correspondientes.
+   * Finalmente, deshabilita la edición de datos.
+   */
   verificarTipoModificacion(){
     if(this.userRol=='Cliente'){
       this.modificarDatosCliente();
@@ -120,6 +142,15 @@ export class PerfilUsuarioComponent implements OnInit {
  */
    msgAlert = (icon: any, title: any, text: any) => {
     Swal.fire({ icon, title, text})
+  }
+
+  suscribirse(){
+    if(this.clienteLogueado.suscripto==true){
+      this.clienteLogueado.suscripto=false;
+    }else{
+      this.clienteLogueado.suscripto=true;
+    }
+    this.modificarDatosCliente();
   }
 
 }

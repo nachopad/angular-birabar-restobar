@@ -19,11 +19,15 @@ export class HomeComponent implements OnInit {
   }
   
   comprobarUsuario():void{
-    if (this.loginService.userLoggedIn() && this.loginService.rolLogged()=="Cliente"){
+    if (this.loginService.userLoggedIn() && this.loginService.rolLogged() == 'Cliente'){
       this.router.navigate(['mis-pedidos']);
     }else{
       this.router.navigate(['login']);
-      this.toastrService.info("Ingresá o registrate para hacer un pedido.")
+      if (this.loginService.userLoggedIn() && (this.loginService.rolLogged() == 'Gestor' || this.loginService.rolLogged() == 'Administrador')){
+        this.toastrService.info("Ingresá o registrate como cliente para hacer un pedido.");
+      }else{
+        this.toastrService.info("Ingresá o registrate para hacer un pedido.");
+      }
     }
   }
 }

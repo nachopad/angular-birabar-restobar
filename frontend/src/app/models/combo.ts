@@ -5,12 +5,14 @@ export class Combo {
     titulo!:string; 
     descuento!:number;
     montoFinal!:number; 
-    productos!:Array<Producto>;
+    montoLista!:number;
+    productos!:Array<string>;
     estado!:boolean;
+    imagen!:string; 
 
     constructor()
     {
-        this.productos = new Array<Producto>();
+        this.productos = new Array<string>();
     }
 
 }

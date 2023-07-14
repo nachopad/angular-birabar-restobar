@@ -56,7 +56,7 @@ comboCtrl.editCombo = async (request, response) => {
 
 comboCtrl.getCombos = async (request, response) => {
     try{
-        var combos = await Combo.find({ estado: true }).populate('productos');
+        var combos = await Combo.find({ estado: true });
         response.json(combos);
     }
     catch (error) {
@@ -71,7 +71,7 @@ comboCtrl.getCombos = async (request, response) => {
 
 comboCtrl.getComboById = async (request, response) => {
     try {
-        const combo = await Combo.findOne({ _id: request.params.id, estado:true }).populate('productos');
+        const combo = await Combo.findOne({ _id: request.params.id, estado:true });
         response.json(combo);
     }
     catch (error) {

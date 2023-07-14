@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer, Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { error } from 'console';
 import { ToastrService } from 'ngx-toastr';
@@ -17,12 +17,13 @@ export class CategoriaFormComponent implements OnInit {
   accion:string="new";
 
   constructor(private categoriaService: CategoriaService, private router:Router,
-    private activatedRoute:ActivatedRoute, private domSanitizer: DomSanitizer,
-    private toastrService: ToastrService) { 
+              private activatedRoute:ActivatedRoute, private toastrService: ToastrService, 
+              private webTitle: Title) { 
     this.categoria = new Categoria();
   }
 
   ngOnInit(): void {
+    this.webTitle.setTitle("Birabar - Crear categoria")
     this.activatedRoute.params.subscribe(params => {
       if(params['id'] === '0'){
         this.accion="new";
@@ -42,7 +43,7 @@ export class CategoriaFormComponent implements OnInit {
           this.toastrService.error("Error al intentar registrar la categoria");
         }
       },
-      error=>{this.toastrService.error("Error"+ error);;}
+      (error) =>{this.toastrService.error("Error: "+ error);}
     )
     
   }
@@ -52,7 +53,7 @@ export class CategoriaFormComponent implements OnInit {
       (result)=>{  
         Object.assign(this.categoria, result);
       }, 
-      error=>{this.toastrService.error("Error al buscar la categoria");}
+      (error) =>{this.toastrService.error("Error al buscar la categoria.");}
     )
   }
 
@@ -60,36 +61,33 @@ export class CategoriaFormComponent implements OnInit {
     this.categoriaService.updateCategoria(this.categoria).subscribe(
       (result)=>{
         if(result.status=='1'){
-          alert(result.msg);
+          this.toastrService.success("Categoria modificada correctamente.");
         }else{
-          alert(result.msg);
+          this.toastrService.error(result.msg);
         }
       },
-      error=>{alert("Error en la actualizacion");}
+      (error) =>{this.toastrService.error("Error en la actualizacion");}
     )
   }
 
   onFileSelected(event: any) {
-    this.categoria.imagen=""
+    this.categoria.imagen = "";
     const files = event.target.files[0];
-    if(files.size > 80000){
-      this.toastrService.warning("El tamaño maximo que se puede subir es de 80Kb");
-      event.target.value="";
-    }else{
+    if (files.size > 16000000) { 
+      this.toastrService.warning("El tamaño máximo que se puede subir es de 16Mb");
+      event.target.value = "";
+    } else {
       const reader = new FileReader();
       reader.onload = () => {
         let base64 = reader.result as string;
-        this.categoria.imagen=base64;
+        this.categoria.imagen = base64;
       };
       reader.readAsDataURL(files);
     }
   }
 
-  cancelar(){
-    if(this.accion=="new"){
-      this.router.navigate(["gestion-productos"]);
-    }else{
-      this.router.navigate(["gestion-categoria-producto", this.categoria._id]);
-    }
+  regresar(){
+    this.router.navigate(['gestion-productos']);
   }
+
 }

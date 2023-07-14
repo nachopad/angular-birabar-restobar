@@ -8,8 +8,12 @@ import { Observable } from 'rxjs';
 export class LoginService {
 
   hostBase: string;
+  hostServe : string;
   constructor(private _http: HttpClient) {
-    this.hostBase = "http://localhost:3000/api/usuario/";
+    //this.hostServe = "http://54.157.182.219:3000/api/";
+    //this.hostServe = "http://100.24.204.191:3000/api/";
+    this.hostServe = "http://localhost:3000/api/";
+    this.hostBase = this.hostServe+"usuario/";
   }
 
   public login(username: string, password: string): Observable<any> {
@@ -19,7 +23,6 @@ export class LoginService {
       })
     }
     let body = JSON.stringify({ username: username, password: password });
-    console.log(body);
     return this._http.post(this.hostBase + 'login', body, httpOption);
   }
 
@@ -61,10 +64,5 @@ export class LoginService {
     else{
       return "";
     }
-  }
-   
-  
-  public getClientes(): Observable<any> {
-    return this._http.get("http://localhost:3000/api/cliente/");
   }
 }

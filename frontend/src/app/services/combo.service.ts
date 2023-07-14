@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Combo } from '../models/combo';
+import { LoginService } from './login.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,8 +10,8 @@ import { Combo } from '../models/combo';
 export class ComboService {
 
   URI!:string; 
-  constructor(private _http:HttpClient) {
-    this.URI = "http://localhost:3000/api/combo/";
+  constructor(private _http:HttpClient, private loginService:LoginService) {
+    this.URI = this.loginService.hostServe+"combo/";
    }
 
 

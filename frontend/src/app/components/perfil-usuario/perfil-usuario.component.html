@@ -69,6 +69,9 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-phone"></i></span>
                                 </div>
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text text-secondary custom-radius" [ngClass]="{'green-input': edit==true}"><span class="custom-text-size">+54 9</span></span>
+                                </div>
                                 <input type="text" class="form-control" [ngClass]="{'green-input': edit==true}" [(ngModel)]="clienteLogueado.telefono" placeholder="Número de celular" [disabled]="edit==false">
                             </div>
                         </div>
@@ -83,6 +86,15 @@
                             </div>
                         </div>
                     </div>
+                    
+                    <div class="form-check d-flex justify-content-center mt-5">
+                        <input *ngIf="clienteLogueado.suscripto" class="form-check-input me-2" type="checkbox" value="clienteLogueado.suscrito" id="tyc" name="tyc" (click)="suscribirse()" checked/>
+                        <input *ngIf="!clienteLogueado.suscripto" class="form-check-input me-2" type="checkbox" value="clienteLogueado.suscrito" id="tyc" name="tyc" (click)="suscribirse()"/>
+                        <label class="form-check-label text-white" for="tyc">
+                            Subscribirme para recibir todas las novedades sobre Birabar (Combos, ofertas, etc.)
+                        </label>
+                    </div>
+                   
                     <div class="mt-4 text-right"><button class="btn green-background text-white fw-semibold" type="button" *ngIf="edit==true" (click)="verificarTipoModificacion()">Guardar perfil</button></div>
                 </div>
             </div>

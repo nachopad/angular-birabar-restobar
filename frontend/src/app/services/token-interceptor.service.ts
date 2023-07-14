@@ -10,7 +10,6 @@ import { LoginService } from './login.service';
 export class TokenInterceptorService implements HttpInterceptor {
   constructor(private loginService: LoginService) { }
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    console.log(this.loginService.getToken());
     const tokenizeReq = req.clone({
       setHeaders: {
         Authorization: `Bearer ${this.loginService.getToken()}`

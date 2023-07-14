@@ -1,6 +1,7 @@
 <div class="black-background">
     <div class="container pt-4 pb-5 text-light">
         <h4 class="text-center mb-3">Gestión de Ofertas</h4>
+        <!-- Formulario -->
         <div class="border rounded-3 border-secondary p-4">
             <form #ofertaForm="ngForm">
                 <input type="text" name="id" [(ngModel)]="oferta._id" disabled hidden>
@@ -15,7 +16,6 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="col-md-3">
                         <label class="form-text text-secondary">Precio:</label>
                         <input type="number" class="form-control" name="precio" placeholder="EJ: 500" autocomplete="off"
@@ -30,11 +30,15 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <label class="form-text text-secondary">Subir imagen de la oferta:</label>
-                        <input type="file" class="form-control" name="imagen" ngModel required #imagen="ngModel"
+                        <label class="form-text text-secondary">
+                            <span class="bi bi-eye-fill me-2 link-green" *ngIf="oferta.imagen" data-bs-toggle="modal"
+                                data-bs-target="#imagenModal"></span>
+                            Subir imagen de la oferta:
+                        </label>
+                        <input type="file" class="form-control" name="imagen" ngModel [required]="accion==='new'" #imagen="ngModel"
                             (change)="onFileSeleccionado($event)">
                         <div *ngIf="imagen.invalid && imagen.touched" class="text-danger">
-                            <div *ngIf="imagen.errors?.['required']">
+                            <div *ngIf="!oferta.imagen">
                                 Debe seleccionar una imagen.
                             </div>
                         </div>
@@ -118,66 +122,88 @@
                 <a [href]="['ofertaGestion']" class="btn btn-light bi bi-arrow-left"> Volver</a>
             </form>
         </div>
-        <!-- Modal -->
-        <div class="modal fade text-dark" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog modal-lg modal-dialog-scrollable">
-                <div class="modal-content">
+        <!-- Fin del Formulario -->
+        <div class="modal fade" id="imagenModal" tabindex="-1" aria-labelledby="imagenModal" aria-hidden="true">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content black-background">
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Productos</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        <h1 class="modal-title fs-5">Vista Previa</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <div class="mb-4">
-                            <a [class]="buscarProducto ? 'link-primary' : 'link-secondary'" style="cursor: pointer;"
-                                (click)="buscarProducto = false;">Ver productos de la oferta</a>
-                            <a [class]="buscarProducto ? 'link-secondary' : 'link-primary'" class="ms-2"
-                                style="cursor: pointer;" (click)="buscarProducto = true;">Buscar productos</a>
+                        <div style="height: 200px;width: 200px;" class="mx-auto">
+                            <img [src]="oferta.imagen" class="object-fit-cover h-100 w-100">
                         </div>
-                        <div *ngIf="oferta.productos.length==0 && buscarProducto == false;" class="text-center mb-3">
-                            <h6 class="text-center">Debe seleccionar productos.</h6>
-                            <a class="link-primary" style="cursor: pointer;" (click)="buscarProducto = true;">Buscar
-                                productos</a>
-                        </div>
-                        <div *ngIf="productos.length==0 && buscarProducto == true" class="text-center">
-                            <h6>Debe crear productos.</h6>
-                            <a class="btn btn-primary" href="/alta-producto/:0">Crear producto</a>
-                        </div>
-                        <div *ngIf="buscarProducto == true && productos.length!=0">
-                            <div class="input-group mb-3">
-                                <button class="btn btn-outline-dark bi bi-search" type="button" id="button-addon1">
-                                    Buscar</button>
-                                <input type="text" class="form-control" placeholder="EJ: Pizza">
-                            </div>
-                            <div class="card mb-3" *ngFor="let p of productos">
-                                <div class="row g-0">
-                                    <div class="col-md-4">
-                                        <img [src]="p.imagen" class="img-fluid rounded-start">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal Seleccionar Productos -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-scrollable">
+                <div class="modal-content black-background">
+                    <div class="modal-header">
+                        <nav class="navbar navbar-expand">
+                            <div class="container-fluid">
+                                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                                    <div class="navbar-nav mx-auto">
+                                        <a class="nav-link active bi bi-basket3" onclick="selectTab(this)"
+                                            data-tab="oferta" (click)="buscarProducto = false"> Productos en la
+                                            Oferta</a>
+                                        <a class="nav-link bi bi-search" onclick="selectTab(this)" data-tab="producto"
+                                            (click)="buscarProducto = true;"> Buscar Productos</a>
                                     </div>
-                                    <div class="col-md-8">
-                                        <div class="card-body">
-                                            <h5 class="card-title">{{p.nombreProducto}}</h5>
-                                            <p class="card-text">{{p.descripcion}}</p>
-                                            <p class="card-text text-body-secondary">{{p.precio |
-                                                currency:'$':'symbol':'1.0-2'}}</p>
-                                            <a class="btn btn-dark" (click)="agregarProductoToOferta(p)">Agregar</a>
+                                </div>
+                            </div>
+                        </nav>
+                    </div>
+                    <div class="modal-body">
+                        <div *ngIf="oferta.productos.length==0 && buscarProducto == false;" class="text-center">
+                            <h6 class="text-start ms-3">No hay productos seleccionados.</h6>
+                        </div>
+                        <div *ngIf="buscarProducto">
+                            <div class="input-group mb-3">
+                                <button class="btn green-background bi bi-search" type="button" (click)="buscarPorNombreProducto()">
+                                    Buscar</button>
+                                <input type="text" class="form-control" placeholder="EJ: Pizza" [(ngModel)]="searchProducto"
+                                    (ngModelChange)="buscarPorNombreProducto()">
+                            </div>
+                            <div *ngIf="productos.length==0" class="text-center">
+                                <h6 class="text-start ms-3">Debe crear productos. <a class="link-green"
+                                        href="/gestion-productos">Gestión Productos</a></h6>
+                            </div>
+                            <div *ngIf="productos.length!=0">
+                                <div class="card mb-3" *ngFor="let p of productos">
+                                    <div class="row g-0">
+                                        <div class="col-md-4">
+                                            <img [src]="p.imagen" class="img-fluid rounded-start">
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="card-body">
+                                                <h5 class="card-title">{{p.nombreProducto}}</h5>
+                                                <p class="card-text">{{p.descripcion}}</p>
+                                                <p class="card-text text-body-secondary">{{p.precio | currency:'$'}}</p>
+                                                <button type="button" class="btn btn-dark bi bi-plus-circle"
+                                                    (click)="agregarProductoToOferta(p)"> Agregar</button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div *ngIf="buscarProducto == false && oferta.productos.length!=0">
-                            <div class="card mb-3" *ngFor="let p of oferta.productos">
+                            <div class="card mb-3" *ngFor="let p of productosOferta">
                                 <div class="row g-0">
                                     <div class="col-sm-4">
-                                        <!-- <img [src]="p.imagen" class="img-fluid rounded-start"> -->
+                                        <img [src]="p.imagen" class="img-fluid rounded-start">
                                     </div>
                                     <div class="col-sm-8">
                                         <div class="card-body">
-                                            <h5 class="card-title">{{p}}</h5>
-                                            <!-- <p class="card-text">{{p.descripcion}}</p> -->
-                                            <!-- <p class="card-text text-body-secondary">{{p.precio | currency:'$':'symbol':'1.0-2'}}</p> -->
-                                            <a class="btn btn-danger" (click)="quitarProductoToOferta(p)">Quitar</a>
+                                            <h5 class="card-title">{{p.nombreProducto}}</h5>
+                                            <p class="card-text">{{p.descripcion}}</p>
+                                            <p class="card-text text-body-secondary">{{p.precio | currency:'$'}}</p>
+                                            <button class="btn btn-danger bi bi-dash-circle"
+                                                (click)="quitarProductoToOferta(p._id)"> Quitar</button>
                                         </div>
                                     </div>
                                 </div>
@@ -186,10 +212,11 @@
                     </div>
                     <div class="modal-footer">
                         <span class="m-auto">Productos Seleccionados: <b>{{oferta.productos.length}}</b></span>
-                        <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn green-background" data-bs-dismiss="modal">Cerrar</button>
                     </div>
                 </div>
             </div>
         </div>
+        
     </div>
 </div>

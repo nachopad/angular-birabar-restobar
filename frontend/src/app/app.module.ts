@@ -30,6 +30,24 @@ import { NoAccessComponent } from './components/no-access/no-access.component';
 import { PedidoComponent } from './components/pedido/pedido.component';
 import { PedidoProductosComponent } from './components/pedido-productos/pedido-productos.component';
 import { PedidoCalificacionComponent } from './components/pedido-calificacion/pedido-calificacion.component';
+import { UsuarioGestionComponent } from './components/usuario-gestion/usuario-gestion.component';
+import { UsuarioFormComponent } from './components/usuario-form/usuario-form.component';
+import { GestionCartaComponent } from './components/gestion-carta/gestion-carta.component';
+import { LocalInfoComponent } from './components/local-info/local-info.component';
+import { AboutUsPageComponent } from './components/about-us-page/about-us-page.component';
+import { PedidoGestionComponent } from './components/pedido-gestion/pedido-gestion.component';
+import { PedidoGestionFormComponent } from './components/pedido-gestion-form/pedido-gestion-form.component';
+import { CartaComponent } from './components/carta/carta.component';
+import { CartaProductosComponent } from './components/carta-productos/carta-productos.component';
+import { GestionWhatsAppComponent } from './components/gestion-whats-app/gestion-whats-app.component';
+import { QRCodeModule } from 'angularx-qrcode';
+import { ReporteComponent } from './components/reporte/reporte.component';
+import { NgChartsModule } from 'ng2-charts';
+import { RestobarFormComponent } from './components/restobar-form/restobar-form.component';
+import { RestobarGestionComponent } from './components/restobar-gestion/restobar-gestion.component';
+import { VentaComponent } from './components/venta/venta.component';
+import { MesPipe } from './pipes/mes.pipe';
+
 
 @NgModule({
   declarations: [
@@ -54,7 +72,22 @@ import { PedidoCalificacionComponent } from './components/pedido-calificacion/pe
     NoAccessComponent,
     PedidoComponent,
     PedidoProductosComponent,
-    PedidoCalificacionComponent
+    PedidoCalificacionComponent,
+    UsuarioGestionComponent,
+    UsuarioFormComponent,
+    GestionCartaComponent,
+    LocalInfoComponent,
+    AboutUsPageComponent,
+    PedidoGestionComponent,
+    PedidoGestionFormComponent,
+    CartaComponent,
+    CartaProductosComponent,
+    GestionWhatsAppComponent,
+    ReporteComponent,
+    RestobarFormComponent,
+    RestobarGestionComponent,
+    VentaComponent,
+    MesPipe
   ],
   imports: [
     BrowserModule,
@@ -63,7 +96,9 @@ import { PedidoCalificacionComponent } from './components/pedido-calificacion/pe
     HttpClientModule,
     CommonModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    QRCodeModule,
+    NgChartsModule
   ],
   providers: [
     LoginService, 

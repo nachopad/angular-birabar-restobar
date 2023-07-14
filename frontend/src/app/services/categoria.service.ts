@@ -2,13 +2,14 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Categoria } from '../models/categoria';
 import { Observable } from 'rxjs';
+import { LoginService } from './login.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CategoriaService {
 
-  constructor(private _http: HttpClient) { }
+  constructor(private _http: HttpClient, private loginService:LoginService) { }
 
   createCategoria(categoria: Categoria):Observable<any>{
     let httpOptions = {
@@ -19,7 +20,7 @@ export class CategoriaService {
       params: new HttpParams()
     };
     let body = JSON.stringify(categoria);
-    return this._http.post("http://localhost:3000/api/categoria", body , httpOptions);
+    return this._http.post(this.loginService.hostServe+"categoria", body , httpOptions);
   }
 
   obtenerCategoria(id: string): Observable<any>{
@@ -31,7 +32,7 @@ export class CategoriaService {
       params: new HttpParams()
         .set('id', id)
     };
-    return this._http.get("http://localhost:3000/api/categoria/"+id, httpOptions);
+    return this._http.get(this.loginService.hostServe+"categoria/"+id, httpOptions);
   }
 
   updateCategoria(categoria: Categoria): Observable<any>{
@@ -43,7 +44,7 @@ export class CategoriaService {
       params: new HttpParams()
     };
     let body = JSON.stringify(categoria);
-    return this._http.put("http://localhost:3000/api/categoria/update", body , httpOptions);
+    return this._http.put(this.loginService.hostServe+"categoria/update", body , httpOptions);
   }
 
   obtenerCategoriasDisponibles():Observable<any>{
@@ -54,7 +55,7 @@ export class CategoriaService {
       ),
       params: new HttpParams()
     };
-    return this._http.get("http://localhost:3000/api/categoria/", httpOptions);
+    return this._http.get(this.loginService.hostServe+"categoria/", httpOptions);
   }
 
   eliminarCategoria(id:string):Observable<any>{
@@ -65,6 +66,6 @@ export class CategoriaService {
       ), 
       params: new HttpParams()
     };
-    return this._http.put("http://localhost:3000/api/categoria/delete/"+id , httpOptions);
+    return this._http.put(this.loginService.hostServe+"categoria/delete/"+id , httpOptions);
   }
 }

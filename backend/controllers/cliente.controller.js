@@ -17,18 +17,41 @@ const clienteCtrl = {}
  */
 clienteCtrl.createCliente = async (request, response) => {
     request.body.estado = true;
+    request.body.suscripto=false;
     var cliente = new Cliente(request.body);
-    try {
+    const clienteEncontrado = await Cliente.findOne({ email: request.body.email });
+    if(clienteEncontrado==null){
         await cliente.save();
         response.status(201).json({
             status: '1',
             msg: 'Cliente creado y guardado exitosamente.'
         })
-    } catch (error) {
+    }else{
         response.status(400).json({
             status: '0',
-            msg: 'Error procesando operacion.'
+            msg:  'Error,  el email '+ request.body.email +' ya se encuentra en registrado'
         })
+    }
+}
+
+/**
+ * Obtiene un cliente existente por su ObjectId.
+ * @function getClienteById
+ * @param {Object} request - Objeto de solicitud de Express.
+ * @param {Object} response - Objeto de respuesta de Express.
+ * @returns {Promise<void>} Una promesa que resuelve cuando se obtiene el cliente y se envía la respuesta.
+ */
+clienteCtrl.getClienteByEmail = async (request, response) => {
+    try {
+        const cliente = await Cliente.findOne({ email: request.params.email });
+        response.json(cliente);
+    }
+    catch (error) {
+        response.status(500).json({
+            status: '0',
+            msg: 'Error obteniendo el cliente.',
+            error: error.message
+        });
     }
 }
 
@@ -105,6 +128,28 @@ clienteCtrl.getClientes = async (request, response) => {
     });
   }
 }
+
+/**
+ * Obtiene todos los clientes suscriptos para recibir mensajes.
+ * @function getClientes
+ * @param {Object} request - Objeto de solicitud de Express.
+ * @param {Object} response - Objeto de respuesta de Express.
+ * @returns {Promise<void>} Una promesa que resuelve cuando se obtienen los clientes y se envía la respuesta.
+ */
+clienteCtrl.getClientesSuscripto = async (request, response) => {
+    try{
+        var clientes = await Cliente.find({suscripto: true}).populate({ path: 'usuario', populate: { path: 'rol' } });
+        response.json(clientes);
+    }
+    catch (error) {
+    response.status(500).json({
+      status: '0',
+      msg: 'Error obteniendo todos los clientes.',
+      error: error.message
+    });
+  }
+}
+
 
 /**
  * Obtiene un cliente existente por su ObjectId.
